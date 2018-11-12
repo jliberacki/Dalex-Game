@@ -1,0 +1,75 @@
+package model;
+
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * 
+ * @author kuba
+ *
+ */
+public class Level {
+	int levelNumber;
+	int levelScore;
+	Round currentRound;
+	List<Round> roundHistory;
+	boolean doctorIsAlive;
+
+	/**
+	 * Initialazes level.
+	 * 
+	 * @param levelNumber
+	 */
+	public Level(int levelNumber) {
+		int size = 10;
+		this.levelNumber = levelNumber;
+		this.levelScore = 0;
+		roundHistory = new LinkedList<>();
+		currentRound = new Round(size, generateDaleksNumber());
+		this.doctorIsAlive = true;
+	}
+
+	/**
+	 * Generate daleks number based on levelNumber.
+	 * 
+	 * @return
+	 */
+	public int generateDaleksNumber() {
+		return levelNumber * 2;
+	}
+
+	/**
+	 * Loop for every level. Generates new round until the level is over (doctor or
+	 * all daleks are dead). It also saves Round to RoundHistory. Returns false if
+	 * doctor is dead and true if all daleks are dead.
+	 * 
+	 * @return
+	 */
+	public boolean play() {
+		while (true) {
+			if (!currentRound.isDoctorAlive())
+				return false;
+			if (currentRound.areDaleksDead())
+				return true;
+			addRoundToHistory();
+			currentRound.executeRound();
+		}
+	}
+
+	/**
+	 * Adds current round to history.
+	 */
+	private void addRoundToHistory() {
+		roundHistory.add(currentRound.copy());
+	}
+
+	/**
+	 * Returns a score of level.
+	 * 
+	 * @return
+	 */
+	public int getLevelScore() {
+		return levelScore;
+	}
+
+}
