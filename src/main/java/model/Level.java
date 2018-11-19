@@ -9,11 +9,13 @@ import java.util.List;
  *
  */
 public class Level {
-	int levelNumber;
-	int levelScore;
-	Round currentRound;
-	List<Round> roundHistory;
-	boolean doctorIsAlive;
+
+	private int levelNumber;
+	private int levelScore;
+	private Round currentRound;
+	private List<Round> roundHistory;
+	private boolean doctorIsAlive;
+	private int sizeOfMap = 10;
 
 	/**
 	 * Initialazes level.
@@ -21,11 +23,10 @@ public class Level {
 	 * @param levelNumber
 	 */
 	public Level(int levelNumber) {
-		int size = 10;
 		this.levelNumber = levelNumber;
 		this.levelScore = 0;
 		roundHistory = new LinkedList<>();
-		currentRound = new Round(size, generateDaleksNumber());
+		currentRound = new Round(sizeOfMap, generateDaleksNumber());
 		this.doctorIsAlive = true;
 	}
 
@@ -47,10 +48,12 @@ public class Level {
 	 */
 	public boolean play() {
 		while (true) {
-			if (!currentRound.isDoctorAlive())
+			if (!currentRound.isDoctorAlive()) {
 				return false;
-			if (currentRound.areDaleksDead())
+			}
+			if (currentRound.areDaleksDead()) {
 				return true;
+			}
 			addRoundToHistory();
 			currentRound.executeRound();
 		}

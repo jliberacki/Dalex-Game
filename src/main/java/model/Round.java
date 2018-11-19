@@ -10,10 +10,10 @@ import model.gameobjects.GameObject;
  *
  */
 public class Round {
-	int roundScore;
-	int size;
-	CollisionHandler collisionHandler;
-	Map<Coordinates, GameObject> map;
+	private int roundScore;
+	private int size;
+	private CollisionHandler collisionHandler;
+	private Map<Coordinates, GameObject> map;
 
 	/**
 	 * Initiales map based on daleksNumber and size of map. Places all objects on

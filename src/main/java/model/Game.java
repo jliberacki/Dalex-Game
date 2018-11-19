@@ -7,9 +7,9 @@ package model;
  *
  */
 public class Game {
-	int score;
-	Level currentLevel;
-	int numberOfLifes;
+	private int score;
+	private Level currentLevel;
+	private int numberOfLifes;
 
 	/**
 	 * Sets score to 0.
@@ -28,17 +28,17 @@ public class Game {
 		int currentLevelNumber = 1;
 		while (numberOfLifes > 0) {
 			currentLevel = new Level(currentLevelNumber);
-			
+
 			/*
 			 * Executes this loop until player is out of lifes or until he wins level.
 			 */
 			while (!currentLevel.play()) {
 				numberOfLifes -= 1;
-				if (numberOfLifes <= 0)
+				if (numberOfLifes <= 0) {
 					break;
+				}
 				currentLevel = new Level(currentLevelNumber);
 			}
-			
 			currentLevelNumber++;
 			this.score += currentLevel.getLevelScore();
 		}
