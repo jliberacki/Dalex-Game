@@ -9,7 +9,7 @@ import model.gameobjects.GameObject;
  * @author kuba
  *
  */
-public class Round {
+public class RoundsHandler {
 	private int roundScore;
 	private int size;
 	private CollisionHandler collisionHandler;
@@ -22,7 +22,7 @@ public class Round {
 	 * @param size
 	 * @param daleksNumber
 	 */
-	public Round(int size, int daleksNumber) {
+	public RoundsHandler(int size, int daleksNumber) {
 		this.size = size;
 		placeDaleks(daleksNumber);
 	}
@@ -85,7 +85,7 @@ public class Round {
 	 * 
 	 * @return
 	 */
-	public Round copy() {
+	public RoundsHandler copy() {
 		// TODO
 		return null;
 	}

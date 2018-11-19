@@ -12,8 +12,8 @@ public class Level {
 
 	private int levelNumber;
 	private int levelScore;
-	private Round currentRound;
-	private List<Round> roundHistory;
+	private RoundsHandler currentRound;
+	private List<RoundsHandler> roundHistory;
 	private boolean doctorIsAlive;
 	private int sizeOfMap = 10;
 
@@ -26,7 +26,7 @@ public class Level {
 		this.levelNumber = levelNumber;
 		this.levelScore = 0;
 		roundHistory = new LinkedList<>();
-		currentRound = new Round(sizeOfMap, generateDaleksNumber());
+		currentRound = new RoundsHandler(sizeOfMap, generateDaleksNumber());
 		this.doctorIsAlive = true;
 	}
 
