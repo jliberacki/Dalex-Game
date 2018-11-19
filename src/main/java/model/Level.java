@@ -12,8 +12,8 @@ public class Level {
 
 	private int levelNumber;
 	private int levelScore;
-	private RoundsHandler currentRound;
-	private List<RoundsHandler> roundHistory;
+	private RoundHandler currentRound;
+	private List<RoundHandler> roundHistory;
 	private boolean doctorIsAlive;
 	private int sizeOfMap = 10;
 
@@ -26,7 +26,7 @@ public class Level {
 		this.levelNumber = levelNumber;
 		this.levelScore = 0;
 		roundHistory = new LinkedList<>();
-		currentRound = new RoundsHandler(sizeOfMap, generateDaleksNumber());
+		currentRound = new RoundHandler(sizeOfMap, generateDaleksNumber());
 		this.doctorIsAlive = true;
 	}
 
@@ -63,7 +63,7 @@ public class Level {
 	 * Adds current round to history.
 	 */
 	private void addRoundToHistory() {
-		roundHistory.add(currentRound.copy());
+		roundHistory.add(currentRound.roundSnapshot());
 	}
 
 	/**
