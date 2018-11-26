@@ -2,8 +2,6 @@ package model;
 
 import java.util.Map;
 
-import model.gameobjects.GameObject;
-
 /**
  * 
  * @author kuba
@@ -13,7 +11,7 @@ public class RoundHandler {
 	private int roundScore;
 	private int size;
 	private CollisionHandler collisionHandler;
-	private Map<Coordinates, GameObject> map;
+	private Map<Coordinates, Field> map;
 
 	/**
 	 * Initiales map based on daleksNumber and size of map. Places all objects on
