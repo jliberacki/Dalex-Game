@@ -34,6 +34,7 @@ public class Doctor extends MovableGameObject {
 		return health;
 	}
 	
+	
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub

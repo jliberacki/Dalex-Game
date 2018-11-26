@@ -9,4 +9,12 @@ public class Dalek extends MovableGameObject {
 	public void move() {
 		// TODO Auto-generated method stub
 	}
+
+	public void attack(Doctor d) {
+		System.out.println("doktor");
+	}
+
+	public void attack(Dalek d) {
+		System.out.println("dalek");
+	}
 }
