@@ -36,7 +36,7 @@ public class RoundHandler {
 	}
 
 	/**
-	 * Moves doctor, moves daleks and checks collisions and updates the score
+	 * Moves doctor, moves daleks on map
 	 */
 	public void executeRound() {
 		Game.doctor.move();

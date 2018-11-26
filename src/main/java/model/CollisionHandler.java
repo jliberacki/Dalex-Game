@@ -10,20 +10,21 @@ import java.util.Map;
  */
 public class CollisionHandler {
 
+	/**
+	 * Iterates through map, if collision is deteceted on any field it is solved by solveCollision metho.
+	 * @param map
+	 * @return
+	 */
 	public Map<Coordinates, Field> handleCollisions(Map<Coordinates, Field> map) {
+		for (Map.Entry<Coordinates, Field> entry : map.entrySet()) {
+			if (entry.getValue().doesCollisionHappen()) {
+				solveCollision(entry.getValue());
+			}
+		}
 		return map;
 	}
-	// /**
-	// * Takes list of collding objects that are on the same field and returns one
-	// * object that will remain on this field.
-	// * Example: [dalek, dalek] => junk
-	// * It also takes care of powerUps.
-	// *
-	// * @param collision
-	// * @return
-	// */
-	// public GameObject collisionResult(List<GameObject> collision) {
-	// return null;
-	// }
 
+	private void solveCollision(Field field) {
+
+	}
 }
