@@ -46,7 +46,16 @@ public class RoundHandler {
 				dalek.move();
 			}
 		}
+		updateMap();
 		map = collisionHandler.handleCollisions(map);
+	}
+
+	/**
+	 * takes every object coords and changes its position on map
+	 */
+	private void updateMap() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
