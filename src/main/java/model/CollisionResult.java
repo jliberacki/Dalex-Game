@@ -8,12 +8,12 @@ import model.gameobjects.GameObject;
 public class CollisionResult {
 	private List<GameObject> toRemove = new LinkedList<>();
 
+	GameObject result;
+
 	public List<GameObject> getToRemove() {
 		return toRemove;
 	}
-
-	GameObject result;
-
+	
 	public GameObject getResult() {
 		return result;
 	}
