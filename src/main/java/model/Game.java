@@ -1,5 +1,7 @@
 package model;
 
+import model.gameobjects.Doctor;
+
 /**
  * General class which have global score game.
  * 
@@ -9,16 +11,16 @@ package model;
 public class Game {
 	private int score;
 	private Level currentLevel;
-	private int numberOfLifes;
+	public static Doctor doctor;
 
 	/**
 	 * Sets score to 0.
 	 * 
-	 * @param numberOfLifes
+	 * @param health
 	 */
-	public Game(int numberOfLifes) {
+	public Game(int health) {
 		this.score = 0;
-		this.numberOfLifes = numberOfLifes;
+		Game.doctor = new Doctor(health);
 	}
 
 	/**
@@ -26,15 +28,15 @@ public class Game {
 	 */
 	public void gameLoop() {
 		int currentLevelNumber = 1;
-		while (numberOfLifes > 0) {
+		while (Game.doctor.getHealth() > 0) {
 			currentLevel = new Level(currentLevelNumber);
 
 			/*
 			 * Executes this loop until player is out of lifes or until he wins level.
 			 */
 			while (!currentLevel.play()) {
-				numberOfLifes -= 1;
-				if (numberOfLifes <= 0) {
+				Game.doctor.decreaseHealth();
+				if (Game.doctor.getHealth() <= 0) {
 					break;
 				}
 				currentLevel = new Level(currentLevelNumber);
@@ -49,6 +51,7 @@ public class Game {
 	 * Ends game, shows results.
 	 */
 	private void endGame() {
+		System.out.println("Koniec gry lalalala");
 		// TODO
 	}
 }

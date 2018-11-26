@@ -47,6 +47,7 @@ public class RoundHandler {
 	 */
 	private void placeDaleks(int daleksNumber) {
 		// TODO
+		Game.doctor.move();
 	}
 
 	/**
