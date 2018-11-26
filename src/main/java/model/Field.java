@@ -41,12 +41,15 @@ public class Field {
 		this.coordinates = coordinates;
 	}
 
-	public void doesCollisionHappen() {
+	public boolean doesCollisionHappen() {
 		int numberOfObjects = 0;
 		numberOfObjects = numberOfObjects + daleks.size();
 		if (powerUp != null)
 			numberOfObjects++;
 		if (Game.doctor.getCoordinates().equals(this.coordinates))
 			numberOfObjects++;
+		if (numberOfObjects > 1)
+			return true;
+		return false;
 	}
 }
