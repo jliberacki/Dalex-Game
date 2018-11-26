@@ -30,7 +30,8 @@ public class RoundHandler {
 	/**
 	 * Creates path graph for daleks to find the best way to catch doctor.
 	 */
-	public void createGraph() {
+	public Graph createGraph() {
+		return null;
 		// TODO
 	}
 
@@ -39,15 +40,17 @@ public class RoundHandler {
 	 */
 	public void executeRound() {
 		Game.doctor.move();
-		for (Map.Entry<Coordinates, Field> entry : map.entrySet())
-		{
-			for (Dalek dalek: entry.getValue().getDaleks())
+		for (Map.Entry<Coordinates, Field> entry : map.entrySet()) {
+			for (Dalek dalek : entry.getValue().getDaleks()) {
+				dalek.setGraph(createGraph());
 				dalek.move();
+			}
 		}
 	}
 
 	/**
 	 * Places daleks (and in future other objects) on map.
+	 * 
 	 * @param daleksNumber
 	 */
 	private void placeDaleks(int daleksNumber) {
@@ -84,6 +87,12 @@ public class RoundHandler {
 	public RoundHandler roundSnapshot() {
 		// TODO
 		return null;
+	}
+
+	public boolean isDoctorAlive() {
+		if (Game.doctor.getHealth() > 0)
+			return true;
+		return false;
 	}
 
 }

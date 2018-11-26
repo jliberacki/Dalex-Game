@@ -1,10 +1,12 @@
 package model.gameobjects;
 
 import model.Coordinates;
+import model.Graph;
 
 public class Dalek extends MovableGameObject {
 	public static Coordinates doctorCoords;
-
+	private Graph graph;
+	
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
@@ -17,8 +19,12 @@ public class Dalek extends MovableGameObject {
 	public void attack(Dalek d) {
 		System.out.println("dalek");
 	}
-	
+
 	public void attack(Junk junk) {
 		System.out.println("junk");
+	}
+	
+	public void setGraph(Graph graph) {
+		this.graph = graph;
 	}
 }
