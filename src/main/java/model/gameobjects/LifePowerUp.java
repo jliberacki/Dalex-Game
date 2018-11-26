@@ -1,5 +1,7 @@
 package model.gameobjects;
 
+import model.Game;
+
 /**
  * Increases number of lifes in the game
  * 
@@ -10,7 +12,7 @@ public class LifePowerUp extends PowerUp {
 
 	@Override
 	public void powerUp() {
-		// TODO Auto-generated method stub
+		Game.doctor.increaseHealth(1);
 
 	}
 
