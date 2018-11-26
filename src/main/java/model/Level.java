@@ -48,7 +48,7 @@ public class Level {
 	 */
 	public boolean play() {
 		while (true) {
-			if (!currentRound.isDoctorAlive()) {
+			if (!Game.doctor.isAlive()) {
 				return false;
 			}
 			if (currentRound.areDaleksDead()) {

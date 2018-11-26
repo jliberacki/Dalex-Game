@@ -88,11 +88,4 @@ public class RoundHandler {
 		// TODO
 		return null;
 	}
-
-	public boolean isDoctorAlive() {
-		if (Game.doctor.getHealth() > 0)
-			return true;
-		return false;
-	}
-
 }
