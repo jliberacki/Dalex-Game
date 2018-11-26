@@ -8,8 +8,14 @@ import model.gameobjects.PowerUp;
 
 public class Field {
 
+	private Coordinates coordinates;
+
 	List<Dalek> daleks = new ArrayList<>();
 	PowerUp powerUp = null;
+
+	public Field(Coordinates coordinates) {
+		this.coordinates = coordinates;
+	}
 
 	public List<Dalek> getDaleks() {
 		return daleks;
@@ -27,4 +33,11 @@ public class Field {
 		daleks.add(dalek);
 	}
 
+	public Coordinates getCoordinates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(Coordinates coordinates) {
+		this.coordinates = coordinates;
+	}
 }
