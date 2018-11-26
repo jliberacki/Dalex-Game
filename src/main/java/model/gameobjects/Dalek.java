@@ -11,8 +11,17 @@ public class Dalek extends MovableGameObject {
 		// TODO Auto-generated method stub
 	}
 
-	public CollisionResult attack(Doctor d) {
-		return null;
+	public CollisionResult attack(Doctor doctor) {
+		CollisionResult collisionResult = new CollisionResult();
+		doctor.decreaseHealth();
+		collisionResult.addDalekToRemove(this);
+		if (doctor.isAlive()) {
+			collisionResult.setResult(doctor);
+		} else {
+			collisionResult.setResult(null);
+			// moze powiadomic ze doktor nie zyje??????????
+		}
+		return collisionResult;
 	}
 
 	public CollisionResult attack(Dalek dalek) {
@@ -24,8 +33,10 @@ public class Dalek extends MovableGameObject {
 	}
 
 	public CollisionResult attack(Junk junk) {
-		System.out.println("junk");
-		return null;
+		CollisionResult collisionResult = new CollisionResult();
+		collisionResult.addDalekToRemove(this);
+		collisionResult.setResult(new Junk(this.coordinates));
+		return collisionResult;
 	}
 
 	public void setGraph(Graph graph) {
