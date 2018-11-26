@@ -46,6 +46,7 @@ public class RoundHandler {
 				dalek.move();
 			}
 		}
+		map = collisionHandler.handleCollisions(map);
 	}
 
 	/**

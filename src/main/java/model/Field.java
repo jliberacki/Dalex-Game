@@ -40,4 +40,13 @@ public class Field {
 	public void setCoordinates(Coordinates coordinates) {
 		this.coordinates = coordinates;
 	}
+
+	public void doesCollisionHappen() {
+		int numberOfObjects = 0;
+		numberOfObjects = numberOfObjects + daleks.size();
+		if (powerUp != null)
+			numberOfObjects++;
+		if (Game.doctor.getCoordinates().equals(this.coordinates))
+			numberOfObjects++;
+	}
 }

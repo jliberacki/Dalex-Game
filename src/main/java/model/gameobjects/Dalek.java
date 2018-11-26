@@ -1,10 +1,8 @@
 package model.gameobjects;
 
-import model.Coordinates;
 import model.Graph;
 
 public class Dalek extends MovableGameObject {
-	public static Coordinates doctorCoords;
 	private Graph graph;
 	
 	@Override
