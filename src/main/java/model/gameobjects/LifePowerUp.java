@@ -8,7 +8,7 @@ package model.gameobjects;
 public class LifePowerUp extends PowerUp {
 
 	@Override
-	public void activate() {
+	public void powerUp() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -17,4 +17,8 @@ public class Dalek extends MovableGameObject {
 	public void attack(Dalek d) {
 		System.out.println("dalek");
 	}
+	
+	public void attack(Junk junk) {
+		System.out.println("junk");
+	}
 }
