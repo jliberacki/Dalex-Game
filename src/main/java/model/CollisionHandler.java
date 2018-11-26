@@ -34,8 +34,17 @@ public class CollisionHandler {
 	private void solveCollision(Field field) {
 		// if doctor is on this field
 		if (Game.doctor.getCoordinates().equals(field.getCoordinates())) {
-
+			if (field.powerUp != null) {
+				field.powerUp.powerUp(Game.doctor);
+			}
+			else {
+				
+			}
 		} else {
+			field.removePowerUp();
+			while (field.daleks.size() > 1) {
+				CollisionResult collisionResult = field.daleks.get(0).attack(field.daleks.get(1));
+			}
 		}
 	}
 }

@@ -5,6 +5,6 @@ public abstract class PowerUp extends ImmovableGameObject {
 	/**
 	 * Changes the state of the game based.
 	 */
-	public abstract void powerUp();
+	public abstract void powerUp(Doctor doctor);
 
 }

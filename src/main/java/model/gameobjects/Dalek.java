@@ -1,5 +1,6 @@
 package model.gameobjects;
 
+import model.CollisionResult;
 import model.Graph;
 
 public class Dalek extends MovableGameObject {
@@ -10,16 +11,21 @@ public class Dalek extends MovableGameObject {
 		// TODO Auto-generated method stub
 	}
 
-	public void attack(Doctor d) {
-		System.out.println("doktor");
+	public CollisionResult attack(Doctor d) {
+		return null;
 	}
 
-	public void attack(Dalek d) {
-		System.out.println("dalek");
+	public CollisionResult attack(Dalek dalek) {
+		CollisionResult collisionResult = new CollisionResult();
+		collisionResult.addToToRemove(this);
+		collisionResult.addToToRemove(dalek);
+		collisionResult.setResult(new Junk(this.coordinates));
+		return collisionResult;
 	}
 
-	public void attack(Junk junk) {
+	public CollisionResult attack(Junk junk) {
 		System.out.println("junk");
+		return null;
 	}
 
 	public void setGraph(Graph graph) {
