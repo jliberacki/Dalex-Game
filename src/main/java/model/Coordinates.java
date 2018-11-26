@@ -23,4 +23,21 @@ public class Coordinates {
 	public int getY() {
 		return this.y;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// self check
+	    if (this == obj)
+	        return true;
+	    // null check
+	    if (obj == null)
+	        return false;
+	    // type check and cast
+	    if (getClass() != obj.getClass())
+	        return false;
+	    Coordinates coordinates = (Coordinates) obj;
+		if (coordinates.getX() == this.x && coordinates.getY() == y)
+			return true;
+		return false;
+	}
 }

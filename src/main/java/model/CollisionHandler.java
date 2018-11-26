@@ -32,6 +32,8 @@ public class CollisionHandler {
 	 * @param field
 	 */
 	private void solveCollision(Field field) {
+		if (Game.doctor.getCoordinates().equals(field.getCoordinates())) {
 
+		}
 	}
 }
