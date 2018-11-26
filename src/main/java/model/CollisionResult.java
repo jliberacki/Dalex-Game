@@ -13,7 +13,7 @@ public class CollisionResult {
 	public List<GameObject> getToRemove() {
 		return toRemove;
 	}
-	
+
 	public GameObject getResult() {
 		return result;
 	}

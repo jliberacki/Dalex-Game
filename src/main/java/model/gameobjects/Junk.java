@@ -1,5 +1,5 @@
 package model.gameobjects;
 
-public class Junk extends ImmovableGameObject{
+public class Junk extends ImmovableGameObject {
 
 }

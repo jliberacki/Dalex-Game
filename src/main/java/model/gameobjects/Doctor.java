@@ -13,6 +13,7 @@ public class Doctor extends MovableGameObject {
 			return true;
 		return false;
 	}
+
 	/**
 	 * 
 	 * @return

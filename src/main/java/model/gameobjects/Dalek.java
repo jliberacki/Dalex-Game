@@ -4,7 +4,7 @@ import model.Graph;
 
 public class Dalek extends MovableGameObject {
 	private Graph graph;
-	
+
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
@@ -21,7 +21,7 @@ public class Dalek extends MovableGameObject {
 	public void attack(Junk junk) {
 		System.out.println("junk");
 	}
-	
+
 	public void setGraph(Graph graph) {
 		this.graph = graph;
 	}
