@@ -36,13 +36,9 @@ public class CollisionHandler {
 		if (Game.doctor.getCoordinates().equals(field.getCoordinates())) {
 			if (field.getPowerUp() != null) {
 				field.getPowerUp().powerUp(Game.doctor);
-				while (field.getDaleks().size() > 0) {
-					field.resolveCollisionResult(field.getDaleks().get(0).attack(Game.doctor));
-				}
-			} else {
-				while (field.getDaleks().size() > 0) {
-					field.resolveCollisionResult(field.getDaleks().get(0).attack(Game.doctor));
-				}
+			}
+			while (field.getDaleks().size() > 0) {
+				field.resolveCollisionResult(field.getDaleks().get(0).attack(Game.doctor));
 			}
 		} else {
 			field.removePowerUp();
