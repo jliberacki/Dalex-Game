@@ -2,6 +2,8 @@ package model;
 
 import java.util.Map;
 
+import model.gameobjects.Dalek;
+
 /**
  * 
  * @author kuba
@@ -36,7 +38,12 @@ public class RoundHandler {
 	 * Moves doctor, moves daleks and checks collisions and updates the score
 	 */
 	public void executeRound() {
-		// TODO
+		Game.doctor.move();
+		for (Map.Entry<Coordinates, Field> entry : map.entrySet())
+		{
+			for (Dalek dalek: entry.getValue().getDaleks())
+				dalek.move();
+		}
 	}
 
 	/**
@@ -57,16 +64,6 @@ public class RoundHandler {
 		int score = roundScore;
 		this.roundScore = 0;
 		return score;
-	}
-
-	/**
-	 * Returns true if doctor is alive, otherwise false.
-	 * 
-	 * @return
-	 */
-	public boolean isDoctorAlive() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	/**
