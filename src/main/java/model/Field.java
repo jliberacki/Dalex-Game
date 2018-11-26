@@ -10,8 +10,8 @@ public class Field {
 
 	private Coordinates coordinates;
 
-	List<Dalek> daleks = new ArrayList<>();
-	PowerUp powerUp = null;
+	private List<Dalek> daleks = new ArrayList<>();
+	private PowerUp powerUp = null;
 
 	public Field(Coordinates coordinates) {
 		this.coordinates = coordinates;
@@ -22,6 +22,8 @@ public class Field {
 	}
 
 	public PowerUp getPowerUp() {
+		if (powerUp == null)
+			return null;
 		return powerUp;
 	}
 
@@ -52,12 +54,21 @@ public class Field {
 			return true;
 		return false;
 	}
-	
+
 	public void removeDalek(Dalek dalek) {
 		getDaleks().remove(dalek);
 	}
-	
+
 	public void removePowerUp() {
 		this.powerUp = null;
+	}
+
+	public void resolveCollisionResult(CollisionResult collisionResult) {
+		for (Dalek dalek : collisionResult.getDaleksToRemove()) {
+			daleks.remove(dalek);
+		}
+		if (collisionResult.isPowerUpToRemove())
+			this.powerUp = null;
+		// co z resultem :(
 	}
 }

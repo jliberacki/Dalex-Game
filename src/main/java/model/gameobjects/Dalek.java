@@ -17,8 +17,8 @@ public class Dalek extends MovableGameObject {
 
 	public CollisionResult attack(Dalek dalek) {
 		CollisionResult collisionResult = new CollisionResult();
-		collisionResult.addToToRemove(this);
-		collisionResult.addToToRemove(dalek);
+		collisionResult.addDalekToRemove(this);
+		collisionResult.addDalekToRemove(dalek);
 		collisionResult.setResult(new Junk(this.coordinates));
 		return collisionResult;
 	}

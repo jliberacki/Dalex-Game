@@ -3,15 +3,17 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
+import model.gameobjects.Dalek;
 import model.gameobjects.GameObject;
 
 public class CollisionResult {
-	private List<GameObject> toRemove = new LinkedList<>();
+	private List<Dalek> daleksToRemove = new LinkedList<>();
+	private boolean powerUpRemove = false;
 
 	GameObject result;
 
-	public List<GameObject> getToRemove() {
-		return toRemove;
+	public List<Dalek> getDaleksToRemove() {
+		return daleksToRemove;
 	}
 
 	public GameObject getResult() {
@@ -22,8 +24,16 @@ public class CollisionResult {
 		this.result = result;
 	}
 
-	public void addToToRemove(GameObject gameObject) {
-		this.toRemove.add(gameObject);
+	public void addPowerUpToRemove() {
+		this.powerUpRemove = true;
+	}
+
+	public void addDalekToRemove(Dalek dalek) {
+		this.daleksToRemove.add(dalek);
+	}
+
+	public boolean isPowerUpToRemove() {
+		return this.powerUpRemove;
 	}
 
 }

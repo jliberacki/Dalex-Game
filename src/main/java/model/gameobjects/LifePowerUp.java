@@ -1,7 +1,5 @@
 package model.gameobjects;
 
-import model.Game;
-
 /**
  * Increases number of lifes in the game
  * 
@@ -11,8 +9,8 @@ import model.Game;
 public class LifePowerUp extends PowerUp {
 
 	@Override
-	public void powerUp() {
-		Game.doctor.increaseHealth(1);
+	public void powerUp(Doctor doctor) {
+		doctor.increaseHealth(1);
 	}
 
 }
