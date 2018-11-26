@@ -44,18 +44,11 @@ public class RoundHandler {
 			for (Dalek dalek : entry.getValue().getDaleks()) {
 				dalek.setGraph(createGraph());
 				dalek.move();
+				map.get(dalek.getCoordinates()).addDalek(dalek);
+				entry.getValue().removeDalek(dalek);
 			}
 		}
-		updateMap();
 		map = collisionHandler.handleCollisions(map);
-	}
-
-	/**
-	 * takes every object coords and changes its position on map
-	 */
-	private void updateMap() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**

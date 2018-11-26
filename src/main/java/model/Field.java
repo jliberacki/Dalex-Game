@@ -52,4 +52,12 @@ public class Field {
 			return true;
 		return false;
 	}
+	
+	public void removeDalek(Dalek dalek) {
+		getDaleks().remove(dalek);
+	}
+	
+	public void removePowerUp() {
+		this.powerUp = null;
+	}
 }
