@@ -11,7 +11,9 @@ import java.util.Map;
 public class CollisionHandler {
 
 	/**
-	 * Iterates through map, if collision is deteceted on any field it is solved by solveCollision metho.
+	 * Iterates through map, if collision is deteceted on any field it is solved by
+	 * solveCollision metho.
+	 * 
 	 * @param map
 	 * @return
 	 */
@@ -24,6 +26,11 @@ public class CollisionHandler {
 		return map;
 	}
 
+	/**
+	 * Takes as an argument the field where collision happened and solves it.
+	 * 
+	 * @param field
+	 */
 	private void solveCollision(Field field) {
 
 	}

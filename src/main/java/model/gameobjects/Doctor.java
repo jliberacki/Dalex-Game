@@ -14,10 +14,6 @@ public class Doctor extends MovableGameObject {
 		return false;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public boolean decreaseHealth() {
 		if (health > 0) {
 			this.health--;
@@ -30,14 +26,13 @@ public class Doctor extends MovableGameObject {
 		this.health = this.health + healthToAdd;
 	}
 
-	/**
-	 * Reads player's input, verifies it and moves the doctor accordingly.
-	 */
-
 	public int getHealth() {
 		return health;
 	}
 
+	/**
+	 * Reads player's input, verifies it and moves the doctor accordingly.
+	 */
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
