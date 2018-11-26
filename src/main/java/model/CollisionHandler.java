@@ -32,8 +32,10 @@ public class CollisionHandler {
 	 * @param field
 	 */
 	private void solveCollision(Field field) {
+		// if doctor is on this field
 		if (Game.doctor.getCoordinates().equals(field.getCoordinates())) {
 
+		} else {
 		}
 	}
 }
