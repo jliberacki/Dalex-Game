@@ -10,8 +10,8 @@ public class Field {
 
 	private Coordinates coordinates;
 
-	private List<Dalek> daleks = new ArrayList<>();;
-	private PowerUp powerUp = null;;
+	private List<Dalek> daleks = new ArrayList<>();
+	private PowerUp powerUp = null;
 
 	public Field(Coordinates coordinates) {
 		this.coordinates = coordinates;
