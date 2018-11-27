@@ -34,12 +34,14 @@ public class CollisionHandler {
 	private void solveCollision(Field field) {
 		// if doctor is on this field
 		if (Game.doctor.getCoordinates().equals(field.getCoordinates())) {
-			if (field.getPowerUp() != null) {
+			if (field.hasPowerUp()) {
 				field.getPowerUp().powerUp(Game.doctor);
+				field.removePowerUp();
 			}
 			while (field.getDaleks().size() > 0) {
 				field.resolveCollisionResult(field.getDaleks().get(0).attack(Game.doctor));
 			}
+		// if there is no doctor on this field
 		} else {
 			field.removePowerUp();
 			while (field.getDaleks().size() > 1) {

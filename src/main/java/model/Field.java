@@ -27,12 +27,26 @@ public class Field {
 		return powerUp;
 	}
 
+	public boolean hasPowerUp() {
+		if (powerUp == null)
+			return false;
+		return true;
+	}
+
 	public void setPowerUp(PowerUp powerUp) {
 		this.powerUp = powerUp;
 	}
 
+	public void removePowerUp() {
+		this.powerUp = null;
+	}
+
 	public void addDalek(Dalek dalek) {
 		daleks.add(dalek);
+	}
+
+	public void removeDalek(Dalek dalek) {
+		getDaleks().remove(dalek);
 	}
 
 	public Coordinates getCoordinates() {
@@ -53,14 +67,6 @@ public class Field {
 		if (numberOfObjects > 1)
 			return true;
 		return false;
-	}
-
-	public void removeDalek(Dalek dalek) {
-		getDaleks().remove(dalek);
-	}
-
-	public void removePowerUp() {
-		this.powerUp = null;
 	}
 
 	public void resolveCollisionResult(CollisionResult collisionResult) {

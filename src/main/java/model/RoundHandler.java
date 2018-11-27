@@ -1,5 +1,6 @@
 package model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import model.gameobjects.Dalek;
@@ -25,6 +26,21 @@ public class RoundHandler {
 	public RoundHandler(int size, int daleksNumber) {
 		this.size = size;
 		placeDaleks(daleksNumber);
+		initializeMap();
+	}
+
+	/**
+	 * Initializing fields in map, and adding objects there.
+	 */
+	private void initializeMap() {
+		this.map = new HashMap<Coordinates, Field>();
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				Coordinates coordinates = new Coordinates(i, j);
+				this.map.put(coordinates, new Field(coordinates));
+				// TODO adding objects on map (daleks, trees, stones, doctor etc);
+			}
+		}
 	}
 
 	/**
@@ -39,15 +55,22 @@ public class RoundHandler {
 	 * Moves doctor, moves daleks on map
 	 */
 	public void executeRound() {
+		// first doctors move
 		Game.doctor.move();
+		// next iterating through fields and movig all daleks
 		for (Map.Entry<Coordinates, Field> entry : map.entrySet()) {
+			// for every dalek in this field
 			for (Dalek dalek : entry.getValue().getDaleks()) {
+				// create graph for dalek
 				dalek.setGraph(createGraph());
 				dalek.move();
+				// add moved dalek to new field
 				map.get(dalek.getCoordinates()).addDalek(dalek);
+				// delete dalek from old field
 				entry.getValue().removeDalek(dalek);
 			}
 		}
+		// after all moves, time to sole collisions, and return collisions-free map:
 		map = collisionHandler.handleCollisions(map);
 	}
 
