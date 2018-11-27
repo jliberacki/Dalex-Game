@@ -39,13 +39,13 @@ public class CollisionHandler {
 				field.removePowerUp();
 			}
 			while (field.getDaleks().size() > 0) {
-				field.resolveCollisionResult(field.getDaleks().get(0).attack(Game.doctor));
+				field.applyCollisionResult(field.getDaleks().get(0).attack(Game.doctor));
 			}
 		// if there is no doctor on this field
 		} else {
 			field.removePowerUp();
 			while (field.getDaleks().size() > 1) {
-				field.resolveCollisionResult(field.getDaleks().get(0).attack(field.getDaleks().get(1)));
+				field.applyCollisionResult(field.getDaleks().get(0).attack(field.getDaleks().get(1)));
 			}
 		}
 	}

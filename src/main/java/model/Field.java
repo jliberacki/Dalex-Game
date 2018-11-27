@@ -69,7 +69,7 @@ public class Field {
 		return false;
 	}
 
-	public void resolveCollisionResult(CollisionResult collisionResult) {
+	public void applyCollisionResult(CollisionResult collisionResult) {
 		for (Dalek dalek : collisionResult.getDaleksToRemove()) {
 			daleks.remove(dalek);
 		}
