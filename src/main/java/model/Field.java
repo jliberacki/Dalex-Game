@@ -10,11 +10,13 @@ public class Field {
 
 	private Coordinates coordinates;
 
-	private List<Dalek> daleks = new ArrayList<>();
-	private PowerUp powerUp = null;
+	private List<Dalek> daleks;
+	private PowerUp powerUp;
 
 	public Field(Coordinates coordinates) {
 		this.coordinates = coordinates;
+		this.powerUp = null;
+		daleks = new ArrayList<>();
 	}
 
 	public List<Dalek> getDaleks() {
@@ -74,7 +76,7 @@ public class Field {
 			daleks.remove(dalek);
 		}
 		if (collisionResult.isPowerUpToRemove())
-			this.powerUp = null;
+			this.removePowerUp();
 		// co z resultem :(
 	}
 }
