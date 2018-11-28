@@ -54,4 +54,5 @@ public class Game {
 		System.out.println("Koniec gry lalalala");
 		// TODO
 	}
+	
 }
