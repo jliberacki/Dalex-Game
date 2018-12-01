@@ -45,7 +45,6 @@ public class Doctor extends MovableGameObject {
 	/**
 	 * Reads player's input, verifies it and moves the doctor accordingly.
 	 */
-
 	public void move(int sizeOfMap) {
 
 	}
