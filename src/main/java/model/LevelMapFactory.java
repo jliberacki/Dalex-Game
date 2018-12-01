@@ -33,7 +33,7 @@ public class LevelMapFactory {
 	}
 
 	/**
-	 * 
+	 * place doctor on the map
 	 * @param sizeOfMap
 	 */
 	private void placeDoctor(int sizeOfMap) {

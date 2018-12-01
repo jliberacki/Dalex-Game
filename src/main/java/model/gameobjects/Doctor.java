@@ -1,6 +1,6 @@
 package model.gameobjects;
 
-public class Doctor extends MovableGameObject {
+public class Doctor extends GameObject implements MovableObject {
 
 	private int health;
 	private boolean attacked;

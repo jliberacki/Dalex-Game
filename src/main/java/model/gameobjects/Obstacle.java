@@ -6,6 +6,6 @@ package model.gameobjects;
  * @author kuba
  *
  */
-public abstract class Obstacle extends ImmovableGameObject {
+public abstract class Obstacle extends GameObject implements ImmovableObject{
 
 }

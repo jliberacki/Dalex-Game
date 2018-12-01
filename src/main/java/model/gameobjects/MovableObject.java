@@ -1,5 +1,4 @@
 package model.gameobjects;
 
-interface ImmovableObject {
-
+interface MovableObject {
 }
