@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Map;
-
 import model.gameobjects.Dalek;
 
 /**
@@ -12,8 +10,7 @@ import model.gameobjects.Dalek;
 public class RoundHandler {
 	private int roundScore;
 	private CollisionHandler collisionHandler;
-	private Map<Coordinates, Field> map;
-	private int sizeOfMap;
+	private LevelMap levelMap;
 
 	/**
 	 * Initializes RoundHandler.
@@ -21,9 +18,8 @@ public class RoundHandler {
 	 * @param size
 	 * @param daleksNumber
 	 */
-	public RoundHandler(int sizeOfMap, Map<Coordinates, Field> map) {
-		this.sizeOfMap = sizeOfMap;
-		this.map = map;
+	public RoundHandler(LevelMap levelMap) {
+		this.levelMap = levelMap;
 	}
 
 	/**
@@ -39,25 +35,15 @@ public class RoundHandler {
 	 */
 	public void executeRound() {
 		Game.doctor.move();
-		for (Field field : map.values()) {
+		for (Field field : levelMap.getMap().values()) {
 			for (Dalek dalek : field.getDaleks()) {
 				dalek.setGraph(createGraph());
 				dalek.move();
-				map.get(dalek.getCoordinates()).addDalek(dalek);
+				levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
 				field.removeDalek(dalek);
 			}
 		}
-		collisionHandler.handleCollisions(map);
-	}
-
-	/**
-	 * Places daleks (and in future other objects) on map.
-	 * 
-	 * @param daleksNumber
-	 */
-	private void placeDaleks(int daleksNumber) {
-		// TODO
-		Game.doctor.move();
+		collisionHandler.handleCollisions(levelMap);
 	}
 
 	/**
@@ -77,7 +63,7 @@ public class RoundHandler {
 	 * @return
 	 */
 	private boolean areAnyDaleksAlive() {
-		for (Field field : map.values()) {
+		for (Field field : levelMap.getMap().values()) {
 			if (field.numberOfDaleks() > 0)
 				return true;
 		}

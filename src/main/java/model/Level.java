@@ -26,7 +26,7 @@ public class Level {
 		this.levelScore = 0;
 		roundHistory = new LinkedList<>();
 		this.mapInitializer = new MapInitializer();
-		currentRound = new RoundHandler(sizeOfMap, mapInitializer.initializeMap(this.levelNumber, sizeOfMap));
+		currentRound = new RoundHandler(mapInitializer.initializeMap(this.levelNumber, sizeOfMap));
 	}
 
 	/**

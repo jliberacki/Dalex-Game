@@ -17,7 +17,7 @@ public class MapInitializer {
 	 * @param sizeOfMap
 	 * @return
 	 */
-	public Map<Coordinates, Field> initializeMap(int levelNumber, int sizeOfMap) {
+	public LevelMap initializeMap(int levelNumber, int sizeOfMap) {
 		Map<Coordinates, Field> map = new HashMap<>();
 		for (int i = 0; i < sizeOfMap; i++) {
 			for (int j = 0; i < sizeOfMap; j++) {
@@ -25,11 +25,11 @@ public class MapInitializer {
 			}
 		}
 		placeDoctor();
-		placePowerUp(generateNumberOfPowerUs(levelNumber), map);
+		placePowerUp(generateNumberOfPowerUps(levelNumber), map);
 		placeDaleks(generateNumberOfDaleks(levelNumber), map);
 		placeStones(generateNumberOfStones(levelNumber), map);
 		placeTrees(generateNumberOfTrees(levelNumber), map);
-		return map;
+		return new LevelMap(sizeOfMap, map);
 	}
 
 	private void placeDoctor() {
@@ -76,7 +76,7 @@ public class MapInitializer {
 		return 2;
 	}
 
-	private int generateNumberOfPowerUs(int levelNumber) {
+	private int generateNumberOfPowerUps(int levelNumber) {
 		return 2;
 	}
 
@@ -85,7 +85,11 @@ public class MapInitializer {
 	}
 
 	private Coordinates generateCoordinatesForOther(Map<Coordinates, Field> map) {
-		return new Coordinates(2, 3);
+		Coordinates coordinates = new Coordinates(1, 2);
+		while (thisFieldIsOccupiedByAnyObject(coordinates, map)) {
+			coordinates = new Coordinates(1, 2);
+		}
+		return coordinates;
 	}
 
 	/**
@@ -95,7 +99,7 @@ public class MapInitializer {
 	 * @param map
 	 * @return
 	 */
-	public boolean checkIfThisFieldIsOccupied(Coordinates coordinates, Map<Coordinates, Field> map) {
+	public boolean thisFieldIsOccupiedByAnyObject(Coordinates coordinates, Map<Coordinates, Field> map) {
 		return map.get(coordinates).anyObjects();
 	}
 

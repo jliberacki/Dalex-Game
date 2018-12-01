@@ -160,7 +160,7 @@ public class Field {
 	}
 
 	/**
-	 * return true if there is one or more objects on this field
+	 * Returns true if there is one or more objects on this field
 	 * 
 	 * @return
 	 */

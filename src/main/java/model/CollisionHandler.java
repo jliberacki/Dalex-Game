@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Map;
-
 /**
  * Chooses strategy to solve conflicts during collision.
  * 
@@ -17,11 +15,11 @@ public class CollisionHandler {
 	 * Iterates through map, if collision is deteceted on any field it is solved by
 	 * solveCollision method.
 	 * 
-	 * @param map
+	 * @param levelMap
 	 * @return
 	 */
-	public void handleCollisions(Map<Coordinates, Field> map) {
-		for (Field field : map.values()) {
+	public void handleCollisions(LevelMap levelMap) {
+		for (Field field : levelMap.getMap().values()) {
 			if (field.doesCollisionHappen()) {
 				solveCollision(field);
 			}
