@@ -41,6 +41,11 @@ public class CollisionHandler {
 		}
 	}
 
+	/**
+	 * solves collision if there is doctor on this field.
+	 * 
+	 * @param field
+	 */
 	private void solveCollisionWithDoctor(Field field) {
 		if (field.hasPowerUp()) {
 			field.getPowerUp().powerUpDoctor();
@@ -50,6 +55,11 @@ public class CollisionHandler {
 		}
 	}
 
+	/**
+	 * Solves collision if there is no doctor on this field.
+	 * 
+	 * @param field
+	 */
 	private void solveCollisionWithoutDoctor(Field field) {
 		if (field.numberOfDaleks() > 0) {
 			if (field.hasPowerUp())

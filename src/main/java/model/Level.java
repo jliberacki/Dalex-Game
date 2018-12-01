@@ -9,7 +9,6 @@ import java.util.List;
  *
  */
 public class Level {
-
 	private int levelNumber;
 	private int levelScore;
 	private RoundHandler currentRound;
@@ -48,6 +47,7 @@ public class Level {
 		while (currentRound.nextRoundCanBeExecuted()) {
 			addRoundToHistory();
 			currentRound.executeRound();
+			this.levelScore += currentRound.getAndClearRoundScore();
 		}
 	}
 
