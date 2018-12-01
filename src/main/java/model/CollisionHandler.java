@@ -32,21 +32,6 @@ public class CollisionHandler {
 	 * @param field
 	 */
 	private void solveCollision(Field field) {
-		// if doctor is on this field
-		if (Game.doctor.getCoordinates().equals(field.getCoordinates())) {
-			if (field.hasPowerUp()) {
-				field.getPowerUp().powerUp(Game.doctor);
-				field.removePowerUp();
-			}
-			while (field.getDaleks().size() > 0) {
-				field.applyCollisionResult(field.getDaleks().get(0).attack(Game.doctor));
-			}
-		// if there is no doctor on this field
-		} else {
-			field.removePowerUp();
-			while (field.getDaleks().size() > 1) {
-				field.applyCollisionResult(field.getDaleks().get(0).attack(field.getDaleks().get(1)));
-			}
-		}
+		
 	}
 }

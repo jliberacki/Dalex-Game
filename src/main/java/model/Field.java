@@ -9,12 +9,13 @@ import model.gameobjects.PowerUp;
 public class Field {
 
 	private Coordinates coordinates;
-
 	private List<Dalek> daleks = new ArrayList<>();
 	private PowerUp powerUp = null;
+	private int numberOfObjects;
 
 	public Field(Coordinates coordinates) {
 		this.coordinates = coordinates;
+		this.numberOfObjects = 0;
 	}
 
 	public List<Dalek> getDaleks() {
@@ -35,18 +36,22 @@ public class Field {
 
 	public void setPowerUp(PowerUp powerUp) {
 		this.powerUp = powerUp;
+		this.numberOfObjects++;
 	}
 
 	public void removePowerUp() {
 		this.powerUp = null;
+		this.numberOfObjects--;
 	}
 
 	public void addDalek(Dalek dalek) {
 		daleks.add(dalek);
+		this.numberOfObjects++;
 	}
 
 	public void removeDalek(Dalek dalek) {
 		getDaleks().remove(dalek);
+		this.numberOfObjects--;
 	}
 
 	public Coordinates getCoordinates() {
@@ -56,25 +61,14 @@ public class Field {
 	public void setCoordinates(Coordinates coordinates) {
 		this.coordinates = coordinates;
 	}
+	
+	public boolean hasDoctor() {
+		return Game.doctor.getCoordinates().equals(this.coordinates);
+	}
 
 	public boolean doesCollisionHappen() {
-		int numberOfObjects = 0;
-		numberOfObjects = numberOfObjects + daleks.size();
-		if (powerUp != null)
-			numberOfObjects++;
-		if (Game.doctor.getCoordinates().equals(this.coordinates))
-			numberOfObjects++;
 		if (numberOfObjects > 1)
 			return true;
 		return false;
-	}
-
-	public void applyCollisionResult(CollisionResult collisionResult) {
-		for (Dalek dalek : collisionResult.getDaleksToRemove()) {
-			daleks.remove(dalek);
-		}
-		if (collisionResult.isPowerUpToRemove())
-			this.removePowerUp();
-		// co z resultem :(
 	}
 }

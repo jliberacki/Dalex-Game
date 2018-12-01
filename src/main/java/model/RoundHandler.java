@@ -58,6 +58,7 @@ public class RoundHandler {
 		// first doctors move
 		Game.doctor.move();
 		// next iterating through fields and movig all daleks
+		//TODO 
 		for (Map.Entry<Coordinates, Field> entry : map.entrySet()) {
 			// for every dalek in this field
 			for (Dalek dalek : entry.getValue().getDaleks()) {
@@ -71,7 +72,7 @@ public class RoundHandler {
 			}
 		}
 		// after all moves, time to sole collisions, and return collisions-free map:
-		map = collisionHandler.handleCollisions(map);
+		collisionHandler.handleCollisions(map);
 	}
 
 	/**
