@@ -33,6 +33,7 @@ public class Game {
 			currentLevel.play();
 			while (Game.doctor.hasBeenAttacked() && Game.doctor.isAlive()) {
 				currentLevel = new Level(currentLevelNumber);
+				Game.doctor.setAttacked(false);
 				currentLevel.play();
 			}
 			this.score += currentLevel.getLevelScore();
