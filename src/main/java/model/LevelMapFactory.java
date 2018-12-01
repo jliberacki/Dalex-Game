@@ -8,7 +8,7 @@ import model.gameobjects.LifePowerUp;
 import model.gameobjects.Stone;
 import model.gameobjects.Tree;
 
-public class MapInitializer {
+public class LevelMapFactory {
 
 	/**
 	 * Returns fully initialized map with daleks, trees, stones and others...
@@ -32,10 +32,20 @@ public class MapInitializer {
 		return new LevelMap(sizeOfMap, map);
 	}
 
+	/**
+	 * 
+	 * @param sizeOfMap
+	 */
 	private void placeDoctor(int sizeOfMap) {
 		Game.doctor.setCoordinates(generateCoordinatesForDoctor(sizeOfMap));
 	}
 
+	/**
+	 * 
+	 * @param numberOfDaleks
+	 * @param map
+	 * @param sizeOfMap
+	 */
 	private void placeDaleks(int numberOfDaleks, Map<Coordinates, Field> map, int sizeOfMap) {
 		for (int i = 0; i < numberOfDaleks; i++) {
 			Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);
@@ -43,6 +53,12 @@ public class MapInitializer {
 		}
 	}
 
+	/**
+	 * 
+	 * @param numberOfTrees
+	 * @param map
+	 * @param sizeOfMap
+	 */
 	private void placeTrees(int numberOfTrees, Map<Coordinates, Field> map, int sizeOfMap) {
 		for (int i = 0; i < numberOfTrees; i++) {
 			Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);
@@ -50,6 +66,13 @@ public class MapInitializer {
 		}
 	}
 
+	/**
+	 * Places PowerUps on map.
+	 * 
+	 * @param numberOfStones
+	 * @param map
+	 * @param sizeOfMap
+	 */
 	private void placeStones(int numberOfStones, Map<Coordinates, Field> map, int sizeOfMap) {
 		for (int i = 0; i < numberOfStones; i++) {
 			Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);
@@ -57,6 +80,13 @@ public class MapInitializer {
 		}
 	}
 
+	/**
+	 * Places PowerUps on map.
+	 * 
+	 * @param numberOfPowerUps
+	 * @param map
+	 * @param sizeOfMap
+	 */
 	private void placePowerUp(int numberOfPowerUps, Map<Coordinates, Field> map, int sizeOfMap) {
 		for (int i = 0; i < numberOfPowerUps; i++) {
 			Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);

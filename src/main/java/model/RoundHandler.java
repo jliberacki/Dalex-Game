@@ -36,8 +36,7 @@ public class RoundHandler {
 		Game.doctor.move(levelMap.getSize());
 		for (Field field : levelMap.getMap().values()) {
 			for (Dalek dalek : field.getDaleks()) {
-				dalek.setGraph(createGraph());
-				dalek.move(levelMap.getSize());
+				dalek.move(levelMap.getSize(), createGraph());
 				levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
 				field.removeDalek(dalek);
 			}
