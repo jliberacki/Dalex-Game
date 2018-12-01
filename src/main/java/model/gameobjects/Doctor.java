@@ -45,8 +45,10 @@ public class Doctor extends MovableGameObject {
 	/**
 	 * Reads player's input, verifies it and moves the doctor accordingly.
 	 */
+
 	@Override
-	public void move() {
+	public void move(int sizeOfMap) {
 		// TODO Auto-generated method stub
+
 	}
 }

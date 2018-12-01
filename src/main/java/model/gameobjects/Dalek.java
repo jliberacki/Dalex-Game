@@ -7,8 +7,9 @@ public class Dalek extends MovableGameObject {
 	private Graph graph;
 
 	@Override
-	public void move() {
+	public void move(int sizeOfMap) {
 		// TODO Auto-generated method stub
+
 	}
 
 	public Dalek(Coordinates coordinates) {

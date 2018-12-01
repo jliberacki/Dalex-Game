@@ -60,10 +60,6 @@ public class Level {
 		roundHistory.add(currentRound.roundSnapshot());
 	}
 
-	private void clearHistory() {
-		roundHistory.clear();
-	}
-
 	/**
 	 * Returns a score of level.
 	 * 

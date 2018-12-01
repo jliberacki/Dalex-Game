@@ -5,5 +5,5 @@ public abstract class MovableGameObject extends GameObject {
 	/**
 	 * Moves the gameobject
 	 */
-	public abstract void move();
+	public abstract void move(int sizeOfMap);
 }
