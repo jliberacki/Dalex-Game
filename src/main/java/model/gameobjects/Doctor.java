@@ -3,9 +3,11 @@ package model.gameobjects;
 public class Doctor extends MovableGameObject {
 
 	private int health;
-
+	private boolean attacked;
+	
 	public Doctor(int health) {
 		this.health = health;
+		this.attacked = false;
 	}
 
 	public boolean isAlive() {
@@ -14,12 +16,9 @@ public class Doctor extends MovableGameObject {
 		return false;
 	}
 
-	public boolean decreaseHealth() {
-		if (health > 0) {
-			this.health--;
-			return true;
-		}
-		return false;
+	public void decreaseHealth() {
+		this.health--;
+		this.attacked = true;
 	}
 
 	public void increaseHealth(int healthToAdd) {
@@ -28,6 +27,18 @@ public class Doctor extends MovableGameObject {
 
 	public int getHealth() {
 		return health;
+	}
+	
+	/**
+	 * returns true if doctor was attacked.
+	 * @return
+	 */
+	public boolean hasBeenAttacked() {
+		return attacked;
+	}
+	
+	public void setAttacked(boolean attacked) {
+		this.attacked = attacked;
 	}
 
 	/**

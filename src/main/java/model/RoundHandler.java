@@ -52,26 +52,18 @@ public class RoundHandler {
 	}
 
 	/**
-	 * Moves doctor, moves daleks on map
+	 * Moves doctor, moves daleks on map.
 	 */
 	public void executeRound() {
-		// first doctors move
 		Game.doctor.move();
-		// next iterating through fields and movig all daleks
-		//TODO 
-		for (Map.Entry<Coordinates, Field> entry : map.entrySet()) {
-			// for every dalek in this field
-			for (Dalek dalek : entry.getValue().getDaleks()) {
-				// create graph for dalek
+		for (Field field : map.values()) {
+			for (Dalek dalek : field.getDaleks()) {
 				dalek.setGraph(createGraph());
 				dalek.move();
-				// add moved dalek to new field
 				map.get(dalek.getCoordinates()).addDalek(dalek);
-				// delete dalek from old field
-				entry.getValue().removeDalek(dalek);
+				field.removeDalek(dalek);
 			}
 		}
-		// after all moves, time to sole collisions, and return collisions-free map:
 		collisionHandler.handleCollisions(map);
 	}
 
@@ -101,9 +93,20 @@ public class RoundHandler {
 	 * 
 	 * @return
 	 */
-	public boolean areDaleksDead() {
-		// TODO Auto-generated method stub
+	private boolean areAnyDaleksAlive() {
+		for (Field field : map.values()) {
+			if (field.numberOfDaleks() > 0)
+				return true;
+		}
 		return false;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean nextRoundCanBeExecuted() {
+		return areAnyDaleksAlive() && !Game.doctor.hasBeenAttacked();
 	}
 
 	/**

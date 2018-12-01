@@ -10,20 +10,22 @@ import java.util.Map;
  */
 public class CollisionHandler {
 
+	//
+	//
+
 	/**
 	 * Iterates through map, if collision is deteceted on any field it is solved by
-	 * solveCollision metho.
+	 * solveCollision method.
 	 * 
 	 * @param map
 	 * @return
 	 */
-	public Map<Coordinates, Field> handleCollisions(Map<Coordinates, Field> map) {
-		for (Map.Entry<Coordinates, Field> entry : map.entrySet()) {
-			if (entry.getValue().doesCollisionHappen()) {
-				solveCollision(entry.getValue());
+	public void handleCollisions(Map<Coordinates, Field> map) {
+		for (Field field : map.values()) {
+			if (field.doesCollisionHappen()) {
+				solveCollision(field);
 			}
 		}
-		return map;
 	}
 
 	/**
@@ -32,6 +34,30 @@ public class CollisionHandler {
 	 * @param field
 	 */
 	private void solveCollision(Field field) {
-		
+		if (field.hasDoctor()) {
+			solveCollisionWithDoctor(field);
+		} else {
+			solveCollisionWithoutDoctor(field);
+		}
+	}
+
+	private void solveCollisionWithDoctor(Field field) {
+		if (field.hasPowerUp()) {
+			field.getPowerUp().powerUpDoctor();
+		}
+		if (field.numberOfDaleks() > 0) {
+			Game.doctor.decreaseHealth();
+		}
+	}
+
+	private void solveCollisionWithoutDoctor(Field field) {
+		if (field.numberOfDaleks() > 0) {
+			if (field.hasPowerUp())
+				field.removePowerUp();
+			if (field.numberOfDaleks() > 1) {
+				field.removeAllDaleks();
+				field.addJunk();
+			}
+		}
 	}
 }

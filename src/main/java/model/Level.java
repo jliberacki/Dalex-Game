@@ -44,14 +44,8 @@ public class Level {
 	 * 
 	 * @return
 	 */
-	public boolean play() {
-		while (true) {
-			if (!Game.doctor.isAlive()) {
-				return false;
-			}
-			if (currentRound.areDaleksDead()) {
-				return true;
-			}
+	public void play() {
+		while (currentRound.nextRoundCanBeExecuted()) {
 			addRoundToHistory();
 			currentRound.executeRound();
 		}
@@ -62,6 +56,10 @@ public class Level {
 	 */
 	private void addRoundToHistory() {
 		roundHistory.add(currentRound.roundSnapshot());
+	}
+
+	private void clearHistory() {
+		roundHistory.clear();
 	}
 
 	/**
