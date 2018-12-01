@@ -102,6 +102,7 @@ public class RoundHandler {
 	}
 
 	/**
+	 * returns true if nex round can be executed, otherwise false
 	 * 
 	 * @return
 	 */
