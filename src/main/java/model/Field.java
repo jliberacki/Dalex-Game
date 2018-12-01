@@ -6,6 +6,8 @@ import java.util.List;
 import model.gameobjects.Dalek;
 import model.gameobjects.Junk;
 import model.gameobjects.PowerUp;
+import model.gameobjects.Stone;
+import model.gameobjects.Tree;
 
 public class Field {
 
@@ -13,6 +15,8 @@ public class Field {
 	private List<Dalek> daleks = new ArrayList<>();
 	private PowerUp powerUp = null;
 	private Junk junk = null;
+	private Tree tree = null;
+	private Stone stone = null;
 	private int numberOfObjects;
 
 	public Field(Coordinates coordinates) {
@@ -30,10 +34,20 @@ public class Field {
 		return powerUp;
 	}
 
+	/**
+	 * Returns numberOfDaleks on this field.
+	 * 
+	 * @return
+	 */
 	public int numberOfDaleks() {
 		return this.daleks.size();
 	}
 
+	/**
+	 * returns true if field has PowerUp, otherwise false.
+	 * 
+	 * @return
+	 */
 	public boolean hasPowerUp() {
 		if (powerUp == null)
 			return false;
@@ -45,6 +59,9 @@ public class Field {
 		this.numberOfObjects++;
 	}
 
+	/**
+	 * Removes PowerUp from this field.
+	 */
 	public void removePowerUp() {
 		this.powerUp = null;
 		this.numberOfObjects--;
@@ -53,6 +70,36 @@ public class Field {
 	public void addDalek(Dalek dalek) {
 		daleks.add(dalek);
 		this.numberOfObjects++;
+	}
+
+	public void setTree(Tree tree) {
+		this.tree = tree;
+	}
+
+	/**
+	 * Returns true if there is tree on this field, otherwise false.
+	 * 
+	 * @return
+	 */
+	public boolean hasTree() {
+		if (this.tree == null)
+			return false;
+		return true;
+	}
+
+	public void setStone(Stone stone) {
+		this.stone = stone;
+	}
+
+	/**
+	 * Returns true if there is stone on this field, otherwise false.
+	 * 
+	 * @return
+	 */
+	public boolean hasStone() {
+		if (this.stone == null)
+			return false;
+		return true;
 	}
 
 	public void removeDalek(Dalek dalek) {
@@ -73,10 +120,20 @@ public class Field {
 		this.coordinates = coordinates;
 	}
 
+	/**
+	 * Returns true it doctor is on this field, otherwise false.
+	 * 
+	 * @return
+	 */
 	public boolean hasDoctor() {
 		return Game.doctor.getCoordinates().equals(this.coordinates);
 	}
 
+	/**
+	 * Returns true if there is junk on this field, otherwise false.
+	 * 
+	 * @return
+	 */
 	public boolean hasJunk() {
 		if (this.junk == null)
 			return false;
@@ -91,8 +148,24 @@ public class Field {
 		this.junk = null;
 	}
 
+	/**
+	 * Returns true if collision happend on this field, otherwise false.
+	 * 
+	 * @return
+	 */
 	public boolean doesCollisionHappen() {
 		if (numberOfObjects > 1)
+			return true;
+		return false;
+	}
+
+	/**
+	 * return true if there is one or more objects on this field
+	 * 
+	 * @return
+	 */
+	public boolean anyObjects() {
+		if (numberOfObjects > 0)
 			return true;
 		return false;
 	}

@@ -1,6 +1,5 @@
 package model;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import model.gameobjects.Dalek;
@@ -12,35 +11,19 @@ import model.gameobjects.Dalek;
  */
 public class RoundHandler {
 	private int roundScore;
-	private int size;
 	private CollisionHandler collisionHandler;
 	private Map<Coordinates, Field> map;
+	private int sizeOfMap;
 
 	/**
-	 * Initiales map based on daleksNumber and size of map. Places all objects on
-	 * map.
+	 * Initializes RoundHandler.
 	 * 
 	 * @param size
 	 * @param daleksNumber
 	 */
-	public RoundHandler(int size, int daleksNumber) {
-		this.size = size;
-		placeDaleks(daleksNumber);
-		initializeMap();
-	}
-
-	/**
-	 * Initializing fields in map, and adding objects there.
-	 */
-	private void initializeMap() {
-		this.map = new HashMap<Coordinates, Field>();
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				Coordinates coordinates = new Coordinates(i, j);
-				this.map.put(coordinates, new Field(coordinates));
-				// TODO adding objects on map (daleks, trees, stones, doctor etc);
-			}
-		}
+	public RoundHandler(int sizeOfMap, Map<Coordinates, Field> map) {
+		this.sizeOfMap = sizeOfMap;
+		this.map = map;
 	}
 
 	/**

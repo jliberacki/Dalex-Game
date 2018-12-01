@@ -1,6 +1,6 @@
 package model.gameobjects;
 
-public abstract class MovableGameObject extends GameObject{
+public abstract class MovableGameObject extends GameObject {
 
 	/**
 	 * Moves the gameobject

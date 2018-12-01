@@ -14,6 +14,7 @@ public class Level {
 	private RoundHandler currentRound;
 	private List<RoundHandler> roundHistory;
 	private int sizeOfMap = 10;
+	private MapInitializer mapInitializer;
 
 	/**
 	 * Initialazes level.
@@ -24,7 +25,8 @@ public class Level {
 		this.levelNumber = levelNumber;
 		this.levelScore = 0;
 		roundHistory = new LinkedList<>();
-		currentRound = new RoundHandler(sizeOfMap, generateDaleksNumber());
+		this.mapInitializer = new MapInitializer();
+		currentRound = new RoundHandler(sizeOfMap, mapInitializer.initializeMap(this.levelNumber, sizeOfMap));
 	}
 
 	/**

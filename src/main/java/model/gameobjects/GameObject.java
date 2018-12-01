@@ -11,4 +11,8 @@ public abstract class GameObject {
 	public Coordinates getCoordinates() {
 		return this.coordinates;
 	}
+
+	public void setCoordinates(Coordinates coordinates) {
+		this.coordinates = coordinates;
+	}
 }

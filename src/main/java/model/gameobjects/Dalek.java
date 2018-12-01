@@ -1,5 +1,6 @@
 package model.gameobjects;
 
+import model.Coordinates;
 import model.Graph;
 
 public class Dalek extends MovableGameObject {
@@ -9,7 +10,11 @@ public class Dalek extends MovableGameObject {
 	public void move() {
 		// TODO Auto-generated method stub
 	}
-	
+
+	public Dalek(Coordinates coordinates) {
+		super.coordinates = coordinates;
+	}
+
 	public void setGraph(Graph graph) {
 		this.graph = graph;
 	}

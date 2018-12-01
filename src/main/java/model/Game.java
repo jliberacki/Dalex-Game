@@ -18,9 +18,9 @@ public class Game {
 	 * 
 	 * @param health
 	 */
-	public Game(int health) {
+	public Game() {
 		this.score = 0;
-		Game.doctor = new Doctor(health);
+		Game.doctor = new Doctor(1);
 	}
 
 	/**
