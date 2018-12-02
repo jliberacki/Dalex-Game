@@ -148,7 +148,7 @@ public class Field {
 		return true;
 	}
 
-	public void addJunk() {
+	public void setJunk() {
 		this.junk = new Junk(this.coordinates);
 		numberOfObjects++;
 	}

@@ -62,7 +62,7 @@ public class CollisionHandler {
 				field.removePowerUp();
 			if (field.numberOfDaleks() > 1) {
 				field.removeAllDaleks();
-				field.addJunk();
+				field.setJunk();
 			}
 		}
 	}
