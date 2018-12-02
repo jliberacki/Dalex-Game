@@ -8,9 +8,6 @@ package model;
  */
 public class CollisionHandler {
 
-	//
-	//
-
 	/**
 	 * Iterates through map, if collision is deteceted on any field it is solved by
 	 * solveCollision method.
