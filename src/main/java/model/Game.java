@@ -37,6 +37,7 @@ public class Game {
 				currentLevel.play();
 			}
 			this.score += currentLevel.getLevelScore();
+			currentLevelNumber++;
 		}
 		endGame();
 	}
