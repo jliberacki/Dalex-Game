@@ -8,10 +8,15 @@ import model.gameobjects.LifePowerUp;
 import model.gameobjects.Stone;
 import model.gameobjects.Tree;
 
+/**
+ * Factory which is crated for easy map initialization.
+ * @author kuba
+ *
+ */
 public class LevelMapFactory {
 
 	/**
-	 * Returns fully initialized map with daleks, trees, stones and others...
+	 * Returns fully initialized HashMap with daleks, trees, stones and others based on level and sizeOfMap...
 	 * 
 	 * @param levelNumber
 	 * @param sizeOfMap
