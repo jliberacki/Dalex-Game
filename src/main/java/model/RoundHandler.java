@@ -22,7 +22,7 @@ public class RoundHandler {
 	}
 
 	/**
-	 * Creates path graph for daleks to find the best way to catch doctor.
+	 * Creates path @{link Graph} for {@link Dalek}s to find the best way to catch doctor.
 	 */
 	public Graph createGraph() {
 		return null;
@@ -30,7 +30,7 @@ public class RoundHandler {
 	}
 
 	/**
-	 * Moves doctor, moves daleks on map.
+	 * Moves doctor, moves {@link Dalek}s on map.
 	 */
 	public void executeRound() {
 		Game.doctor.move(levelMap.getSize());
@@ -56,7 +56,7 @@ public class RoundHandler {
 	}
 
 	/**
-	 * Returns true if there is more than one dalek on the map.
+	 * Returns true if there is more than one {@link Dalek} on the map.
 	 * 
 	 * @return
 	 */

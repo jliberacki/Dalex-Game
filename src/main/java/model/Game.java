@@ -24,7 +24,7 @@ public class Game {
 	}
 
 	/**
-	 * Generates next levels and ends game if player is out of lifes.
+	 * Generates next {@link Level}s and ends game if player is out of lifes.
 	 */
 	public void gameLoop() {
 		int currentLevelNumber = 1;

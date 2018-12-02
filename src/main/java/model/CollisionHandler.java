@@ -9,8 +9,8 @@ package model;
 public class CollisionHandler {
 
 	/**
-	 * Iterates through map, if collision is deteceted on any field it is solved by
-	 * solveCollision method.
+	 * Iterates through map, if collision is deteceted on any {@link Field} it is
+	 * solved by solveCollision method.
 	 * 
 	 * @param levelMap
 	 * @return
@@ -24,7 +24,8 @@ public class CollisionHandler {
 	}
 
 	/**
-	 * Takes as an argument the field where collision happened and solves it.
+	 * Takes as an argument the {@link Field} where collision happened and solves
+	 * it.
 	 * 
 	 * @param field
 	 */
@@ -37,7 +38,7 @@ public class CollisionHandler {
 	}
 
 	/**
-	 * solves collision if there is doctor on this field.
+	 * solves collision if there is doctor on this {@link Field}.
 	 * 
 	 * @param field
 	 */
@@ -51,7 +52,7 @@ public class CollisionHandler {
 	}
 
 	/**
-	 * Solves collision if there is no doctor on this field.
+	 * Solves collision if there isn't doctor on this {@link Field}.
 	 * 
 	 * @param field
 	 */

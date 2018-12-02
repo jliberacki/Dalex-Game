@@ -3,8 +3,11 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
+import model.gameobjects.Dalek;
+import model.gameobjects.GameObject;
+
 /**
- * Represtns one level of the game. Number of daleks on map and other objects,
+ * Represtns one level of the game. Number of {@link Dalek}s on map and other {@link GameObject}s,
  * size of map depends on him. Create new level to run rounds of game.
  * 
  * @author kuba
@@ -19,7 +22,7 @@ public class Level {
 	private LevelMapFactory levelMapFactory;
 
 	/**
-	 * Initialazes level.
+	 * Initialazes {@link Level}.
 	 * 
 	 * @param levelNumber
 	 */
@@ -32,7 +35,7 @@ public class Level {
 	}
 
 	/**
-	 * Generate daleks number based on levelNumber.
+	 * Generate {@link Dalek}s number based on levelNumber.
 	 * 
 	 * @return
 	 */
@@ -41,9 +44,9 @@ public class Level {
 	}
 
 	/**
-	 * Loop for every level. Generates new round until the level is over (doctor or
-	 * all daleks are dead). It also saves Round to RoundHistory. Returns false if
-	 * doctor is dead and true if all daleks are dead.
+	 * Loop for every {@link Level}. Generates new round until the {@link Level} is over (doctor or
+	 * all daleks are dead). It also saves Round to {@link RoundHistory}. Returns false if
+	 * doctor is dead and true if all {@link Dalek}s are dead.
 	 * 
 	 * @return
 	 */
@@ -63,7 +66,7 @@ public class Level {
 	}
 
 	/**
-	 * Returns a score of level.
+	 * Returns a score of {@link Level}.
 	 * 
 	 * @return
 	 */

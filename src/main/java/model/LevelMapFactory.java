@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Random;
 
 import model.gameobjects.Dalek;
+import model.gameobjects.GameObject;
 import model.gameobjects.LifePowerUp;
+import model.gameobjects.PowerUp;
 import model.gameobjects.Stone;
 import model.gameobjects.Tree;
 
@@ -19,8 +21,8 @@ public class LevelMapFactory {
 	Random rand = new Random();
 
 	/**
-	 * Returns fully initialized HashMap with daleks, trees, stones and others based
-	 * on level and sizeOfMap...
+	 * Returns fully initialized HashMap with {@link Dalek}s, {@link Tree}s, {@link Stone}s and other {@link GameObject}s based
+	 * on {@link Level} and sizeOfMap...
 	 * 
 	 * @param levelNumber
 	 * @param sizeOfMap
@@ -51,6 +53,7 @@ public class LevelMapFactory {
 	}
 
 	/**
+	 * Places {@link Dalek}s on map.
 	 * 
 	 * @param numberOfDaleks
 	 * @param map
@@ -64,7 +67,7 @@ public class LevelMapFactory {
 	}
 
 	/**
-	 * 
+	 * Places {@link Tree}s on map.
 	 * @param numberOfTrees
 	 * @param map
 	 * @param sizeOfMap
@@ -77,7 +80,7 @@ public class LevelMapFactory {
 	}
 
 	/**
-	 * Places PowerUps on map.
+	 * Places {@link Stone}s on map.
 	 * 
 	 * @param numberOfStones
 	 * @param map
@@ -91,7 +94,7 @@ public class LevelMapFactory {
 	}
 
 	/**
-	 * Places PowerUps on map.
+	 * Places {@link PowerUp}s on map.
 	 * 
 	 * @param numberOfPowerUps
 	 * @param map
@@ -105,7 +108,7 @@ public class LevelMapFactory {
 	}
 
 	/**
-	 * Generate number of Daleks based on levelNumber
+	 * Generate number of {@link Dalek}s based on levelNumber.
 	 * 
 	 * @param levelNumber
 	 * @return
@@ -115,7 +118,7 @@ public class LevelMapFactory {
 	}
 
 	/**
-	 * Generate number of Trees based on levelNumber
+	 * Generate number of {@link Tree}s based on levelNumber.
 	 * 
 	 * @param levelNumber
 	 * @return
@@ -125,7 +128,7 @@ public class LevelMapFactory {
 	}
 
 	/**
-	 * Generate number of Stones based on levelNumber
+	 * Generate number of {@link Stone}s based on levelNumber.
 	 * 
 	 * @param levelNumber
 	 * @return
@@ -135,7 +138,7 @@ public class LevelMapFactory {
 	}
 
 	/**
-	 * Generate number of PowerUps based on levelNumber
+	 * Generate number of {@link PowerUp}s based on levelNumber.
 	 * 
 	 * @param levelNumber
 	 * @return
@@ -145,7 +148,7 @@ public class LevelMapFactory {
 	}
 
 	/**
-	 * Generates coordinates for doctor
+	 * Generates {@link Coordinates} for doctor.
 	 * 
 	 * @param sizeOfMap
 	 * @return
@@ -155,7 +158,7 @@ public class LevelMapFactory {
 	}
 
 	/**
-	 * Generates coordinates for any object other than doctor. Coordinates are
+	 * Generates {@link Coordinates} for any {@link GameObject} other than doctor. Coordinates are
 	 * pointed at empty field.
 	 * 
 	 * @param map
@@ -171,7 +174,7 @@ public class LevelMapFactory {
 	}
 
 	/**
-	 * Returns true is this coordinates are occupied by any object on this map.
+	 * Returns true is this {@link Coordinates} are occupied by any {@link GameObject} on this map.
 	 * 
 	 * @param coordinates
 	 * @param map

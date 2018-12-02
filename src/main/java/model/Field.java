@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.gameobjects.Dalek;
+import model.gameobjects.GameObject;
 import model.gameobjects.Junk;
 import model.gameobjects.PowerUp;
 import model.gameobjects.Stone;
 import model.gameobjects.Tree;
 
 /**
- * Represent one field on map on which other objects can stay.
+ * Represent one {@link Field} on map on which other objects can stay.
  * 
  * @author kuba
  *
@@ -41,7 +42,7 @@ public class Field {
 	}
 
 	/**
-	 * Returns numberOfDaleks on this field.
+	 * Returns numberOfDaleks on this {@link Field}.
 	 * 
 	 * @return
 	 */
@@ -50,7 +51,7 @@ public class Field {
 	}
 
 	/**
-	 * returns true if field has PowerUp, otherwise false.
+	 * returns true if {@link Field} has {@link PowerUp}, otherwise false.
 	 * 
 	 * @return
 	 */
@@ -66,7 +67,7 @@ public class Field {
 	}
 
 	/**
-	 * Removes PowerUp from this field.
+	 * Removes {@link PowerUp} from this {@link Field}.
 	 */
 	public void removePowerUp() {
 		this.powerUp = null;
@@ -83,7 +84,7 @@ public class Field {
 	}
 
 	/**
-	 * Returns true if there is tree on this field, otherwise false.
+	 * Returns true if there is {@link Tree} on this {@link Field}, otherwise false.
 	 * 
 	 * @return
 	 */
@@ -98,7 +99,8 @@ public class Field {
 	}
 
 	/**
-	 * Returns true if there is stone on this field, otherwise false.
+	 * Returns true if there is {@link Stone} on this {@link Field}, otherwise
+	 * false.
 	 * 
 	 * @return
 	 */
@@ -127,7 +129,7 @@ public class Field {
 	}
 
 	/**
-	 * Returns true it doctor is on this field, otherwise false.
+	 * Returns true it doctor is on this {@link Field}, otherwise false.
 	 * 
 	 * @return
 	 */
@@ -136,7 +138,7 @@ public class Field {
 	}
 
 	/**
-	 * Returns true if there is junk on this field, otherwise false.
+	 * Returns true if there is {@link Junk} on this {@link Field}, otherwise false.
 	 * 
 	 * @return
 	 */
@@ -157,7 +159,7 @@ public class Field {
 	}
 
 	/**
-	 * Returns true if collision happend on this field, otherwise false.
+	 * Returns true if collision happend on this {@link Field}, otherwise false.
 	 * 
 	 * @return
 	 */
@@ -168,7 +170,8 @@ public class Field {
 	}
 
 	/**
-	 * Returns true if there is one or more objects on this field
+	 * Returns true if there is one or more {@link GameObject}s on this
+	 * {@link Field}
 	 * 
 	 * @return
 	 */

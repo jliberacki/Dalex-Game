@@ -1,8 +1,8 @@
 package model;
 
 /**
- * Class which represents graph which is used by objects on map to find the best
- * way to doctor.
+ * Class which represents graph which is used by {@link MovableObject}s to find
+ * the best way to doctor.
  * 
  * @author kuba
  *
