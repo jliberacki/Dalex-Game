@@ -111,7 +111,7 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	private int generateNumberOfDaleks(int levelNumber) {
-		return levelNumber * 5;
+		return levelNumber + rand.nextInt(5);
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	private int generateNumberOfTrees(int levelNumber) {
-		return levelNumber;
+		return levelNumber + rand.nextInt(3);
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	private int generateNumberOfStones(int levelNumber) {
-		return levelNumber;
+		return levelNumber + rand.nextInt(3);
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	private int generateNumberOfPowerUps(int levelNumber) {
-		return levelNumber;
+		return levelNumber + rand.nextInt(3);
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	private Coordinates generateCoordinatesForDoctor(int sizeOfMap) {
-		return new Coordinates(sizeOfMap, sizeOfMap);
+		return new Coordinates(rand.nextInt(sizeOfMap), rand.nextInt(sizeOfMap));
 	}
 
 	/**
@@ -163,9 +163,9 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	private Coordinates generateCoordinatesForOther(Map<Coordinates, Field> map, int sizeOfMap) {
-		Coordinates coordinates = new Coordinates(sizeOfMap, sizeOfMap);
+		Coordinates coordinates = new Coordinates(rand.nextInt(sizeOfMap), rand.nextInt(sizeOfMap));
 		while (thisFieldIsOccupiedByAnyObject(coordinates, map)) {
-			coordinates = new Coordinates(sizeOfMap, sizeOfMap);
+			coordinates = new Coordinates(rand.nextInt(sizeOfMap), rand.nextInt(sizeOfMap));
 		}
 		return coordinates;
 	}
