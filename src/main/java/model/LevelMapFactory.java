@@ -10,13 +10,15 @@ import model.gameobjects.Tree;
 
 /**
  * Factory which is crated for easy map initialization.
+ * 
  * @author kuba
  *
  */
 public class LevelMapFactory {
 
 	/**
-	 * Returns fully initialized HashMap with daleks, trees, stones and others based on level and sizeOfMap...
+	 * Returns fully initialized HashMap with daleks, trees, stones and others based
+	 * on level and sizeOfMap...
 	 * 
 	 * @param levelNumber
 	 * @param sizeOfMap
@@ -39,6 +41,7 @@ public class LevelMapFactory {
 
 	/**
 	 * place doctor on the map
+	 * 
 	 * @param sizeOfMap
 	 */
 	private void placeDoctor(int sizeOfMap) {
