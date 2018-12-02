@@ -56,13 +56,15 @@ public class RoundHandler {
 	}
 
 	/**
-	 * Returns true if all daleks are dead and false otherwise.
+	 * Returns true if there is more than one dalek on the map.
 	 * 
 	 * @return
 	 */
-	private boolean areAnyDaleksAlive() {
+	private boolean isMoreThanOneDalekAlive() {
+		int numberOfDaleks;
 		for (Field field : levelMap.getMap().values()) {
-			if (field.numberOfDaleks() > 0)
+			numberOfDaleks = +field.numberOfDaleks();
+			if (numberOfDaleks > 1)
 				return true;
 		}
 		return false;
@@ -74,7 +76,7 @@ public class RoundHandler {
 	 * @return
 	 */
 	public boolean nextRoundCanBeExecuted() {
-		return areAnyDaleksAlive() && !Game.doctor.hasBeenAttacked();
+		return isMoreThanOneDalekAlive() && !Game.doctor.hasBeenAttacked();
 	}
 
 	/**
