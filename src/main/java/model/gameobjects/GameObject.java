@@ -2,6 +2,12 @@ package model.gameobjects;
 
 import model.Coordinates;
 
+/**
+ * Every object on map is GameObject.
+ * 
+ * @author kuba
+ *
+ */
 public abstract class GameObject {
 	/**
 	 * Position of gameobject

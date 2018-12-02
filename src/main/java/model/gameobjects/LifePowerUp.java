@@ -4,7 +4,7 @@ import model.Coordinates;
 import model.Game;
 
 /**
- * Increases number of lifes in the game
+ * Increases number of doctors lifes.
  * 
  * @author kuba
  *

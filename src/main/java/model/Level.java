@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Represtns one level of the game. Number of daleks on map and other objects,
+ * size of map depends on him. Create new level to run rounds of game.
  * 
  * @author kuba
  *

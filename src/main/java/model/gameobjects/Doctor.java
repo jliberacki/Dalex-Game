@@ -1,7 +1,8 @@
 package model.gameobjects;
 
 /**
- * Class which represent Doctor on the map. 
+ * Class which represent Doctor on the map.
+ * 
  * @author kuba
  *
  */
@@ -17,6 +18,7 @@ public class Doctor extends GameObject implements MovableObject {
 
 	/**
 	 * Returns true if doctor has more than 0 lifes.
+	 * 
 	 * @return
 	 */
 	public boolean isAlive() {
@@ -35,12 +37,18 @@ public class Doctor extends GameObject implements MovableObject {
 
 	/**
 	 * Increases health of the doctor.
+	 * 
 	 * @param healthToAdd
 	 */
 	public void increaseHealth(int healthToAdd) {
 		this.health = this.health + healthToAdd;
 	}
 
+	/**
+	 * Returns actual points of helath of doctor.
+	 * 
+	 * @return
+	 */
 	public int getHealth() {
 		return health;
 	}
@@ -54,6 +62,12 @@ public class Doctor extends GameObject implements MovableObject {
 		return attacked;
 	}
 
+	/**
+	 * Gives opportunity to reset field attaec for example if doctor has to be no
+	 * more considered as attacek.
+	 * 
+	 * @param attacked
+	 */
 	public void setAttacked(boolean attacked) {
 		this.attacked = attacked;
 	}
