@@ -142,10 +142,12 @@ public class Field {
 
 	public void addJunk() {
 		this.junk = new Junk(this.coordinates);
+		numberOfObjects++;
 	}
 
 	public void removeJunk() {
 		this.junk = null;
+		numberOfObjects--;
 	}
 
 	/**
