@@ -165,8 +165,11 @@ public class Field {
 	 * @return
 	 */
 	public boolean anyObjects() {
-		if (numberOfObjects > 0)
+		if (Game.doctor.getCoordinates().equals(this.coordinates)) {
 			return true;
+		} else if (numberOfObjects > 0) {
+			return true;
+		}
 		return false;
 	}
 

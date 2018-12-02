@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import model.gameobjects.Dalek;
 import model.gameobjects.LifePowerUp;
@@ -15,6 +16,7 @@ import model.gameobjects.Tree;
  *
  */
 public class LevelMapFactory {
+	Random rand = new Random();
 
 	/**
 	 * Returns fully initialized HashMap with daleks, trees, stones and others based
