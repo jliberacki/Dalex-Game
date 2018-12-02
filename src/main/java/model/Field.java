@@ -9,6 +9,12 @@ import model.gameobjects.PowerUp;
 import model.gameobjects.Stone;
 import model.gameobjects.Tree;
 
+/**
+ * Represent one field on map on which other objects can stay.
+ * 
+ * @author kuba
+ *
+ */
 public class Field {
 
 	private Coordinates coordinates;
