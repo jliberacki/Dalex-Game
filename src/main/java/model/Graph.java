@@ -17,12 +17,4 @@ public class Graph {
 	public Graph() {
 		// TODO
 	}
-	
-	/**
-	 * Creates graph based on levelMap
-	 * @param levelMap
-	 */
-	public void createGraph(LevelMap levelMap) {
-		
-	}
 }
