@@ -184,4 +184,8 @@ public class Field {
 		return false;
 	}
 
+	public boolean reachable() {
+		return hasTree() || hasStone();
+	}
+
 }

@@ -40,4 +40,10 @@ public class Coordinates {
 			return true;
 		return false;
 	}
+
+	public boolean areCorrect(int mapSize) {
+		boolean tooSmall = this.x < 0 || this.y < 0;
+		boolean tooLarge = this.x >= mapSize || this.y >= mapSize;
+		return !(tooSmall || tooLarge);
+	}
 }
