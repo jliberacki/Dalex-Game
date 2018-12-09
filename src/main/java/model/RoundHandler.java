@@ -63,7 +63,7 @@ public class RoundHandler {
 	private boolean isMoreThanOneDalekAlive() {
 		int numberOfDaleks;
 		for (Field field : levelMap.getMap().values()) {
-			numberOfDaleks = +field.numberOfDaleks();
+			numberOfDaleks += field.numberOfDaleks();
 			if (numberOfDaleks > 1)
 				return true;
 		}
