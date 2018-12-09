@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -31,11 +33,11 @@ public class LevelMapFactory {
 	public LevelMap initializeMap(int levelNumber, int sizeOfMap) {
 		Map<Coordinates, Field> map = new HashMap<>();
 		for (int i = 0; i < sizeOfMap; i++) {
-			for (int j = 0; i < sizeOfMap; j++) {
+			for (int j = 0; j < sizeOfMap; j++) {
 				map.put(new Coordinates(i, j), new Field(new Coordinates(i, j)));
 			}
 		}
-		placeDoctor(sizeOfMap);
+		placeDoctor(map);
 		placePowerUp(generateNumberOfPowerUps(levelNumber), map, sizeOfMap);
 		placeDaleks(generateNumberOfDaleks(levelNumber), map, sizeOfMap);
 		placeStones(generateNumberOfStones(levelNumber), map, sizeOfMap);
@@ -48,8 +50,8 @@ public class LevelMapFactory {
 	 * 
 	 * @param sizeOfMap
 	 */
-	private void placeDoctor(int sizeOfMap) {
-		Game.doctor.setCoordinates(generateCoordinatesForDoctor(sizeOfMap));
+	private void placeDoctor(Map<Coordinates, Field> map) {
+		Game.doctor.setCoordinates(generateCoordinatesForDoctor(map));
 	}
 
 	/**
@@ -153,8 +155,10 @@ public class LevelMapFactory {
 	 * @param sizeOfMap
 	 * @return
 	 */
-	private Coordinates generateCoordinatesForDoctor(int sizeOfMap) {
-		return new Coordinates(rand.nextInt(sizeOfMap), rand.nextInt(sizeOfMap));
+	private Coordinates generateCoordinatesForDoctor(Map<Coordinates, Field> map) {
+		List<Coordinates> keys = new ArrayList<Coordinates>(map.keySet());
+		Coordinates randomCords = keys.get( rand.nextInt(keys.size()) );
+		return randomCords;
 	}
 
 	/**
@@ -166,11 +170,13 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	private Coordinates generateCoordinatesForOther(Map<Coordinates, Field> map, int sizeOfMap) {
-		Coordinates coordinates = new Coordinates(rand.nextInt(sizeOfMap), rand.nextInt(sizeOfMap));
-		while (thisFieldIsOccupiedByAnyObject(coordinates, map)) {
-			coordinates = new Coordinates(rand.nextInt(sizeOfMap), rand.nextInt(sizeOfMap));
+		List<Coordinates> keys = new ArrayList<Coordinates>(map.keySet());
+		Coordinates randomCords = keys.get( rand.nextInt(keys.size()) );
+		
+		while (thisFieldIsOccupiedByAnyObject(randomCords, map)) {
+			randomCords = keys.get( rand.nextInt(keys.size()) );
 		}
-		return coordinates;
+		return randomCords;
 	}
 
 	/**
