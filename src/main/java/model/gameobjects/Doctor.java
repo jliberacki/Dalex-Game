@@ -10,6 +10,7 @@ public class Doctor extends GameObject implements MovableObject {
 
 	private int health;
 	private boolean attacked;
+  	public boolean moved;
 
 	public Doctor(int health) {
 		this.health = health;
@@ -72,10 +73,12 @@ public class Doctor extends GameObject implements MovableObject {
 		this.attacked = attacked;
 	}
 
-	/**
-	 * Reads player's input, verifies it and moves the doctor accordingly.
-	 */
-	public void move(int sizeOfMap) {
+	public boolean hasDoctorMoved() {
+		return moved;
+	}
 
+	public void updateMove(int x, int y) {
+		this.setCoordinates(new Coordinates(x,y));
+		this.moved=true;
 	}
 }
