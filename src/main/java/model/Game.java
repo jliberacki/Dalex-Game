@@ -12,34 +12,45 @@ public class Game {
 	private int score;
 	private Level currentLevel;
 	public static Doctor doctor;
-
+	public static LevelMap currentLevelMap;
 	/**
 	 * Sets score to 0.
 	 * 
 	 * @param health
 	 */
-	public Game() {
+	public Game(Presenter presenter) {
+		this.presenter=presenter;
 		this.score = 0;
 		Game.doctor = new Doctor(1);
+	}
+
+	
+	public void startGame() {
+		int currentLevelNumber = 1;
+		currentLevel = new Level(currentLevelNumber);	
+		currentLevel.play();		
 	}
 
 	/**
 	 * Generates next {@link Level}s and ends game if player is out of lifes.
 	 */
-	public void gameLoop() {
-		int currentLevelNumber = 1;
-		while (Game.doctor.isAlive()) {
-			currentLevel = new Level(currentLevelNumber);
-			currentLevel.play();
-			while (Game.doctor.hasBeenAttacked() && Game.doctor.isAlive()) {
-				currentLevel = new Level(currentLevelNumber);
-				Game.doctor.setAttacked(false);
+	public void continueGame() {
+		if((Game.doctor.isAlive())){
 				currentLevel.play();
-			}
-			this.score += currentLevel.getLevelScore();
-			currentLevelNumber++;
+				if (Game.doctor.hasBeenAttacked() && Game.doctor.isAlive()) {
+					currentLevel = new Level(currentLevelNumber);
+					Game.doctor.setAttacked(false);
+					currentLevel.play();
+				}
+				this.score += currentLevel.getLevelScore();
+				currentLevelNumber++;
 		}
 		endGame();
+	}
+
+	public static void roundEnded(LevelMap levelMap) {
+		currentLevelMap=levelMap;
+		presenter.onRoundUpdate();
 	}
 
 	/**
