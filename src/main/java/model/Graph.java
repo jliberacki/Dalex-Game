@@ -1,26 +1,24 @@
 package model;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
- * Class which represents graph which is used by {@link MovableObject}s to find
- * the best way to doctor.
- *
- * @author kuba
+ * Class representing graph which is used by {@link MovableObject}s to find paths.
+ * Currently only implements BFS but it can be expanded.
  */
+
 public class Graph {
 
-    private int V;
-    private int mapSize;
-    private LinkedList<Integer> adjListArray[];
-    private LinkedList<Integer> deletedVertices = new LinkedList<>();
-    private int[] fieldPathLength;
-    private Coordinates doctorCoordinates;
+    protected int V;
+    protected int mapSize;
+    protected LinkedList<Integer> adjListArray[];
+    protected LinkedList<Integer> deletedVertices = new LinkedList<>();
+    protected int[] fieldPathLength;
+    protected Coordinates sourceCoordinates;
 
-    public Graph(int numberOfVertices) {
-        this.V = numberOfVertices * numberOfVertices;
-        this.mapSize = numberOfVertices;
+    public Graph(int mapSize) {
+        this.V = mapSize * mapSize;
+        this.mapSize = mapSize;
         fieldPathLength = new int[V];
 
         adjListArray = new LinkedList[V];
@@ -32,36 +30,58 @@ public class Graph {
         fillEdges();
     }
 
-    // Adds an edge from src to dest.
-    private void addEdge(int src, int dest) {
+
+    /**
+     * Adds an edge from src to dest
+     */
+
+    protected void addEdge(int src, int dest) {
         this.adjListArray[src].add(dest);
     }
 
-    // Deletes vertex from graph (to be more specific - isolates given vertex, so it cannot be reached)
+
+    /**
+     * Deletes vertex from graph (to be more specific - isolates given vertex, so it cannot be reached)
+     */
+
     public void deleteVertex(Coordinates coordinates) {
         int deletedVertex = coordinateToVertex(coordinates);
         if (!deletedVertices.contains(deletedVertex)) {
             deletedVertices.add(deletedVertex);
+
+            // Delete every edge leading to deleted vertex
+
+            for (Integer adjacentVertex : adjListArray[deletedVertex]) {
+                adjListArray[adjacentVertex].removeFirstOccurrence(deletedVertex);
+            }
+
+            // Delete every edge that comes out of deleted vertex
+
+            adjListArray[deletedVertex].clear();
         }
     }
 
-    // Fills every edge between all adjacent nodes
+
+    /**
+     * Fills every edge between all adjacent nodes
+     */
+
     public void fillEdges() {
         for (int y = 0; y < mapSize; y++) {
             for (int x = 0; x < mapSize; x++) {
                 Coordinates coordinates = new Coordinates(x, y);
-
-                int[] offsetX = {-1, -1, -1, 0, 0, 1, 1, 1};
-                int[] offsetY = {-1, 0, 1, -1, 1, 1, 0, -1};
-
                 int vertexSrc = coordinateToVertex(coordinates);
 
                 if (deletedVertices.contains(vertexSrc)) {
                     continue;
                 }
 
-                for (int pos = 0; pos < 8; pos++) {
-                    Coordinates destCoordinates = new Coordinates(x + offsetX[pos], y + offsetY[pos]);
+                Direction[] directions = Direction.values();
+
+                for (Direction direction : directions) {
+                    Coordinates destCoordinates = new Coordinates(x, y);
+
+                    destCoordinates = destCoordinates.addCoordinates(direction.coordinates());
 
                     if (destCoordinates.areCorrect(mapSize)) {
                         int vertexDest = coordinateToVertex(destCoordinates);
@@ -74,70 +94,30 @@ public class Graph {
         }
     }
 
-    // Returns coordinates which are the next step in path to Doctor
-    public Coordinates nextStepToDoctor(Coordinates dalekCoordinates) {
-        int x = dalekCoordinates.getX();
-        int y = dalekCoordinates.getY();
-        int doctorX = doctorCoordinates.getX();
-        int doctorY = doctorCoordinates.getY();
 
-        int vertexNumber = coordinateToVertex(dalekCoordinates);
-        int currentTravelCost = fieldPathLength[vertexNumber];
+    /**
+     * Calculates path length of every vertex to the source.
+     */
 
-        int[] offsetX = {-1, -1, 1, 1, -1, 0, 0, 1};
-        int[] offsetY = {-1, 1, 1, -1, 0, -1, 1, 0};
-
-        if (x == doctorX || y == doctorY) {
-            offsetX = new int[]{-1, 0, 0, 1, -1, -1, 1, 1};
-            offsetY = new int[]{0, -1, 1, 0, -1, 1, 1, -1};
-        }
-
-		/*
-			-1,-1  |  0,-1  |  1,-1
-			-1, 0  |  0, 0  |  1, 0
-			-1, 1  |  0, 1  |  1, 1
-		*/
-
-        for (int pos = 0; pos < offsetX.length; pos++) {
-            Coordinates destCoordinates = new Coordinates(x + offsetX[pos], y + offsetY[pos]);
-            int destVertex = coordinateToVertex(destCoordinates);
-
-            if (destCoordinates.areCorrect(mapSize) && adjListArray[vertexNumber].contains(destVertex)) {
-                int vertexDest = coordinateToVertex(destCoordinates);
-
-                if (fieldPathLength[vertexDest] < currentTravelCost) {
-                    return destCoordinates;
-                }
-            }
-        }
-
-        // Error
-        return null;
-    }
-
-    // Refreshes path length of every vertex to the source (Doctor).
-    public void refreshPaths(Coordinates doctorCoordinates) {
+    public void calculatePaths(Coordinates sourceCoordinates) {
         cleanFieldPathLength();
-        this.doctorCoordinates = doctorCoordinates;
-        int doctorVertex = coordinateToVertex(doctorCoordinates);
+        this.sourceCoordinates = sourceCoordinates;
+        int sourceVertex = coordinateToVertex(sourceCoordinates);
 
         boolean visitedField[] = new boolean[V];
 
         LinkedList<Integer> vertexQueue = new LinkedList<Integer>();
 
         // Mark the current node as visited and enqueue it
-        visitedField[doctorVertex] = true;
-        fieldPathLength[doctorVertex] = 0;
-        vertexQueue.add(doctorVertex);
+        visitedField[sourceVertex] = true;
+        fieldPathLength[sourceVertex] = 0;
+        vertexQueue.add(sourceVertex);
 
         while (vertexQueue.size() != 0) {
 
-            int currentVertex = vertexQueue.poll();
+            int currentVertex = vertexQueue.pop();
 
-            Iterator<Integer> neighbourIterator = adjListArray[currentVertex].listIterator();
-
-            while (neighbourIterator.hasNext()) {
-                int neighbour = neighbourIterator.next();
+            for (Integer neighbour : adjListArray[currentVertex]) {
                 if (deletedVertices.contains(neighbour)) {
                     continue;
                 }
@@ -151,16 +131,24 @@ public class Graph {
         }
     }
 
-    // "Zeroes" every path length
+
+    /**
+     * "Zeroes" every path length
+     */
+
     private void cleanFieldPathLength() {
         for (int i = 0; i < fieldPathLength.length; i++) {
             fieldPathLength[i] = -1;
         }
     }
 
-    // We assume coordinates are in range [0, mapSize - 1]
-    // Translates coordinates to vertex number
-    private int coordinateToVertex(Coordinates coordinates) {
+
+    /**
+     * Maps coordinates to vertex number
+     * We assume coordinates are in range [0, mapSize - 1]
+     */
+
+    protected int coordinateToVertex(Coordinates coordinates) {
         return coordinates.getX() * mapSize + coordinates.getY();
     }
 }

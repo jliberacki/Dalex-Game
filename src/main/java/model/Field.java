@@ -1,14 +1,9 @@
 package model;
 
+import model.gameobjects.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import model.gameobjects.Dalek;
-import model.gameobjects.GameObject;
-import model.gameobjects.Junk;
-import model.gameobjects.PowerUp;
-import model.gameobjects.Stone;
-import model.gameobjects.Tree;
 
 /**
  * Represent one {@link Field} on map on which other objects can stay.
@@ -117,7 +112,7 @@ public class Field {
 
 	public void removeAllDaleks() {
 		this.numberOfObjects -= daleks.size();
-		daleks.removeAll(daleks);
+		daleks.clear();
 	}
 
 	public Coordinates getCoordinates() {
@@ -184,7 +179,7 @@ public class Field {
 		return false;
 	}
 
-	public boolean reachable() {
+	public boolean isReachable() {
 		return hasTree() || hasStone();
 	}
 
