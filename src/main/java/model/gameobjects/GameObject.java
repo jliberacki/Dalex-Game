@@ -1,6 +1,7 @@
 package model.gameobjects;
 
 import model.Coordinates;
+import javafx.scene.image.Image;
 
 /**
  * Every object on map is GameObject.
@@ -13,6 +14,7 @@ public abstract class GameObject {
 	 * Position of gameobject
 	 */
 	Coordinates coordinates;
+	Image image;
 
 	public Coordinates getCoordinates() {
 		return this.coordinates;

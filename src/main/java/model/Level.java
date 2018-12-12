@@ -51,7 +51,7 @@ public class Level {
 	 * @return
 	 */
 	public void play() {
-		while (currentRound.nextRoundCanBeExecuted()) {
+		if (currentRound.nextRoundCanBeExecuted()) {
 			addRoundToHistory();
 			currentRound.executeRound();
 			this.levelScore += currentRound.getAndClearRoundScore();
