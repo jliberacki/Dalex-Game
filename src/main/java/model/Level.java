@@ -3,22 +3,26 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
+import model.gameobjects.Dalek;
+import model.gameobjects.GameObject;
+
 /**
+ * Represtns one level of the game. Number of {@link Dalek}s on map and other {@link GameObject}s,
+ * size of map depends on him. Create new level to run rounds of game.
  * 
  * @author kuba
  *
  */
 public class Level {
-
 	private int levelNumber;
 	private int levelScore;
 	private RoundHandler currentRound;
 	private List<RoundHandler> roundHistory;
-	private boolean doctorIsAlive;
 	private int sizeOfMap = 10;
+	private LevelMapFactory levelMapFactory;
 
 	/**
-	 * Initialazes level.
+	 * Initialazes {@link Level}.
 	 * 
 	 * @param levelNumber
 	 */
@@ -26,12 +30,12 @@ public class Level {
 		this.levelNumber = levelNumber;
 		this.levelScore = 0;
 		roundHistory = new LinkedList<>();
-		currentRound = new RoundHandler(sizeOfMap, generateDaleksNumber());
-		this.doctorIsAlive = true;
+		this.levelMapFactory = new LevelMapFactory();
+		currentRound = new RoundHandler(levelMapFactory.initializeMap(this.levelNumber, sizeOfMap));
 	}
 
 	/**
-	 * Generate daleks number based on levelNumber.
+	 * Generate {@link Dalek}s number based on levelNumber.
 	 * 
 	 * @return
 	 */
@@ -40,22 +44,17 @@ public class Level {
 	}
 
 	/**
-	 * Loop for every level. Generates new round until the level is over (doctor or
-	 * all daleks are dead). It also saves Round to RoundHistory. Returns false if
-	 * doctor is dead and true if all daleks are dead.
+	 * Loop for every {@link Level}. Generates new round until the {@link Level} is over (doctor or
+	 * all daleks are dead). It also saves Round to {@link RoundHistory}. Returns false if
+	 * doctor is dead and true if all {@link Dalek}s are dead.
 	 * 
 	 * @return
 	 */
-	public boolean play() {
-		while (true) {
-			if (!currentRound.isDoctorAlive()) {
-				return false;
-			}
-			if (currentRound.areDaleksDead()) {
-				return true;
-			}
+	public void play() {
+		while (currentRound.nextRoundCanBeExecuted()) {
 			addRoundToHistory();
 			currentRound.executeRound();
+			this.levelScore += currentRound.getAndClearRoundScore();
 		}
 	}
 
@@ -67,7 +66,7 @@ public class Level {
 	}
 
 	/**
-	 * Returns a score of level.
+	 * Returns a score of {@link Level}.
 	 * 
 	 * @return
 	 */

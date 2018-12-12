@@ -1,12 +1,25 @@
 package model.gameobjects;
 
 import model.Coordinates;
+import model.DalekGraph;
 
-public class Dalek extends MovableGameObject {
-	public static Coordinates doctorCoords;
+/**
+ * Class which represents dalek on map.
+ */
+public class Dalek extends GameObject implements MovableObject {
 
-	@Override
+	public static DalekGraph graph;
+
+	/**
+	 * Moves dalek on map using DalekGraph (structure which gives him opportunity to find
+	 * best way to doctor).
+	 */
+
 	public void move() {
-		// TODO Auto-generated method stub
+		this.coordinates = graph.nextStepToDoctor(this.coordinates);
+	}
+
+	public Dalek(Coordinates coordinates) {
+		super.coordinates = coordinates;
 	}
 }

@@ -18,31 +18,26 @@ public class Game {
 	 * 
 	 * @param health
 	 */
-	public Game(int health) {
+	public Game() {
 		this.score = 0;
-		Game.doctor = new Doctor(health);
+		Game.doctor = new Doctor(1);
 	}
 
 	/**
-	 * Generates next levels and ends game if player is out of lifes.
+	 * Generates next {@link Level}s and ends game if player is out of lifes.
 	 */
 	public void gameLoop() {
 		int currentLevelNumber = 1;
-		while (Game.doctor.getHealth() > 0) {
+		while (Game.doctor.isAlive()) {
 			currentLevel = new Level(currentLevelNumber);
-
-			/*
-			 * Executes this loop until player is out of lifes or until he wins level.
-			 */
-			while (!currentLevel.play()) {
-				Game.doctor.decreaseHealth();
-				if (Game.doctor.getHealth() <= 0) {
-					break;
-				}
+			currentLevel.play();
+			while (Game.doctor.hasBeenAttacked() && Game.doctor.isAlive()) {
 				currentLevel = new Level(currentLevelNumber);
+				Game.doctor.setAttacked(false);
+				currentLevel.play();
 			}
-			currentLevelNumber++;
 			this.score += currentLevel.getLevelScore();
+			currentLevelNumber++;
 		}
 		endGame();
 	}
@@ -51,8 +46,7 @@ public class Game {
 	 * Ends game, shows results.
 	 */
 	private void endGame() {
-		System.out.println("Koniec gry lalalala");
-		// TODO
+		System.out.println("Koniec gry " + this.score);
 	}
 	
 }
