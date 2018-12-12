@@ -19,23 +19,40 @@ public class RoundHandler {
 	 */
 	public RoundHandler(LevelMap levelMap) {
 		this.levelMap = levelMap;
+		Dalek.graph = createDalekGraph();
 	}
 
 	/**
-	 * Creates path @{link Graph} for {@link Dalek}s to find the best way to catch doctor.
+	 * Creates path @{link DalekGraph} for {@link Dalek}s to find the best way to catch doctor.
 	 */
-	public Graph createGraph() {
-		return null;
-		// TODO
+	public DalekGraph createDalekGraph() {
+
+		int mapSize = levelMap.getSize();
+		DalekGraph result = new DalekGraph(mapSize);
+
+		// Deleting edges when specific field cannot be reached
+
+		levelMap
+				.getMap()
+				.values()
+				.stream()
+				.filter(x -> !x.isReachable())
+				.map(Field::getCoordinates)
+				.forEach(result::deleteVertex);
+
+		result.fillEdges();
+
+		return result;
 	}
 
 	/**
 	 * Moves doctor, moves {@link Dalek}s on map.
 	 */
 	public void executeRound() {
+		Dalek.graph.calculatePaths(Game.doctor.getCoordinates());
 		for (Field field : levelMap.getMap().values()) {
 			for (Dalek dalek : field.getDaleks()) {
-				dalek.move(levelMap.getSize(), createGraph());
+				dalek.move();
 				levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
 				field.removeDalek(dalek);
 			}

@@ -59,4 +59,5 @@ public class Game {
 	private void endGame() {
 		System.out.println("Koniec gry " + this.score);
 	}
+	
 }
