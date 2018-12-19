@@ -1,16 +1,23 @@
 package model.gameobjects;
 
+import model.Coordinates;
+import model.Game;
+
 /**
- * Increases number of lifes in the game
+ * Increases number of doctors lifes.
+ * 
  * @author kuba
  *
  */
 public class LifePowerUp extends PowerUp {
 
 	@Override
-	public void activate() {
-		// TODO Auto-generated method stub
-		
+	public void powerUpDoctor() {
+		Game.doctor.increaseHealth(1);
+	}
+
+	public LifePowerUp(Coordinates coordinates) {
+		super.coordinates = coordinates;
 	}
 
 }

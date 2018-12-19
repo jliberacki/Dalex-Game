@@ -1,8 +1,6 @@
 package model;
 
-import java.util.Map;
-
-import model.gameobjects.GameObject;
+import model.gameobjects.Dalek;
 
 /**
  * 
@@ -11,43 +9,56 @@ import model.gameobjects.GameObject;
  */
 public class RoundHandler {
 	private int roundScore;
-	private int size;
 	private CollisionHandler collisionHandler;
-	private Map<Coordinates, GameObject> map;
+	private LevelMap levelMap;
 
 	/**
-	 * Initiales map based on daleksNumber and size of map. Places all objects on
-	 * map.
+	 * Initializes RoundHandler.
 	 * 
-	 * @param size
 	 * @param daleksNumber
 	 */
-	public RoundHandler(int size, int daleksNumber) {
-		this.size = size;
-		placeDaleks(daleksNumber);
+	public RoundHandler(LevelMap levelMap) {
+		this.levelMap = levelMap;
+		Dalek.graph = createDalekGraph();
 	}
 
 	/**
-	 * Creates path graph for daleks to find the best way to catch doctor.
+	 * Creates path @{link DalekGraph} for {@link Dalek}s to find the best way to catch doctor.
 	 */
-	public void createGraph() {
-		// TODO
+	public DalekGraph createDalekGraph() {
+
+		int mapSize = levelMap.getSize();
+		DalekGraph result = new DalekGraph(mapSize);
+
+		// Deleting edges when specific field cannot be reached
+
+		levelMap
+				.getMap()
+				.values()
+				.stream()
+				.filter(x -> !x.isReachable())
+				.map(Field::getCoordinates)
+				.forEach(result::deleteVertex);
+
+		result.fillEdges();
+
+		return result;
 	}
 
 	/**
-	 * Moves doctor, moves daleks and checks collisions and updates the score
+	 * Moves doctor, moves {@link Dalek}s on map.
 	 */
 	public void executeRound() {
-		// TODO
-	}
-
-	/**
-	 * Places daleks (and in future other objects) on map.
-	 * @param daleksNumber
-	 */
-	private void placeDaleks(int daleksNumber) {
-		// TODO
-		Game.doctor.move();
+		Dalek.graph.calculatePaths(Game.doctor.getCoordinates());
+		for (Field field : levelMap.getMap().values()) {
+			for (Dalek dalek : field.getDaleks()) {
+				dalek.move();
+				levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
+				field.removeDalek(dalek);
+			}
+		}
+		collisionHandler.handleCollisions(levelMap);
+      	Game.doctor.moved=true;
 	}
 
 	/**
@@ -62,23 +73,27 @@ public class RoundHandler {
 	}
 
 	/**
-	 * Returns true if doctor is alive, otherwise false.
+	 * Returns true if there is more than one {@link Dalek} on the map.
 	 * 
 	 * @return
 	 */
-	public boolean isDoctorAlive() {
-		// TODO Auto-generated method stub
+	private boolean isMoreThanOneDalekAlive() {
+		int numberOfDaleks;
+		for (Field field : levelMap.getMap().values()) {
+			numberOfDaleks += field.numberOfDaleks();
+			if (numberOfDaleks > 1)
+				return true;
+		}
 		return false;
 	}
 
 	/**
-	 * Returns true if all daleks are dead and false otherwise.
+	 * returns true if nex round can be executed, otherwise false
 	 * 
 	 * @return
 	 */
-	public boolean areDaleksDead() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean nextRoundCanBeExecuted() {
+		return isMoreThanOneDalekAlive() && !Game.doctor.hasBeenAttacked() && Game.doctor.hasDoctorMoved();
 	}
 
 	/**
@@ -87,8 +102,7 @@ public class RoundHandler {
 	 * @return
 	 */
 	public RoundHandler roundSnapshot() {
-		// TODO
-		return null;
+		Game.roundEnded(this.levelMap);
+		return this;
 	}
-
 }
