@@ -1,9 +1,14 @@
 package model;
 
-import model.gameobjects.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import model.gameobjects.Dalek;
+import model.gameobjects.GameObject;
+import model.gameobjects.Junk;
+import model.gameobjects.PowerUp;
+import model.gameobjects.Stone;
+import model.gameobjects.Tree;
 
 /**
  * Represent one {@link Field} on map on which other objects can stay.
@@ -119,6 +124,13 @@ public class Field {
 		return coordinates;
 	}
 
+	public int getNumberOfObjects() {
+		if (Game.doctor.getCoordinates().equals(this.coordinates))
+			return numberOfObjects + 1;
+		else
+			return numberOfObjects;
+	}
+
 	public void setCoordinates(Coordinates coordinates) {
 		this.coordinates = coordinates;
 	}
@@ -159,7 +171,11 @@ public class Field {
 	 * @return
 	 */
 	public boolean doesCollisionHappen() {
-		if (numberOfObjects > 1)
+		int currentNumberOfObjectsOnField = numberOfObjects;
+		if (Game.doctor.getCoordinates().equals(this.coordinates)) {
+			currentNumberOfObjectsOnField++;
+		}
+		if (currentNumberOfObjectsOnField > 1)
 			return true;
 		return false;
 	}
@@ -179,8 +195,22 @@ public class Field {
 		return false;
 	}
 
+	public boolean hasDalek() {
+		if (this.daleks.size() == 1)
+			return true;
+		return false;
+	}
+
 	public boolean isReachable() {
 		return hasTree() || hasStone();
 	}
 
+	public String daleksToString() {
+		if (daleks.isEmpty())
+			return "empty";
+		String output = "";
+		for (Dalek dalek : daleks)
+			output = output + ", (" + dalek + "," + dalek.getCoordinates() + ")";
+		return output;
+	}
 }

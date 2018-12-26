@@ -1,8 +1,8 @@
 package model;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -23,8 +23,9 @@ public class LevelMapFactory {
 	Random rand = new Random();
 
 	/**
-	 * Returns fully initialized HashMap with {@link Dalek}s, {@link Tree}s, {@link Stone}s and other {@link GameObject}s based
-	 * on {@link Level} and sizeOfMap...
+	 * Returns fully initialized HashMap with {@link Dalek}s, {@link Tree}s,
+	 * {@link Stone}s and other {@link GameObject}s based on {@link Level} and
+	 * sizeOfMap...
 	 * 
 	 * @param levelNumber
 	 * @param sizeOfMap
@@ -40,8 +41,8 @@ public class LevelMapFactory {
 		placeDoctor(map);
 		placePowerUp(generateNumberOfPowerUps(levelNumber), map, sizeOfMap);
 		placeDaleks(generateNumberOfDaleks(levelNumber), map, sizeOfMap);
-		placeStones(generateNumberOfStones(levelNumber), map, sizeOfMap);
-		placeTrees(generateNumberOfTrees(levelNumber), map, sizeOfMap);
+		// placeStones(generateNumberOfStones(levelNumber), map, sizeOfMap);
+		// placeTrees(generateNumberOfTrees(levelNumber), map, sizeOfMap);
 		return new LevelMap(sizeOfMap, map);
 	}
 
@@ -64,12 +65,15 @@ public class LevelMapFactory {
 	private void placeDaleks(int numberOfDaleks, Map<Coordinates, Field> map, int sizeOfMap) {
 		for (int i = 0; i < numberOfDaleks; i++) {
 			Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);
-			map.get(coordinates).addDalek(new Dalek(coordinates));
+			Dalek dalek = new Dalek(coordinates);
+			map.get(coordinates).addDalek(dalek);
+			System.out.println(map.get(coordinates).daleksToString());
 		}
 	}
 
 	/**
 	 * Places {@link Tree}s on map.
+	 * 
 	 * @param numberOfTrees
 	 * @param map
 	 * @param sizeOfMap
@@ -157,13 +161,13 @@ public class LevelMapFactory {
 	 */
 	private Coordinates generateCoordinatesForDoctor(Map<Coordinates, Field> map) {
 		List<Coordinates> keys = new ArrayList<Coordinates>(map.keySet());
-		Coordinates randomCords = keys.get( rand.nextInt(keys.size()) );
+		Coordinates randomCords = keys.get(rand.nextInt(keys.size()));
 		return randomCords;
 	}
 
 	/**
-	 * Generates {@link Coordinates} for any {@link GameObject} other than doctor. Coordinates are
-	 * pointed at empty field.
+	 * Generates {@link Coordinates} for any {@link GameObject} other than doctor.
+	 * Coordinates are pointed at empty field.
 	 * 
 	 * @param map
 	 * @param sizeOfMap
@@ -171,16 +175,17 @@ public class LevelMapFactory {
 	 */
 	private Coordinates generateCoordinatesForOther(Map<Coordinates, Field> map, int sizeOfMap) {
 		List<Coordinates> keys = new ArrayList<Coordinates>(map.keySet());
-		Coordinates randomCords = keys.get( rand.nextInt(keys.size()) );
-		
+		Coordinates randomCords = keys.get(rand.nextInt(keys.size()));
+
 		while (thisFieldIsOccupiedByAnyObject(randomCords, map)) {
-			randomCords = keys.get( rand.nextInt(keys.size()) );
+			randomCords = keys.get(rand.nextInt(keys.size()));
 		}
 		return randomCords;
 	}
 
 	/**
-	 * Returns true is this {@link Coordinates} are occupied by any {@link GameObject} on this map.
+	 * Returns true is this {@link Coordinates} are occupied by any
+	 * {@link GameObject} on this map.
 	 * 
 	 * @param coordinates
 	 * @param map

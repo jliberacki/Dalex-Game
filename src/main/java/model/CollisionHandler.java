@@ -30,6 +30,7 @@ public class CollisionHandler {
 	 * @param field
 	 */
 	private void solveCollision(Field field) {
+		System.out.println("collision detected at " + field.getCoordinates());
 		if (field.hasDoctor()) {
 			solveCollisionWithDoctor(field);
 		} else {
@@ -45,6 +46,7 @@ public class CollisionHandler {
 	private void solveCollisionWithDoctor(Field field) {
 		if (field.hasPowerUp()) {
 			field.getPowerUp().powerUpDoctor();
+			field.removePowerUp();
 		}
 		if (field.numberOfDaleks() > 0) {
 			Game.doctor.decreaseHealth();

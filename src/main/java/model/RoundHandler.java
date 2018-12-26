@@ -20,10 +20,12 @@ public class RoundHandler {
 	public RoundHandler(LevelMap levelMap) {
 		this.levelMap = levelMap;
 		Dalek.graph = createDalekGraph();
+		this.collisionHandler = new CollisionHandler();
 	}
 
 	/**
-	 * Creates path @{link DalekGraph} for {@link Dalek}s to find the best way to catch doctor.
+	 * Creates path @{link DalekGraph} for {@link Dalek}s to find the best way to
+	 * catch doctor.
 	 */
 	public DalekGraph createDalekGraph() {
 
@@ -31,13 +33,7 @@ public class RoundHandler {
 		DalekGraph result = new DalekGraph(mapSize);
 
 		// Deleting edges when specific field cannot be reached
-
-		levelMap
-				.getMap()
-				.values()
-				.stream()
-				.filter(x -> !x.isReachable())
-				.map(Field::getCoordinates)
+		levelMap.getMap().values().stream().filter(x -> !x.isReachable()).map(Field::getCoordinates)
 				.forEach(result::deleteVertex);
 
 		result.fillEdges();
@@ -49,16 +45,17 @@ public class RoundHandler {
 	 * Moves doctor, moves {@link Dalek}s on map.
 	 */
 	public void executeRound() {
+		System.out.println("start of round:\n" + levelMap.toString());
+		Game.doctor.move();
 		Dalek.graph.calculatePaths(Game.doctor.getCoordinates());
-		for (Field field : levelMap.getMap().values()) {
-			for (Dalek dalek : field.getDaleks()) {
-				dalek.move();
-				levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
-				field.removeDalek(dalek);
-			}
+		for (Dalek dalek : levelMap.getListOfAllDaleks()) {
+			levelMap.getMap().get(dalek.getCoordinates()).removeDalek(dalek);
+			dalek.move();
+			levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
 		}
+		System.out.println("before handling collsions:\n" + levelMap.stringWithNumberOfObjects());
 		collisionHandler.handleCollisions(levelMap);
-      	Game.doctor.moved=true;
+		System.out.println("end of round:\n" + levelMap.toString());
 	}
 
 	/**
@@ -78,7 +75,7 @@ public class RoundHandler {
 	 * @return
 	 */
 	private boolean isMoreThanOneDalekAlive() {
-		int numberOfDaleks;
+		int numberOfDaleks = 0;
 		for (Field field : levelMap.getMap().values()) {
 			numberOfDaleks += field.numberOfDaleks();
 			if (numberOfDaleks > 1)
@@ -93,7 +90,7 @@ public class RoundHandler {
 	 * @return
 	 */
 	public boolean nextRoundCanBeExecuted() {
-		return isMoreThanOneDalekAlive() && !Game.doctor.hasBeenAttacked() && Game.doctor.hasDoctorMoved();
+		return isMoreThanOneDalekAlive() && !Game.doctor.hasBeenAttacked();
 	}
 
 	/**
@@ -102,7 +99,7 @@ public class RoundHandler {
 	 * @return
 	 */
 	public RoundHandler roundSnapshot() {
-		Game.roundEnded(this.levelMap);
+		// Game.roundEnded(this.levelMap);
 		return this;
 	}
 }

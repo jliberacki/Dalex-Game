@@ -1,5 +1,11 @@
 package model.gameobjects;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import model.Coordinates;
+
 /**
  * Class which represent Doctor on the map.
  * 
@@ -10,12 +16,11 @@ public class Doctor extends GameObject implements MovableObject {
 
 	private int health;
 	private boolean attacked;
-  	public boolean moved;
 
 	public Doctor(int health) {
 		this.health = health;
 		this.attacked = false;
-      	this.image= new Image("images/doctor.png");
+		// this.image= new Image("images/doctor.png");
 	}
 
 	/**
@@ -74,12 +79,33 @@ public class Doctor extends GameObject implements MovableObject {
 		this.attacked = attacked;
 	}
 
-	public boolean hasDoctorMoved() {
-		return moved;
-	}
+	public void move() {
+		String input = "";
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			input = br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (input.matches("u")) {
+			this.coordinates = new Coordinates(this.coordinates.getX(), this.coordinates.getY() + 1);
+		} else if (input.matches("ul")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() - 1, this.coordinates.getY() + 1);
+		} else if (input.matches("ur")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() + 1, this.coordinates.getY() + 1);
+		} else if (input.matches("d")) {
+			this.coordinates = new Coordinates(this.coordinates.getX(), this.coordinates.getY() - 1);
+		} else if (input.matches("dl")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() - 1, this.coordinates.getY() - 1);
+		} else if (input.matches("dr")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() + 1, this.coordinates.getY() - 1);
+		} else if (input.matches("l")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() - 1, this.coordinates.getY());
+		} else if (input.matches("r")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() + 1, this.coordinates.getY());
+		} else {
+			this.coordinates = new Coordinates(this.coordinates.getX(), this.coordinates.getY());
+		}
 
-	public void updateMove(int x, int y) {
-		this.setCoordinates(new Coordinates(x,y));
-		this.moved=true;
 	}
 }

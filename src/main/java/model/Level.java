@@ -7,8 +7,9 @@ import model.gameobjects.Dalek;
 import model.gameobjects.GameObject;
 
 /**
- * Represtns one level of the game. Number of {@link Dalek}s on map and other {@link GameObject}s,
- * size of map depends on him. Create new level to run rounds of game.
+ * Represtns one level of the game. Number of {@link Dalek}s on map and other
+ * {@link GameObject}s, size of map depends on him. Create new level to run
+ * rounds of game.
  * 
  * @author kuba
  *
@@ -44,14 +45,17 @@ public class Level {
 	}
 
 	/**
-	 * Loop for every {@link Level}. Generates new round until the {@link Level} is over (doctor or
-	 * all daleks are dead). It also saves Round to {@link RoundHistory}. Returns false if
-	 * doctor is dead and true if all {@link Dalek}s are dead.
+	 * Loop for every {@link Level}. Generates new round until the {@link Level} is
+	 * over (doctor or all daleks are dead). It also saves Round to
+	 * {@link RoundHistory}. Returns false if doctor is dead and true if all
+	 * {@link Dalek}s are dead.
 	 * 
 	 * @return
 	 */
 	public void play() {
+		System.out.println("lets play new round");
 		if (currentRound.nextRoundCanBeExecuted()) {
+			System.out.println("new round can be executed");
 			addRoundToHistory();
 			currentRound.executeRound();
 			this.levelScore += currentRound.getAndClearRoundScore();

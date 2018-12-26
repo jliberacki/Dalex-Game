@@ -7,7 +7,7 @@ public class Presenter {
 	private Game model;
 	
 	public Presenter(View view) {
-		this.model=new Game(this);
+		//this.model=new Game(this);
 		this.view=view;
 		this.model.startGame();
 	}
