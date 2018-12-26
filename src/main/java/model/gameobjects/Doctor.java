@@ -80,10 +80,6 @@ public class Doctor extends GameObject implements MovableObject {
 		this.attacked = attacked;
 	}
 
-	public void teleport() {
-
-	}
-
 	public void move(List<Coordinates> coordinatesAvailableForTeleport) {
 		String input = "";
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
