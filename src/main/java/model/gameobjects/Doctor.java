@@ -20,7 +20,6 @@ public class Doctor extends GameObject implements MovableObject {
 	public Doctor(int health) {
 		this.health = health;
 		this.attacked = false;
-		// this.image= new Image("images/doctor.png");
 	}
 
 	/**
@@ -79,6 +78,10 @@ public class Doctor extends GameObject implements MovableObject {
 		this.attacked = attacked;
 	}
 
+	public void teleport() {
+		
+	}
+	
 	public void move() {
 		String input = "";
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

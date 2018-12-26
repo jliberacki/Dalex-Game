@@ -21,6 +21,7 @@ import model.gameobjects.Tree;
  */
 public class LevelMapFactory {
 	Random rand = new Random();
+	List<Coordinates> availableCoordinates;
 
 	/**
 	 * Returns fully initialized HashMap with {@link Dalek}s, {@link Tree}s,
@@ -32,10 +33,12 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	public LevelMap initializeMap(int levelNumber, int sizeOfMap) {
+		availableCoordinates = new ArrayList<>();
 		Map<Coordinates, Field> map = new HashMap<>();
 		for (int i = 0; i < sizeOfMap; i++) {
 			for (int j = 0; j < sizeOfMap; j++) {
 				map.put(new Coordinates(i, j), new Field(new Coordinates(i, j)));
+				availableCoordinates.add(new Coordinates(i, j));
 			}
 		}
 		placeDoctor(map);
@@ -44,6 +47,11 @@ public class LevelMapFactory {
 		// placeStones(generateNumberOfStones(levelNumber), map, sizeOfMap);
 		// placeTrees(generateNumberOfTrees(levelNumber), map, sizeOfMap);
 		return new LevelMap(sizeOfMap, map);
+	}
+
+	private void generateAvailableCoordinates() {
+		// TODO Auto-generated method stub
+
 	}
 
 	/**
@@ -160,9 +168,28 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	private Coordinates generateCoordinatesForDoctor(Map<Coordinates, Field> map) {
-		List<Coordinates> keys = new ArrayList<Coordinates>(map.keySet());
-		Coordinates randomCords = keys.get(rand.nextInt(keys.size()));
+		Coordinates randomCords = availableCoordinates.get(rand.nextInt(availableCoordinates.size()));
+		availableCoordinates.remove(randomCords);
+		refactorAvailableCoordinates(randomCords, 3);
 		return randomCords;
+	}
+
+	/**
+	 * When doctor has his own position it deletes available coords for other
+	 * objects, thanks to this other objects like daleks wont be set very close to
+	 * doctor.
+	 * 
+	 * @param coordinates
+	 */
+	private void refactorAvailableCoordinates(Coordinates coordinates, int howFarFromDoctor) {
+		List<Coordinates> toRemove = new ArrayList<>();
+		for (Coordinates coordinates2 : availableCoordinates) {
+			if (coordinates2.biggestDifference(coordinates) < howFarFromDoctor)
+				toRemove.add(coordinates2);
+		}
+		for (Coordinates coordinates2 : toRemove) {
+			availableCoordinates.remove(coordinates2);
+		}
 	}
 
 	/**
@@ -174,11 +201,10 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	private Coordinates generateCoordinatesForOther(Map<Coordinates, Field> map, int sizeOfMap) {
-		List<Coordinates> keys = new ArrayList<Coordinates>(map.keySet());
-		Coordinates randomCords = keys.get(rand.nextInt(keys.size()));
+		Coordinates randomCords = availableCoordinates.get(rand.nextInt(availableCoordinates.size()));
 
 		while (thisFieldIsOccupiedByAnyObject(randomCords, map)) {
-			randomCords = keys.get(rand.nextInt(keys.size()));
+			randomCords = availableCoordinates.get(rand.nextInt(availableCoordinates.size()));
 		}
 		return randomCords;
 	}

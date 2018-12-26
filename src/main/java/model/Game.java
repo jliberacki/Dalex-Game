@@ -1,7 +1,5 @@
 package model;
 
-import java.io.IOException;
-
 import model.gameobjects.Doctor;
 
 /**
@@ -39,8 +37,8 @@ public class Game {
 	public void continueGame() {
 		if (Game.doctor.isAlive()) {
 			currentLevel.play();
-			while (Game.doctor.hasBeenAttacked() && Game.doctor.isAlive()) {
-				System.out.println("in while!!");
+			if (Game.doctor.hasBeenAttacked() && Game.doctor.isAlive()) {
+				System.out.println("you lost one life");
 				currentLevel = new Level(currentLevelNumber);
 				Game.doctor.setAttacked(false);
 				currentLevel.play();
@@ -48,12 +46,6 @@ public class Game {
 			this.score += currentLevel.getLevelScore();
 			currentLevelNumber++;
 		} else {
-			try {
-				System.in.read();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			endGame();
 		}
 	}
