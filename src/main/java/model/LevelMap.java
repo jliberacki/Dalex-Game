@@ -50,6 +50,21 @@ public class LevelMap {
 		return allDaleks;
 	}
 
+	/**
+	 * Returns list of coordinates on which doctor can be teleported.
+	 * 
+	 * @return
+	 */
+	public List<Coordinates> coordinatesAvailableForTeleport() {
+		List<Coordinates> coordsAvailableForTeleport = new ArrayList<>();
+		for (Field field : map.values()) {
+			if (field.isEmpty()) {
+				coordsAvailableForTeleport.add(field.getCoordinates());
+			}
+		}
+		return coordsAvailableForTeleport;
+	}
+
 	@Override
 	public String toString() {
 		String output = "";
@@ -92,7 +107,7 @@ public class LevelMap {
 				Field field = map.get(new Coordinates(x, y));
 				if (field.getNumberOfObjects() != 0)
 					output = output + " " + Integer.toString(field.getNumberOfObjects()) + " ";
-				else 
+				else
 					output = output + " . ";
 			}
 			output = output + "\n";

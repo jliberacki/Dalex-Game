@@ -3,6 +3,8 @@ package model.gameobjects;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Random;
 
 import model.Coordinates;
 
@@ -79,10 +81,10 @@ public class Doctor extends GameObject implements MovableObject {
 	}
 
 	public void teleport() {
-		
+
 	}
-	
-	public void move() {
+
+	public void move(List<Coordinates> coordinatesAvailableForTeleport) {
 		String input = "";
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		try {
@@ -107,7 +109,9 @@ public class Doctor extends GameObject implements MovableObject {
 		} else if (input.matches("r")) {
 			this.coordinates = new Coordinates(this.coordinates.getX() + 1, this.coordinates.getY());
 		} else {
-			this.coordinates = new Coordinates(this.coordinates.getX(), this.coordinates.getY());
+			Random rand = new Random();
+			this.coordinates = coordinatesAvailableForTeleport
+					.get(rand.nextInt(coordinatesAvailableForTeleport.size()));
 		}
 
 	}

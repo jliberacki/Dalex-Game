@@ -50,7 +50,7 @@ public class RoundHandler {
 	public void executeRound() {
 		System.out.println("start of round:\n" + levelMap.toString());
 		levelMap.getMap().get(doctor.getCoordinates()).removeDoctorFromThisField();
-		this.doctor.move();
+		this.doctor.move(levelMap.coordinatesAvailableForTeleport());
 		levelMap.getMap().get(doctor.getCoordinates()).doctorOnThisField();
 		Dalek.graph.calculatePaths(this.doctor.getCoordinates());
 		for (Dalek dalek : levelMap.getListOfAllDaleks()) {
@@ -79,11 +79,11 @@ public class RoundHandler {
 	 * 
 	 * @return
 	 */
-	private boolean isMoreThanOneDalekAlive() {
+	private boolean isMoreThanZeroDaleksAlive() {
 		int numberOfDaleks = 0;
 		for (Field field : levelMap.getMap().values()) {
 			numberOfDaleks += field.numberOfDaleks();
-			if (numberOfDaleks > 1)
+			if (numberOfDaleks > 0)
 				return true;
 		}
 		return false;
@@ -95,7 +95,7 @@ public class RoundHandler {
 	 * @return
 	 */
 	public boolean nextRoundCanBeExecuted() {
-		return isMoreThanOneDalekAlive() && !this.doctor.hasBeenAttacked();
+		return isMoreThanZeroDaleksAlive() && !this.doctor.hasBeenAttacked();
 	}
 
 	/**

@@ -55,7 +55,7 @@ public class Level {
 	 */
 	public void play() {
 		System.out.println("lets play new round");
-		if (currentRound.nextRoundCanBeExecuted()) {
+		while (currentRound.nextRoundCanBeExecuted()) {
 			System.out.println("new round can be executed");
 			addRoundToHistory();
 			currentRound.executeRound();

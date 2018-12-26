@@ -36,6 +36,10 @@ public class Field {
 		return daleks;
 	}
 
+	public boolean isEmpty() {
+		return numberOfObjects == 0;
+	}
+
 	public PowerUp getPowerUp() {
 		if (powerUp == null)
 			return null;

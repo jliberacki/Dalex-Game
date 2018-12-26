@@ -32,10 +32,14 @@ public class Game {
 	}
 
 	/**
-	 * Generates next {@link Level}s and ends game if player is out of lifes.
+	 * Generates next {@link Level}s and ends game if player is out of lifes. if
+	 * returns game can be continiued, otherwise returns false.
 	 */
-	public void continueGame() {
+	public boolean continueGame() {
 		if (this.doctor.isAlive()) {
+			System.out.println("CONGRATULATIONS! NEXT LEVEL");
+			currentLevelNumber++;
+			currentLevel = new Level(currentLevelNumber, doctor);
 			currentLevel.play();
 			if (this.doctor.hasBeenAttacked() && this.doctor.isAlive()) {
 				System.out.println("you lost one life");
@@ -44,10 +48,12 @@ public class Game {
 				currentLevel.play();
 			}
 			this.score += currentLevel.getLevelScore();
-			currentLevelNumber++;
+			return true;
 		} else {
 			endGame();
+			return false;
 		}
+
 	}
 
 	/**

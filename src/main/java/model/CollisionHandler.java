@@ -14,6 +14,7 @@ public class CollisionHandler {
 
 	/**
 	 * Constructor
+	 * 
 	 * @param doctor
 	 */
 	public CollisionHandler(Doctor doctor) {
@@ -74,7 +75,9 @@ public class CollisionHandler {
 		if (field.numberOfDaleks() > 0) {
 			if (field.hasPowerUp())
 				field.removePowerUp();
-			if (field.numberOfDaleks() > 1) {
+			if (field.hasJunk()) {
+				field.removeAllDaleks();
+			} else if (field.numberOfDaleks() > 1) {
 				field.removeAllDaleks();
 				field.setJunk();
 			}

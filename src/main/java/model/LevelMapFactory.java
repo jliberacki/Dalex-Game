@@ -124,7 +124,7 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	private int generateNumberOfDaleks(int levelNumber) {
-		return levelNumber + rand.nextInt(5);
+		return levelNumber + rand.nextInt(5) + 1;
 	}
 
 	/**
