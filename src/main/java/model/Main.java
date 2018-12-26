@@ -5,7 +5,7 @@ public class Main {
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.startGame();
-		while (Game.doctor.isAlive()) {
+		while (true) {
 			game.continueGame();
 			try {
 				Thread.currentThread().sleep(1000);

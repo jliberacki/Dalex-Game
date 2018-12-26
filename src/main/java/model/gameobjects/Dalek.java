@@ -2,7 +2,6 @@ package model.gameobjects;
 
 import model.Coordinates;
 import model.DalekGraph;
-import model.Game;
 
 /**
  * Class which represents dalek on map.
@@ -16,7 +15,7 @@ public class Dalek extends GameObject implements MovableObject {
 	 * find best way to doctor).
 	 */
 
-	public void move() {
+	public void move(Coordinates doctorCoordinates) {
 		// TODO Babol zwraca NULLA!!!!!!!!!!!!!!!!!!
 		// System.out.println(graph.nextStepToDoctor(this.coordinates));
 		int currentX = this.getCoordinates().getX();
@@ -24,15 +23,15 @@ public class Dalek extends GameObject implements MovableObject {
 		int newX = currentX;
 		int newY = currentY;
 
-		if (currentX > Game.doctor.getCoordinates().getX()) {
+		if (currentX > doctorCoordinates.getX()) {
 			newX = currentX - 1;
-		} else if (currentX < Game.doctor.getCoordinates().getX()) {
+		} else if (currentX < doctorCoordinates.getX()) {
 			newX = currentX + 1;
 		}
 
-		if (currentY > Game.doctor.getCoordinates().getY()) {
+		if (currentY > doctorCoordinates.getY()) {
 			newY = currentY - 1;
-		} else if (currentY < Game.doctor.getCoordinates().getY()) {
+		} else if (currentY < doctorCoordinates.getY()) {
 			newY = currentY + 1;
 		}
 		this.coordinates = new Coordinates(newX, newY);

@@ -1,5 +1,7 @@
 package model;
 
+import model.gameobjects.Doctor;
+
 /**
  * Chooses strategy to solve conflicts during collision.
  * 
@@ -7,6 +9,16 @@ package model;
  *
  */
 public class CollisionHandler {
+
+	private Doctor doctor;
+
+	/**
+	 * Constructor
+	 * @param doctor
+	 */
+	public CollisionHandler(Doctor doctor) {
+		this.doctor = doctor;
+	}
 
 	/**
 	 * Iterates through map, if collision is deteceted on any {@link Field} it is
@@ -45,11 +57,11 @@ public class CollisionHandler {
 	 */
 	private void solveCollisionWithDoctor(Field field) {
 		if (field.hasPowerUp()) {
-			field.getPowerUp().powerUpDoctor();
+			field.getPowerUp().powerUp(this.doctor);
 			field.removePowerUp();
 		}
 		if (field.numberOfDaleks() > 0) {
-			Game.doctor.decreaseHealth();
+			this.doctor.decreaseHealth();
 		}
 	}
 

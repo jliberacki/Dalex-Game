@@ -78,7 +78,6 @@ public class LevelMap {
 			output = output + "\n";
 		}
 		output = output + "    0  1  2  3  4  5  6  7  8  9 \n";
-		output = output + "lifes: " + Integer.toString(Game.doctor.getHealth()) + "\n";
 		output = output + "number of daleks: " + Integer.toString(getListOfAllDaleks().size()) + "\n";
 		return output;
 	}
@@ -99,7 +98,6 @@ public class LevelMap {
 			output = output + "\n";
 		}
 		output = output + "    0  1  2  3  4  5  6  7  8  9 \n";
-		output = output + "lifes: " + Integer.toString(Game.doctor.getHealth()) + "\n";
 		output = output + "number of daleks: " + Integer.toString(getListOfAllDaleks().size()) + "\n";
 		return output;
 	}

@@ -1,7 +1,6 @@
 package model.gameobjects;
 
 import model.Coordinates;
-import model.Game;
 
 /**
  * Increases number of doctors lifes.
@@ -12,8 +11,8 @@ import model.Game;
 public class LifePowerUp extends PowerUp {
 
 	@Override
-	public void powerUpDoctor() {
-		Game.doctor.increaseHealth(1);
+	public void powerUp(Doctor doctor) {
+		doctor.increaseHealth(1);
 	}
 
 	public LifePowerUp(Coordinates coordinates) {

@@ -1,6 +1,7 @@
 package model;
 
 import model.gameobjects.Dalek;
+import model.gameobjects.Doctor;
 
 /**
  * 
@@ -11,16 +12,18 @@ public class RoundHandler {
 	private int roundScore;
 	private CollisionHandler collisionHandler;
 	private LevelMap levelMap;
+	private Doctor doctor;
 
 	/**
 	 * Initializes RoundHandler.
 	 * 
 	 * @param daleksNumber
 	 */
-	public RoundHandler(LevelMap levelMap) {
+	public RoundHandler(LevelMap levelMap, Doctor doctor) {
 		this.levelMap = levelMap;
 		Dalek.graph = createDalekGraph();
-		this.collisionHandler = new CollisionHandler();
+		this.collisionHandler = new CollisionHandler(doctor);
+		this.doctor = doctor;
 	}
 
 	/**
@@ -46,11 +49,13 @@ public class RoundHandler {
 	 */
 	public void executeRound() {
 		System.out.println("start of round:\n" + levelMap.toString());
-		Game.doctor.move();
-		Dalek.graph.calculatePaths(Game.doctor.getCoordinates());
+		levelMap.getMap().get(doctor.getCoordinates()).removeDoctorFromThisField();
+		this.doctor.move();
+		levelMap.getMap().get(doctor.getCoordinates()).doctorOnThisField();
+		Dalek.graph.calculatePaths(this.doctor.getCoordinates());
 		for (Dalek dalek : levelMap.getListOfAllDaleks()) {
 			levelMap.getMap().get(dalek.getCoordinates()).removeDalek(dalek);
-			dalek.move();
+			dalek.move(doctor.getCoordinates());
 			levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
 		}
 		System.out.println("before handling collsions:\n" + levelMap.stringWithNumberOfObjects());
@@ -90,7 +95,7 @@ public class RoundHandler {
 	 * @return
 	 */
 	public boolean nextRoundCanBeExecuted() {
-		return isMoreThanOneDalekAlive() && !Game.doctor.hasBeenAttacked();
+		return isMoreThanOneDalekAlive() && !this.doctor.hasBeenAttacked();
 	}
 
 	/**

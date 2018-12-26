@@ -11,8 +11,8 @@ import model.gameobjects.Doctor;
 public class Game {
 	private int score;
 	private Level currentLevel;
-	public static Doctor doctor;
-	public static LevelMap currentLevelMap;
+	private Doctor doctor;
+	private LevelMap currentLevelMap;
 	private int currentLevelNumber;
 
 	/**
@@ -22,12 +22,12 @@ public class Game {
 	 */
 	public Game() {
 		this.score = 0;
-		Game.doctor = new Doctor(1);
+		this.doctor = new Doctor(1);
 	}
 
 	public void startGame() {
 		int currentLevelNumber = 1;
-		currentLevel = new Level(currentLevelNumber);
+		currentLevel = new Level(currentLevelNumber, doctor);
 		currentLevel.play();
 	}
 
@@ -35,12 +35,12 @@ public class Game {
 	 * Generates next {@link Level}s and ends game if player is out of lifes.
 	 */
 	public void continueGame() {
-		if (Game.doctor.isAlive()) {
+		if (this.doctor.isAlive()) {
 			currentLevel.play();
-			if (Game.doctor.hasBeenAttacked() && Game.doctor.isAlive()) {
+			if (this.doctor.hasBeenAttacked() && this.doctor.isAlive()) {
 				System.out.println("you lost one life");
-				currentLevel = new Level(currentLevelNumber);
-				Game.doctor.setAttacked(false);
+				currentLevel = new Level(currentLevelNumber, doctor);
+				this.doctor.setAttacked(false);
 				currentLevel.play();
 			}
 			this.score += currentLevel.getLevelScore();

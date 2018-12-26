@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import model.gameobjects.Dalek;
+import model.gameobjects.Doctor;
 import model.gameobjects.GameObject;
 
 /**
@@ -27,12 +28,12 @@ public class Level {
 	 * 
 	 * @param levelNumber
 	 */
-	public Level(int levelNumber) {
+	public Level(int levelNumber, Doctor doctor) {
 		this.levelNumber = levelNumber;
 		this.levelScore = 0;
 		roundHistory = new LinkedList<>();
 		this.levelMapFactory = new LevelMapFactory();
-		currentRound = new RoundHandler(levelMapFactory.initializeMap(this.levelNumber, sizeOfMap));
+		currentRound = new RoundHandler(levelMapFactory.initializeMap(this.levelNumber, sizeOfMap, doctor), doctor);
 	}
 
 	/**

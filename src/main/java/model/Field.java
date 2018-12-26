@@ -25,6 +25,7 @@ public class Field {
 	private Tree tree = null;
 	private Stone stone = null;
 	private int numberOfObjects;
+	private boolean doctorIsOnThisField;
 
 	public Field(Coordinates coordinates) {
 		this.coordinates = coordinates;
@@ -125,7 +126,7 @@ public class Field {
 	}
 
 	public int getNumberOfObjects() {
-		if (Game.doctor.getCoordinates().equals(this.coordinates))
+		if (doctorIsOnThisField)
 			return numberOfObjects + 1;
 		else
 			return numberOfObjects;
@@ -141,7 +142,23 @@ public class Field {
 	 * @return
 	 */
 	public boolean hasDoctor() {
-		return Game.doctor.getCoordinates().equals(this.coordinates);
+		return doctorIsOnThisField;
+	}
+
+	/**
+	 * run if doctor is on this field
+	 */
+	public void doctorOnThisField() {
+		numberOfObjects++;
+		doctorIsOnThisField = true;
+	}
+
+	/**
+	 * Doctor is no longer on this field
+	 */
+	public void removeDoctorFromThisField() {
+		numberOfObjects--;
+		doctorIsOnThisField = false;
 	}
 
 	/**
@@ -171,11 +188,7 @@ public class Field {
 	 * @return
 	 */
 	public boolean doesCollisionHappen() {
-		int currentNumberOfObjectsOnField = numberOfObjects;
-		if (Game.doctor.getCoordinates().equals(this.coordinates)) {
-			currentNumberOfObjectsOnField++;
-		}
-		if (currentNumberOfObjectsOnField > 1)
+		if (numberOfObjects > 1)
 			return true;
 		return false;
 	}
@@ -187,9 +200,7 @@ public class Field {
 	 * @return
 	 */
 	public boolean anyObjects() {
-		if (Game.doctor.getCoordinates().equals(this.coordinates)) {
-			return true;
-		} else if (numberOfObjects > 0) {
+		if (numberOfObjects > 0) {
 			return true;
 		}
 		return false;

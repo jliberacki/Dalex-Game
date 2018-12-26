@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import model.gameobjects.Dalek;
+import model.gameobjects.Doctor;
 import model.gameobjects.GameObject;
 import model.gameobjects.LifePowerUp;
 import model.gameobjects.PowerUp;
@@ -20,8 +21,8 @@ import model.gameobjects.Tree;
  *
  */
 public class LevelMapFactory {
-	Random rand = new Random();
-	List<Coordinates> availableCoordinates;
+	private Random rand = new Random();
+	private List<Coordinates> availableCoordinates;
 
 	/**
 	 * Returns fully initialized HashMap with {@link Dalek}s, {@link Tree}s,
@@ -32,7 +33,7 @@ public class LevelMapFactory {
 	 * @param sizeOfMap
 	 * @return
 	 */
-	public LevelMap initializeMap(int levelNumber, int sizeOfMap) {
+	public LevelMap initializeMap(int levelNumber, int sizeOfMap, Doctor doctor) {
 		availableCoordinates = new ArrayList<>();
 		Map<Coordinates, Field> map = new HashMap<>();
 		for (int i = 0; i < sizeOfMap; i++) {
@@ -41,7 +42,7 @@ public class LevelMapFactory {
 				availableCoordinates.add(new Coordinates(i, j));
 			}
 		}
-		placeDoctor(map);
+		placeDoctor(map, doctor);
 		placePowerUp(generateNumberOfPowerUps(levelNumber), map, sizeOfMap);
 		placeDaleks(generateNumberOfDaleks(levelNumber), map, sizeOfMap);
 		// placeStones(generateNumberOfStones(levelNumber), map, sizeOfMap);
@@ -49,18 +50,13 @@ public class LevelMapFactory {
 		return new LevelMap(sizeOfMap, map);
 	}
 
-	private void generateAvailableCoordinates() {
-		// TODO Auto-generated method stub
-
-	}
-
 	/**
 	 * place doctor on the map
 	 * 
 	 * @param sizeOfMap
 	 */
-	private void placeDoctor(Map<Coordinates, Field> map) {
-		Game.doctor.setCoordinates(generateCoordinatesForDoctor(map));
+	private void placeDoctor(Map<Coordinates, Field> map, Doctor doctor) {
+		doctor.setCoordinates(generateCoordinatesForDoctor(map));
 	}
 
 	/**
@@ -169,6 +165,7 @@ public class LevelMapFactory {
 	 */
 	private Coordinates generateCoordinatesForDoctor(Map<Coordinates, Field> map) {
 		Coordinates randomCords = availableCoordinates.get(rand.nextInt(availableCoordinates.size()));
+		map.get(randomCords).doctorOnThisField();
 		availableCoordinates.remove(randomCords);
 		refactorAvailableCoordinates(randomCords, 3);
 		return randomCords;
