@@ -6,7 +6,7 @@ import view.View;
 
 public class Presenter {
 	private View view;
-	private int score;
+	private int gameScore;
 	private Level currentLevel;
 	private Doctor doctor;
 	private int currentLevelNumber;
@@ -35,7 +35,7 @@ public class Presenter {
 	 * @param health
 	 */
 	public Presenter() {
-		this.score = 0;
+		this.gameScore = 0;
 		this.doctor = new Doctor(1);
 	}
 
@@ -59,21 +59,23 @@ public class Presenter {
 	 */
 	public boolean continueGame() {
 		if (this.doctor.isAlive()) {
-//			System.out.println("CONGRATULATIONS! NEXT LEVEL");
+			System.out.println("CONGRATULATIONS! NEXT LEVEL");
 			currentLevelNumber++;
 			currentLevel = new Level(currentLevelNumber, this.doctor);
 			while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 				currentLevel.play(this.doctor);
 			}
+			System.out.println("Level Score: " + currentLevel.getLevelScore());
 			if (this.doctor.hasBeenAttacked() && this.doctor.isAlive()) {
-//				System.out.println("you lost one life");
+				System.out.println("you lost one life");
 				currentLevel = new Level(currentLevelNumber, doctor);
 				this.doctor.setAttacked(false);
 				while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 					currentLevel.play(this.doctor);
 				}
 			}
-			this.score += currentLevel.getLevelScore();
+			this.gameScore += currentLevel.getLevelScore();
+			System.out.println("Game score: " + gameScore);
 			return true;
 		} else {
 			endGame();
@@ -85,6 +87,6 @@ public class Presenter {
 	 * Ends game, shows results.
 	 */
 	private void endGame() {
-		System.out.println("Koniec gry " + this.score);
+		System.out.println("Koniec gry " + this.gameScore);
 	}
 }

@@ -57,8 +57,8 @@ public class RoundHandler {
 			levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
 		}
 		System.out.println("before handling collsions:\n" + levelMap.stringWithNumberOfObjects());
-		collisionHandler.handleCollisions(levelMap, doctor);
-		System.out.println("end of round:\n" + levelMap.toString());
+		this.roundScore += collisionHandler.handleCollisions(levelMap, doctor);
+		System.out.println("end of round:\n" + levelMap.toString() + "\n" + "Doctor lifes: " + doctor.getHealth() + "\n round score: " + roundScore);
 		return levelMap;
 	}
 

@@ -27,12 +27,14 @@ public class CollisionHandler {
 	 * @param levelMap
 	 * @return
 	 */
-	public void handleCollisions(LevelMap levelMap, Doctor doctor) {
+	public int handleCollisions(LevelMap levelMap, Doctor doctor) {
+		int score = 0;
 		for (Field field : levelMap.getMap().values()) {
 			if (field.doesCollisionHappen()) {
-				solveCollision(field, doctor);
+				solveCollision(field, doctor, score);
 			}
 		}
+		return score;
 	}
 
 	/**
@@ -41,12 +43,12 @@ public class CollisionHandler {
 	 * 
 	 * @param field
 	 */
-	private void solveCollision(Field field, Doctor doctor) {
+	private void solveCollision(Field field, Doctor doctor, int score) {
 		System.out.println("collision detected at " + field.getCoordinates());
 		if (field.hasDoctor()) {
-			solveCollisionWithDoctor(field, doctor);
+			solveCollisionWithDoctor(field, doctor, score);
 		} else {
-			solveCollisionWithoutDoctor(field);
+			solveCollisionWithoutDoctor(field, score);
 		}
 	}
 
@@ -55,10 +57,11 @@ public class CollisionHandler {
 	 * 
 	 * @param field
 	 */
-	private void solveCollisionWithDoctor(Field field, Doctor doctor) {
+	private void solveCollisionWithDoctor(Field field, Doctor doctor, int score) {
 		if (field.hasPowerUp()) {
 			field.getPowerUp().powerUp(doctor);
 			field.removePowerUp();
+			score += this.scoreCounter.powerUpPickUp();
 		}
 		if (field.numberOfDaleks() > 0) {
 			doctor.decreaseHealth();
@@ -70,13 +73,15 @@ public class CollisionHandler {
 	 * 
 	 * @param field
 	 */
-	private void solveCollisionWithoutDoctor(Field field) {
+	private void solveCollisionWithoutDoctor(Field field, int score) {
 		if (field.numberOfDaleks() > 0) {
 			if (field.hasPowerUp())
 				field.removePowerUp();
 			if (field.hasJunk()) {
+				score += this.scoreCounter.dalekVsJunk(field.numberOfDaleks());
 				field.removeAllDaleks();
 			} else if (field.numberOfDaleks() > 1) {
+				score += this.scoreCounter.dalekVsDalek(field.numberOfDaleks());
 				field.removeAllDaleks();
 				field.setJunk();
 			}
