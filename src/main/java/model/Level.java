@@ -22,6 +22,7 @@ public class Level {
 	private List<RoundHandler> roundHistory;
 	private int sizeOfMap = 10;
 	private LevelMapFactory levelMapFactory;
+	private LevelMap levelMap;
 
 	/**
 	 * Initialazes {@link Level}.
@@ -33,9 +34,18 @@ public class Level {
 		this.levelScore = 0;
 		roundHistory = new LinkedList<>();
 		this.levelMapFactory = new LevelMapFactory();
-		currentRound = new RoundHandler(levelMapFactory.initializeMap(this.levelNumber, sizeOfMap, doctor), doctor);
+		this.levelMap = levelMapFactory.initializeMap(this.levelNumber, sizeOfMap, doctor);
+		currentRound = new RoundHandler(this.levelMap, doctor);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public LevelMap getLevelMap() {
+		return levelMap;
+	}
+	
 	/**
 	 * Generate {@link Dalek}s number based on levelNumber.
 	 * 
@@ -53,14 +63,12 @@ public class Level {
 	 * 
 	 * @return
 	 */
-	public void play() {
+	public LevelMap play() {
 		System.out.println("lets play new round");
-		while (currentRound.nextRoundCanBeExecuted()) {
-			System.out.println("new round can be executed");
-			addRoundToHistory();
-			currentRound.executeRound();
-			this.levelScore += currentRound.getAndClearRoundScore();
-		}
+		addRoundToHistory();
+		LevelMap levelMap = currentRound.executeRound();
+		this.levelScore += currentRound.getAndClearRoundScore();
+		return levelMap;
 	}
 
 	/**
@@ -77,6 +85,15 @@ public class Level {
 	 */
 	public int getLevelScore() {
 		return levelScore;
+	}
+
+	/**
+	 * Returns true if next round can be executed, otherwise false
+	 * 
+	 * @return
+	 */
+	public boolean nextRoundCanBeExecuted() {
+		return currentRound.nextRoundCanBeExecuted();
 	}
 
 }

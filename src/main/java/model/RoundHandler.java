@@ -47,7 +47,7 @@ public class RoundHandler {
 	/**
 	 * Moves doctor, moves {@link Dalek}s on map.
 	 */
-	public void executeRound() {
+	public LevelMap executeRound() {
 		System.out.println("start of round:\n" + levelMap.toString());
 		levelMap.getMap().get(doctor.getCoordinates()).removeDoctorFromThisField();
 		this.doctor.move(levelMap.coordinatesAvailableForTeleport());
@@ -61,6 +61,7 @@ public class RoundHandler {
 		System.out.println("before handling collsions:\n" + levelMap.stringWithNumberOfObjects());
 		collisionHandler.handleCollisions(levelMap);
 		System.out.println("end of round:\n" + levelMap.toString());
+		return levelMap;
 	}
 
 	/**

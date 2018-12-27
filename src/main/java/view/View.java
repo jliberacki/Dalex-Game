@@ -6,6 +6,9 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -14,9 +17,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import model.Coordinates;
 import model.LevelMap;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 
 
 
@@ -122,8 +122,7 @@ public class View extends Application {
         ImgView.setImage(img);
     }
     
-    
-    
+
 
     public static void main(String[] args) {
         launch(args);
