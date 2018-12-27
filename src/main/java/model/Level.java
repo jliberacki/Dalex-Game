@@ -34,7 +34,7 @@ public class Level {
 		this.levelScore = 0;
 		roundHistory = new LinkedList<>();
 		this.levelMapFactory = new LevelMapFactory();
-		this.levelMap = levelMapFactory.initializeMap(this.levelNumber, sizeOfMap, doctor);
+		this.levelMap = levelMapFactory.initializeMap(this.levelNumber, getSizeOfMap(), doctor);
 		currentRound = new RoundHandler(this.levelMap, doctor);
 	}
 
@@ -95,6 +95,14 @@ public class Level {
 	 */
 	public boolean nextRoundCanBeExecuted(Doctor doctor) {
 		return this.levelMap.isMoreThanZeroDaleksAlive() && !doctor.hasBeenAttacked();
+	}
+
+	public int getSizeOfMap() {
+		return sizeOfMap;
+	}
+
+	public void setSizeOfMap(int sizeOfMap) {
+		this.sizeOfMap = sizeOfMap;
 	}
 
 }

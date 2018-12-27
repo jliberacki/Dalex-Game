@@ -17,6 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import model.Coordinates;
 import model.LevelMap;
+import presenter.Presenter;
 
 
 
@@ -37,12 +38,29 @@ public class View extends Application {
     @Override
     public void start(Stage primaryStage) {
     	
+		Presenter presenter = new Presenter();
+		presenter.startGame();
+//		while (presenter.continueGame()) {
+//			try {
+//				Thread.currentThread().sleep(1000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+		presenter.getCurrentLevel().getLevelMap().getMap().entrySet().forEach(entry -> {
+		    System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue().hasDoctor());
+		    if(entry.getValue().hasDoctor()) {
+		    	this.currentX = entry.getKey().getX();
+		    	this.currentY = entry.getKey().getY();
+		    }
+		}); 
+
+    	
         GridPane root = new GridPane();
         this.root = root;
-        this.size = 8;
+        this.size = presenter.getCurrentLevel().getSizeOfMap();
         this.windowSize = 400;
-        this.currentX = (int)(Math.random() * size);
-        this.currentY = (int)(Math.random() * size);
         
         drawBoard();
         
@@ -125,13 +143,11 @@ public class View extends Application {
 
 
     public static void main(String[] args) {
-        launch(args);
+	    launch(args);
     }
 
 	public void setScene(LevelMap currentLevelMap) {
-		for(Coordinates cord : currentLevelMap.getMap().keySet()){
-			System.out.println(cord);
-		}
+		
 		
 	}
 }

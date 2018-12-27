@@ -16,18 +16,6 @@ public class Presenter {
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		Presenter presenter = new Presenter();
-		presenter.startGame();
-		while (presenter.continueGame()) {
-			try {
-				Thread.currentThread().sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
 
 	/**
 	 * Sets score to 0.
@@ -37,6 +25,10 @@ public class Presenter {
 	public Presenter() {
 		this.gameScore = 0;
 		this.doctor = new Doctor(1);
+	}
+	
+	public Level getCurrentLevel() {
+		return this.currentLevel;
 	}
 
 	/**
@@ -48,9 +40,9 @@ public class Presenter {
 		this.currentLevel.getLevelMap();
 		// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY NA POCZATEK GRY, CURRENT MAP TO
 		// MAPA DO NARYSOWANIA
-		while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
-			currentLevel.play(this.doctor);
-		}
+//		while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
+//			currentLevel.play(this.doctor);
+//		}
 	}
 
 	/**
