@@ -108,7 +108,7 @@ public class Doctor extends GameObject implements MovableObject {
 		} else {
 			Random rand = new Random();
 			List<Coordinates> coordinatesAvailableForTeleport = levelMap
-					.coordinatesAvailableForTeleport(this.coordinates, 3);
+					.coordinatesAvailableForTeleport(this.coordinates);
 			this.coordinates = coordinatesAvailableForTeleport
 					.get(rand.nextInt(coordinatesAvailableForTeleport.size()));
 		}

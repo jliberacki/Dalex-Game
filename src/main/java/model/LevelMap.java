@@ -105,17 +105,21 @@ public class LevelMap {
 	 * 
 	 * @return
 	 */
-	public List<Coordinates> coordinatesAvailableForTeleport(Coordinates doctorsCoordinates, int howFarFromDaleks) {
+	public List<Coordinates> coordinatesAvailableForTeleport(Coordinates doctorsCoordinates) {
 		List<Coordinates> toRemove = new ArrayList<>();
 		List<Coordinates> coordinatesAvailableForTeleport = getListOfFreeCoordinates();
 
 		for (Coordinates coordinates : coordinatesAvailableForTeleport) {
-			if (coordinates.biggestDifference(doctorsCoordinates) < howFarFromDaleks)
+			if (coordinates.biggestDifference(doctorsCoordinates) < 2)
 				toRemove.add(coordinates);
 		}
 
 		for (Coordinates coordinates : toRemove) {
 			coordinatesAvailableForTeleport.remove(coordinates);
+		}
+
+		if (coordinatesAvailableForTeleport.size() == 0) {
+			return getListOfFreeCoordinates();
 		}
 
 		return coordinatesAvailableForTeleport;
