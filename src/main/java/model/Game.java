@@ -12,7 +12,6 @@ public class Game {
 	private int score;
 	private Level currentLevel;
 	private Doctor doctor;
-	private LevelMap currentLevelMap;
 	private int currentLevelNumber;
 
 	/**
@@ -25,6 +24,9 @@ public class Game {
 		this.doctor = new Doctor(1);
 	}
 
+	/**
+	 * Use this function to start the game.
+	 */
 	public void startGame() {
 		int currentLevelNumber = 1;
 		currentLevel = new Level(currentLevelNumber, doctor);
@@ -53,7 +55,6 @@ public class Game {
 			endGame();
 			return false;
 		}
-
 	}
 
 	/**
