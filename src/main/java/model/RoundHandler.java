@@ -48,7 +48,7 @@ public class RoundHandler {
 	public LevelMap executeRound(Doctor doctor) {
 		System.out.println("start of round:\n" + levelMap.toString());
 		levelMap.getMap().get(doctor.getCoordinates()).removeDoctorFromThisField();
-		doctor.move(levelMap.coordinatesAvailableForTeleport());
+		doctor.move(levelMap);
 		levelMap.getMap().get(doctor.getCoordinates()).addDoctorToThisField();
 		Dalek.graph.calculatePaths(doctor.getCoordinates());
 		for (Dalek dalek : levelMap.getListOfAllDaleks()) {

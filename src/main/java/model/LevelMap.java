@@ -84,18 +84,41 @@ public class LevelMap {
 	}
 
 	/**
-	 * Returns list of coordinates on which doctor can be teleported.
+	 * Returns list of Coordinates where there are no objects.
 	 * 
 	 * @return
 	 */
-	public List<Coordinates> coordinatesAvailableForTeleport() {
-		List<Coordinates> coordsAvailableForTeleport = new ArrayList<>();
+	public List<Coordinates> getListOfFreeCoordinates() {
+		List<Coordinates> freeCoordinates = new ArrayList<>();
 		for (Field field : map.values()) {
 			if (field.isEmpty()) {
-				coordsAvailableForTeleport.add(field.getCoordinates());
+				freeCoordinates.add(field.getCoordinates());
 			}
 		}
-		return coordsAvailableForTeleport;
+		return freeCoordinates;
+	}
+
+	/**
+	 * Returns list of coordinates on which doctor can be teleported.
+	 * howFarFromDales - means how far from nearest daleks doctor will be
+	 * teleported.
+	 * 
+	 * @return
+	 */
+	public List<Coordinates> coordinatesAvailableForTeleport(Coordinates doctorsCoordinates, int howFarFromDaleks) {
+		List<Coordinates> toRemove = new ArrayList<>();
+		List<Coordinates> coordinatesAvailableForTeleport = getListOfFreeCoordinates();
+
+		for (Coordinates coordinates : coordinatesAvailableForTeleport) {
+			if (coordinates.biggestDifference(doctorsCoordinates) < howFarFromDaleks)
+				toRemove.add(coordinates);
+		}
+
+		for (Coordinates coordinates : toRemove) {
+			coordinatesAvailableForTeleport.remove(coordinates);
+		}
+
+		return coordinatesAvailableForTeleport;
 	}
 
 	@Override

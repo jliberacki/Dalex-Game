@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import model.Coordinates;
+import model.LevelMap;
 
 /**
  * Class which represent Doctor on the map.
@@ -80,7 +81,7 @@ public class Doctor extends GameObject implements MovableObject {
 		this.attacked = attacked;
 	}
 
-	public void move(List<Coordinates> coordinatesAvailableForTeleport) {
+	public void move(LevelMap levelMap) {
 		String input = "";
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		try {
@@ -106,6 +107,8 @@ public class Doctor extends GameObject implements MovableObject {
 			this.coordinates = new Coordinates(this.coordinates.getX() + 1, this.coordinates.getY());
 		} else {
 			Random rand = new Random();
+			List<Coordinates> coordinatesAvailableForTeleport = levelMap
+					.coordinatesAvailableForTeleport(this.coordinates, 3);
 			this.coordinates = coordinatesAvailableForTeleport
 					.get(rand.nextInt(coordinatesAvailableForTeleport.size()));
 		}

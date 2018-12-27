@@ -39,6 +39,7 @@ public class Level {
 	}
 
 	/**
+	 * returns levelMap
 	 * 
 	 * @return
 	 */

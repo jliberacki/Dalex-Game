@@ -59,14 +59,14 @@ public class Presenter {
 	 */
 	public boolean continueGame() {
 		if (this.doctor.isAlive()) {
-			System.out.println("CONGRATULATIONS! NEXT LEVEL");
+//			System.out.println("CONGRATULATIONS! NEXT LEVEL");
 			currentLevelNumber++;
 			currentLevel = new Level(currentLevelNumber, this.doctor);
 			while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 				currentLevel.play(this.doctor);
 			}
 			if (this.doctor.hasBeenAttacked() && this.doctor.isAlive()) {
-				System.out.println("you lost one life");
+//				System.out.println("you lost one life");
 				currentLevel = new Level(currentLevelNumber, doctor);
 				this.doctor.setAttacked(false);
 				while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
