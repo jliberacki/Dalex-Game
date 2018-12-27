@@ -75,10 +75,8 @@ public class Field {
 	 * Removes {@link PowerUp} from this {@link Field}.
 	 */
 	public void removePowerUp() {
-		if (this.powerUp == null) {
-			this.powerUp = null;
-			this.numberOfObjects--;
-		}
+		this.powerUp = null;
+		this.numberOfObjects--;
 	}
 
 	public void addDalek(Dalek dalek) {
