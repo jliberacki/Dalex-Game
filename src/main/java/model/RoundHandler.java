@@ -50,7 +50,7 @@ public class RoundHandler {
 		levelMap.getMap().get(doctor.getCoordinates()).removeDoctorFromThisField();
 		doctor.move(levelMap);
 		levelMap.getMap().get(doctor.getCoordinates()).addDoctorToThisField();
-		Dalek.graph.calculatePaths(doctor.getCoordinates());
+		// Dalek.graph.calculatePaths(doctor.getCoordinates());
 		for (Dalek dalek : levelMap.getListOfAllDaleks()) {
 			levelMap.getMap().get(dalek.getCoordinates()).removeDalek(dalek);
 			dalek.move(doctor.getCoordinates());

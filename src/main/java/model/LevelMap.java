@@ -100,27 +100,49 @@ public class LevelMap {
 
 	/**
 	 * Returns list of coordinates on which doctor can be teleported.
-	 * howFarFromDales - means how far from nearest daleks doctor will be
+	 * howFarFromDaleks - means how far from nearest daleks doctor will be
 	 * teleported.
 	 * 
 	 * @return
 	 */
-	public List<Coordinates> coordinatesAvailableForTeleport(Coordinates doctorsCoordinates) {
+	public List<Coordinates> coordinatesAvailableForTeleport(Coordinates doctorsCoordinates, int howFarFromDaleks) {
 		List<Coordinates> toRemove = new ArrayList<>();
-		List<Coordinates> coordinatesAvailableForTeleport = getListOfFreeCoordinates();
+		List<Coordinates> coordinatesAvailableForTeleport = this.getListOfFreeCoordinates();
+		List<Dalek> daleks = this.getListOfAllDaleks();
 
-		for (Coordinates coordinates : coordinatesAvailableForTeleport) {
-			if (coordinates.biggestDifference(doctorsCoordinates) < 2)
-				toRemove.add(coordinates);
-		}
-
-		for (Coordinates coordinates : toRemove) {
-			coordinatesAvailableForTeleport.remove(coordinates);
+		for (Dalek dalek : daleks) {
+			for (Coordinates coordinates : coordinatesAvailableForTeleport) {
+				if (coordinates.biggestDifference(dalek.getCoordinates()) < howFarFromDaleks)
+					toRemove.add(coordinates);
+			}
+			for (Coordinates coordinates : toRemove) {
+				coordinatesAvailableForTeleport.remove(coordinates);
+			}
+			toRemove.clear();
 		}
 
 		if (coordinatesAvailableForTeleport.size() == 0) {
 			return getListOfFreeCoordinates();
 		}
+
+		// boolean found = false;
+		// String output = "";
+		// for (int i = 9; i >= 0; i--) {
+		// for (int j = 0; j < 10; j++) {
+		// for (Coordinates coordinates : coordinatesAvailableForTeleport) {
+		// if (coordinates.getX() == j && coordinates.getY() == i) {
+		// found = true;
+		// output = output + " + ";
+		// }
+		// }
+		// if (!found) {
+		// output = output + " . ";
+		// }
+		// found = false;
+		// }
+		// output = output + "\n";
+		// }
+		// System.out.println(output);
 
 		return coordinatesAvailableForTeleport;
 	}
