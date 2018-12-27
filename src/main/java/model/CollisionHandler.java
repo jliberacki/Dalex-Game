@@ -10,6 +10,7 @@ import model.gameobjects.Doctor;
  */
 public class CollisionHandler {
 	private ScoreCounter scoreCounter;
+	private int score;
 
 	/**
 	 * Constructor
@@ -28,13 +29,13 @@ public class CollisionHandler {
 	 * @return
 	 */
 	public int handleCollisions(LevelMap levelMap, Doctor doctor) {
-		int score = 0;
+		this.score = 0;
 		for (Field field : levelMap.getMap().values()) {
 			if (field.doesCollisionHappen()) {
-				solveCollision(field, doctor, score);
+				solveCollision(field, doctor);
 			}
 		}
-		return score;
+		return this.score;
 	}
 
 	/**
@@ -43,12 +44,12 @@ public class CollisionHandler {
 	 * 
 	 * @param field
 	 */
-	private void solveCollision(Field field, Doctor doctor, int score) {
+	private void solveCollision(Field field, Doctor doctor) {
 		System.out.println("collision detected at " + field.getCoordinates());
 		if (field.hasDoctor()) {
-			solveCollisionWithDoctor(field, doctor, score);
+			solveCollisionWithDoctor(field, doctor);
 		} else {
-			solveCollisionWithoutDoctor(field, score);
+			solveCollisionWithoutDoctor(field);
 		}
 	}
 
@@ -57,11 +58,11 @@ public class CollisionHandler {
 	 * 
 	 * @param field
 	 */
-	private void solveCollisionWithDoctor(Field field, Doctor doctor, int score) {
+	private void solveCollisionWithDoctor(Field field, Doctor doctor) {
 		if (field.hasPowerUp()) {
 			field.getPowerUp().powerUp(doctor);
 			field.removePowerUp();
-			score += this.scoreCounter.powerUpPickUp();
+			this.score += this.scoreCounter.powerUpPickUp();
 		}
 		if (field.numberOfDaleks() > 0) {
 			doctor.decreaseHealth();
@@ -73,15 +74,15 @@ public class CollisionHandler {
 	 * 
 	 * @param field
 	 */
-	private void solveCollisionWithoutDoctor(Field field, int score) {
+	private void solveCollisionWithoutDoctor(Field field) {
 		if (field.numberOfDaleks() > 0) {
 			if (field.hasPowerUp())
 				field.removePowerUp();
 			if (field.hasJunk()) {
-				score += this.scoreCounter.dalekVsJunk(field.numberOfDaleks());
+				this.score += this.scoreCounter.dalekVsJunk(field.numberOfDaleks());
 				field.removeAllDaleks();
 			} else if (field.numberOfDaleks() > 1) {
-				score += this.scoreCounter.dalekVsDalek(field.numberOfDaleks());
+				this.score += this.scoreCounter.dalekVsDalek(field.numberOfDaleks());
 				field.removeAllDaleks();
 				field.setJunk();
 			}
