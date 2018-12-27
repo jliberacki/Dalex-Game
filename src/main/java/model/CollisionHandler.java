@@ -9,16 +9,15 @@ import model.gameobjects.Doctor;
  *
  */
 public class CollisionHandler {
-
-	private Doctor doctor;
+	private ScoreCounter scoreCounter;
 
 	/**
 	 * Constructor
 	 * 
 	 * @param doctor
 	 */
-	public CollisionHandler(Doctor doctor) {
-		this.doctor = doctor;
+	public CollisionHandler() {
+		scoreCounter = new ScoreCounter();
 	}
 
 	/**
@@ -28,10 +27,10 @@ public class CollisionHandler {
 	 * @param levelMap
 	 * @return
 	 */
-	public void handleCollisions(LevelMap levelMap) {
+	public void handleCollisions(LevelMap levelMap, Doctor doctor) {
 		for (Field field : levelMap.getMap().values()) {
 			if (field.doesCollisionHappen()) {
-				solveCollision(field);
+				solveCollision(field, doctor);
 			}
 		}
 	}
@@ -42,10 +41,10 @@ public class CollisionHandler {
 	 * 
 	 * @param field
 	 */
-	private void solveCollision(Field field) {
+	private void solveCollision(Field field, Doctor doctor) {
 		System.out.println("collision detected at " + field.getCoordinates());
 		if (field.hasDoctor()) {
-			solveCollisionWithDoctor(field);
+			solveCollisionWithDoctor(field, doctor);
 		} else {
 			solveCollisionWithoutDoctor(field);
 		}
@@ -56,13 +55,13 @@ public class CollisionHandler {
 	 * 
 	 * @param field
 	 */
-	private void solveCollisionWithDoctor(Field field) {
+	private void solveCollisionWithDoctor(Field field, Doctor doctor) {
 		if (field.hasPowerUp()) {
-			field.getPowerUp().powerUp(this.doctor);
+			field.getPowerUp().powerUp(doctor);
 			field.removePowerUp();
 		}
 		if (field.numberOfDaleks() > 0) {
-			this.doctor.decreaseHealth();
+			doctor.decreaseHealth();
 		}
 	}
 

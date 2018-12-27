@@ -21,7 +21,7 @@ public class RoundHandler {
 	public RoundHandler(LevelMap levelMap, Doctor doctor) {
 		this.levelMap = levelMap;
 		Dalek.graph = createDalekGraph();
-		this.collisionHandler = new CollisionHandler(doctor);
+		this.collisionHandler = new CollisionHandler();
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class RoundHandler {
 			levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
 		}
 		System.out.println("before handling collsions:\n" + levelMap.stringWithNumberOfObjects());
-		collisionHandler.handleCollisions(levelMap);
+		collisionHandler.handleCollisions(levelMap, doctor);
 		System.out.println("end of round:\n" + levelMap.toString());
 		return levelMap;
 	}
