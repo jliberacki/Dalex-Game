@@ -12,7 +12,6 @@ public class RoundHandler {
 	private int roundScore;
 	private CollisionHandler collisionHandler;
 	private LevelMap levelMap;
-	private Doctor doctor;
 
 	/**
 	 * Initializes RoundHandler.
@@ -23,7 +22,6 @@ public class RoundHandler {
 		this.levelMap = levelMap;
 		Dalek.graph = createDalekGraph();
 		this.collisionHandler = new CollisionHandler(doctor);
-		this.doctor = doctor;
 	}
 
 	/**
@@ -47,12 +45,12 @@ public class RoundHandler {
 	/**
 	 * Moves doctor, moves {@link Dalek}s on map.
 	 */
-	public LevelMap executeRound() {
+	public LevelMap executeRound(Doctor doctor) {
 		System.out.println("start of round:\n" + levelMap.toString());
 		levelMap.getMap().get(doctor.getCoordinates()).removeDoctorFromThisField();
-		this.doctor.move(levelMap.coordinatesAvailableForTeleport());
-		levelMap.getMap().get(doctor.getCoordinates()).doctorOnThisField();
-		Dalek.graph.calculatePaths(this.doctor.getCoordinates());
+		doctor.move(levelMap.coordinatesAvailableForTeleport());
+		levelMap.getMap().get(doctor.getCoordinates()).addDoctorToThisField();
+		Dalek.graph.calculatePaths(doctor.getCoordinates());
 		for (Dalek dalek : levelMap.getListOfAllDaleks()) {
 			levelMap.getMap().get(dalek.getCoordinates()).removeDalek(dalek);
 			dalek.move(doctor.getCoordinates());
@@ -73,30 +71,6 @@ public class RoundHandler {
 		int score = roundScore;
 		this.roundScore = 0;
 		return score;
-	}
-
-	/**
-	 * Returns true if there is more than one {@link Dalek} on the map.
-	 * 
-	 * @return
-	 */
-	private boolean isMoreThanZeroDaleksAlive() {
-		int numberOfDaleks = 0;
-		for (Field field : levelMap.getMap().values()) {
-			numberOfDaleks += field.numberOfDaleks();
-			if (numberOfDaleks > 0)
-				return true;
-		}
-		return false;
-	}
-
-	/**
-	 * returns true if nex round can be executed, otherwise false
-	 * 
-	 * @return
-	 */
-	public boolean nextRoundCanBeExecuted() {
-		return isMoreThanZeroDaleksAlive() && !this.doctor.hasBeenAttacked();
 	}
 
 	/**

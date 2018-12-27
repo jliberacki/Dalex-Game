@@ -71,7 +71,7 @@ public class LevelMapFactory {
 			Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);
 			Dalek dalek = new Dalek(coordinates);
 			map.get(coordinates).addDalek(dalek);
-			System.out.println(map.get(coordinates).daleksToString());
+//			System.out.println(map.get(coordinates).daleksToString());
 		}
 	}
 
@@ -165,7 +165,7 @@ public class LevelMapFactory {
 	 */
 	private Coordinates generateCoordinatesForDoctor(Map<Coordinates, Field> map) {
 		Coordinates randomCords = availableCoordinates.get(rand.nextInt(availableCoordinates.size()));
-		map.get(randomCords).doctorOnThisField();
+		map.get(randomCords).addDoctorToThisField();
 		availableCoordinates.remove(randomCords);
 		refactorAvailableCoordinates(randomCords, 3);
 		return randomCords;

@@ -45,7 +45,7 @@ public class Level {
 	public LevelMap getLevelMap() {
 		return levelMap;
 	}
-	
+
 	/**
 	 * Generate {@link Dalek}s number based on levelNumber.
 	 * 
@@ -63,10 +63,10 @@ public class Level {
 	 * 
 	 * @return
 	 */
-	public LevelMap play() {
+	public LevelMap play(Doctor doctor) {
 		System.out.println("lets play new round");
 		addRoundToHistory();
-		LevelMap levelMap = currentRound.executeRound();
+		LevelMap levelMap = currentRound.executeRound(doctor);
 		this.levelScore += currentRound.getAndClearRoundScore();
 		return levelMap;
 	}
@@ -92,8 +92,8 @@ public class Level {
 	 * 
 	 * @return
 	 */
-	public boolean nextRoundCanBeExecuted() {
-		return currentRound.nextRoundCanBeExecuted();
+	public boolean nextRoundCanBeExecuted(Doctor doctor) {
+		return this.levelMap.isMoreThanZeroDaleksAlive() && !doctor.hasBeenAttacked();
 	}
 
 }

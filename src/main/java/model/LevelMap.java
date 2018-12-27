@@ -31,6 +31,11 @@ public class LevelMap {
 		return size;
 	}
 
+	/**
+	 * Returns Map<Coordinates, Field>
+	 * 
+	 * @return
+	 */
 	public Map<Coordinates, Field> getMap() {
 		return map;
 	}
@@ -48,6 +53,34 @@ public class LevelMap {
 			}
 		}
 		return allDaleks;
+	}
+
+	/**
+	 * Returns number of daleks on map.
+	 * 
+	 * @return
+	 */
+	public int countDaleks() {
+		int numberOfDaleks = 0;
+		for (Field field : map.values()) {
+			numberOfDaleks += field.numberOfDaleks();
+		}
+		return numberOfDaleks;
+	}
+
+	/**
+	 * Returns true if there is more than one {@link Dalek} on the map.
+	 * 
+	 * @return
+	 */
+	public boolean isMoreThanZeroDaleksAlive() {
+		int numberOfDaleks = 0;
+		for (Field field : map.values()) {
+			numberOfDaleks += field.numberOfDaleks();
+			if (numberOfDaleks > 0)
+				return true;
+		}
+		return false;
 	}
 
 	/**

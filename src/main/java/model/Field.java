@@ -75,8 +75,10 @@ public class Field {
 	 * Removes {@link PowerUp} from this {@link Field}.
 	 */
 	public void removePowerUp() {
-		this.powerUp = null;
-		this.numberOfObjects--;
+		if (this.powerUp == null) {
+			this.powerUp = null;
+			this.numberOfObjects--;
+		}
 	}
 
 	public void addDalek(Dalek dalek) {
@@ -130,10 +132,7 @@ public class Field {
 	}
 
 	public int getNumberOfObjects() {
-		if (doctorIsOnThisField)
-			return numberOfObjects + 1;
-		else
-			return numberOfObjects;
+		return numberOfObjects;
 	}
 
 	public void setCoordinates(Coordinates coordinates) {
@@ -152,7 +151,7 @@ public class Field {
 	/**
 	 * run if doctor is on this field
 	 */
-	public void doctorOnThisField() {
+	public void addDoctorToThisField() {
 		numberOfObjects++;
 		doctorIsOnThisField = true;
 	}
@@ -216,10 +215,20 @@ public class Field {
 		return false;
 	}
 
+	/**
+	 * Returns true if you can stay on this field
+	 * 
+	 * @return
+	 */
 	public boolean isReachable() {
 		return hasTree() || hasStone();
 	}
 
+	/**
+	 * Returns string with daleks staying on this field
+	 * 
+	 * @return
+	 */
 	public String daleksToString() {
 		if (daleks.isEmpty())
 			return "empty";
