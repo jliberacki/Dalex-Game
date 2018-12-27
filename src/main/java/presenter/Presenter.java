@@ -49,7 +49,8 @@ public class Presenter {
 		int currentLevelNumber = 1;
 		this.currentLevel = new Level(currentLevelNumber, doctor);
 		this.currentMap = this.currentLevel.getLevelMap();
-		// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY NA POCZATEK GRY, CURRENT MAP TO MAPA DO NARYSOWANIA
+		// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY NA POCZATEK GRY, CURRENT MAP TO
+		// MAPA DO NARYSOWANIA
 		currentLevel.play();
 	}
 
@@ -59,7 +60,7 @@ public class Presenter {
 	 */
 	public boolean continueGame() {
 		if (this.doctor.isAlive()) {
-			//System.out.println("CONGRATULATIONS! NEXT LEVEL");
+			// System.out.println("CONGRATULATIONS! NEXT LEVEL");
 			currentLevelNumber++;
 			currentLevel = new Level(currentLevelNumber, doctor);
 			while (currentLevel.nextRoundCanBeExecuted()) {
