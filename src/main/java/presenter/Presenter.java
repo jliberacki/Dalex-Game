@@ -4,7 +4,6 @@ import javafx.stage.Stage;
 import model.Level;
 import model.gameobjects.Doctor;
 import view.Drawer;
-import view.View;
 
 public class Presenter {
 	private Drawer drawer;
@@ -60,6 +59,7 @@ public class Presenter {
 			currentLevel = new Level(currentLevelNumber, this.doctor);
 			while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 				currentLevel.play(this.doctor);
+				// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY
 			}
 			System.out.println("Level Score: " + currentLevel.getLevelScore());
 			if (this.doctor.hasBeenAttacked() && this.doctor.isAlive()) {
@@ -68,6 +68,7 @@ public class Presenter {
 				this.doctor.setAttacked(false);
 				while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 					currentLevel.play(this.doctor);
+					// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY
 				}
 			}
 			this.gameScore += currentLevel.getLevelScore();
