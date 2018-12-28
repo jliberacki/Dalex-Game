@@ -1,6 +1,7 @@
 package presenter;
 
 import model.Level;
+import model.LevelMap;
 import model.gameobjects.Doctor;
 import view.View;
 
@@ -45,7 +46,7 @@ public class Presenter {
 	public void startGame() {
 		int currentLevelNumber = 1;
 		this.currentLevel = new Level(currentLevelNumber, this.doctor);
-		this.currentLevel.getLevelMap();
+		LevelMap levelMapToDraw = this.currentLevel.getLevelMap();
 		// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY NA POCZATEK GRY, CURRENT MAP TO
 		// MAPA DO NARYSOWANIA
 		while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
@@ -64,6 +65,9 @@ public class Presenter {
 			currentLevel = new Level(currentLevelNumber, this.doctor);
 			while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 				currentLevel.play(this.doctor);
+				LevelMap levelMapToDraw = currentLevel.getLevelMap();
+				// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY PODCZAS GRY (PRZEMIESZCZAJĄCA
+				// DOKTORA I DALEKI PO PLANSZY)
 			}
 			System.out.println("Level Score: " + currentLevel.getLevelScore());
 			if (this.doctor.hasBeenAttacked() && this.doctor.isAlive()) {
@@ -72,6 +76,9 @@ public class Presenter {
 				this.doctor.setAttacked(false);
 				while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 					currentLevel.play(this.doctor);
+					LevelMap levelMapToDraw = currentLevel.getLevelMap();
+					// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY PODCZAS GRY (PRZEMIESZCZAJĄCA
+					// DOKTORA I DALEKI PO PLANSZY) - IDENTYCZNA JAK TA WYŻEJ
 				}
 			}
 			this.gameScore += currentLevel.getLevelScore();
