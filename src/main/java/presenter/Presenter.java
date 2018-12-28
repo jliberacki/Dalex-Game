@@ -47,9 +47,13 @@ public class Presenter {
 		int currentLevelNumber = 1;
 		this.currentLevel = new Level(currentLevelNumber, this.doctor);
 		LevelMap levelMapToDraw = this.currentLevel.getLevelMap();
-		// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY NA POCZATEK GRY
+		// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY NA POCZATEK GRY - TAKA JAKBY
+		// INICJALIZUJĄCA
 		while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 			currentLevel.play(this.doctor);
+			levelMapToDraw = currentLevel.getLevelMap();
+			// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY PODCZAS GRY (PRZEMIESZCZAJĄCA
+			// DOKTORA I DALEKI PO PLANSZY)
 		}
 	}
 
@@ -66,7 +70,7 @@ public class Presenter {
 				currentLevel.play(this.doctor);
 				LevelMap levelMapToDraw = currentLevel.getLevelMap();
 				// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY PODCZAS GRY (PRZEMIESZCZAJĄCA
-				// DOKTORA I DALEKI PO PLANSZY)
+				// DOKTORA I DALEKI PO PLANSZY) - IDENTYCZNA JAK TA WYŻEJ
 			}
 			System.out.println("Level Score: " + currentLevel.getLevelScore());
 			if (this.doctor.hasBeenAttacked() && this.doctor.isAlive()) {
