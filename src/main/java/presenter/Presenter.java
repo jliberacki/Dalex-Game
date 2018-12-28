@@ -1,11 +1,13 @@
 package presenter;
 
+import javafx.stage.Stage;
 import model.Level;
 import model.gameobjects.Doctor;
+import view.Drawer;
 import view.View;
 
 public class Presenter {
-	private View view;
+	private Drawer drawer;
 	private int gameScore;
 	private Level currentLevel;
 	private Doctor doctor;
@@ -22,9 +24,10 @@ public class Presenter {
 	 * 
 	 * @param health
 	 */
-	public Presenter() {
+	public Presenter(Stage PrimaryStage) {
 		this.gameScore = 0;
 		this.doctor = new Doctor(1);
+		this.drawer = new Drawer(PrimaryStage);
 	}
 	
 	public Level getCurrentLevel() {
@@ -40,6 +43,7 @@ public class Presenter {
 		this.currentLevel.getLevelMap();
 		// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY NA POCZATEK GRY, CURRENT MAP TO
 		// MAPA DO NARYSOWANIA
+		drawer.drawMap(this.currentLevel.getLevelMap());
 //		while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 //			currentLevel.play(this.doctor);
 //		}

@@ -6,9 +6,6 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -18,12 +15,16 @@ import javafx.stage.Stage;
 import model.Coordinates;
 import model.LevelMap;
 import presenter.Presenter;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 
 
 
 public class View extends Application {
 	
 	private GridPane root;
+	private Stage primaryStage;
 	public int currentX;
 	public int currentY;
 	public int size;
@@ -38,29 +39,26 @@ public class View extends Application {
     @Override
     public void start(Stage primaryStage) {
     	
-		Presenter presenter = new Presenter();
-		presenter.startGame();
-//		while (presenter.continueGame()) {
+    	this.primaryStage = primaryStage;
+    	Presenter presenter = new Presenter(primaryStage);
+    	presenter.startGame();
+//    	while (presenter.continueGame()) {
 //			try {
 //				Thread.currentThread().sleep(1000);
 //			} catch (InterruptedException e) {
 //				e.printStackTrace();
 //			}
 //		}
-//		
-		presenter.getCurrentLevel().getLevelMap().getMap().entrySet().forEach(entry -> {
-		    System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue().hasDoctor());
-		    if(entry.getValue().hasDoctor()) {
-		    	this.currentX = entry.getKey().getX();
-		    	this.currentY = entry.getKey().getY();
-		    }
-		}); 
-
     	
-        GridPane root = new GridPane();
+    }
+    
+    public void startUp() {
+    	GridPane root = new GridPane();
         this.root = root;
-        this.size = presenter.getCurrentLevel().getSizeOfMap();
+        this.size = 8;
         this.windowSize = 400;
+        this.currentX = (int)(Math.random() * size);
+        this.currentY = (int)(Math.random() * size);
         
         drawBoard();
         
@@ -69,8 +67,8 @@ public class View extends Application {
         //drawObject(0,0,dalek);
         //moveObject(0,0,0,1,dalek);
         
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
     }
 
     public void drawBoard () {
@@ -140,14 +138,17 @@ public class View extends Application {
         ImgView.setImage(img);
     }
     
-
+    
+    
 
     public static void main(String[] args) {
-	    launch(args);
+        launch(args);
     }
 
 	public void setScene(LevelMap currentLevelMap) {
-		
+		for(Coordinates cord : currentLevelMap.getMap().keySet()){
+			System.out.println(cord);
+		}
 		
 	}
 }
