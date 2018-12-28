@@ -42,14 +42,12 @@ public class Presenter {
 		this.currentLevel = new Level(currentLevelNumber, this.doctor);
 		LevelMap levelMapToDraw = this.currentLevel.getLevelMap();
 		// TU FUNKCJA INICJALIZUJĄCA WIDOK, USTAWIAJĄCA DOKTORA I DALEKÓW
-		drawer.drawMap(this.currentLevel.getLevelMap());
 		while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 			currentLevel.play(this.doctor);
 			levelMapToDraw = this.currentLevel.getLevelMap();
 			// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY PODCZAS GRY (PRZEMIESZCZAJĄCA
 			// DOKTORA I DALEKI PO PLANSZY) - IDENTYCZNA JAK TA WYŻEJ
 		}
-	}
 
 	/**
 	 * Generates next {@link Level}s and ends game if player is out of lifes. if
