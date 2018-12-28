@@ -29,7 +29,7 @@ public class Presenter {
 		this.doctor = new Doctor(1);
 		this.drawer = new Drawer(PrimaryStage);
 	}
-	
+
 	public Level getCurrentLevel() {
 		return this.currentLevel;
 	}
@@ -65,7 +65,7 @@ public class Presenter {
 			currentLevel = new Level(currentLevelNumber, this.doctor);
 			while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 				currentLevel.play(this.doctor);
-				LevelMap levelMapToDraw = currentLevel.getLevelMap();
+				LevelMap levelMapToDraw = this.currentLevel.getLevelMap();
 				// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY PODCZAS GRY (PRZEMIESZCZAJĄCA
 				// DOKTORA I DALEKI PO PLANSZY) - IDENTYCZNA JAK TA WYŻEJ
 				drawer.drawObjects(levelMapToDraw);
@@ -77,7 +77,7 @@ public class Presenter {
 				this.doctor.setAttacked(false);
 				while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 					currentLevel.play(this.doctor);
-					LevelMap levelMapToDraw = currentLevel.getLevelMap();
+					LevelMap levelMapToDraw = this.currentLevel.getLevelMap();
 					// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY PODCZAS GRY (PRZEMIESZCZAJĄCA
 					// DOKTORA I DALEKI PO PLANSZY) - IDENTYCZNA JAK TA WYŻEJ
 					drawer.drawObjects(levelMapToDraw);
