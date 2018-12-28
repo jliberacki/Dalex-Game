@@ -47,8 +47,7 @@ public class Presenter {
 		int currentLevelNumber = 1;
 		this.currentLevel = new Level(currentLevelNumber, this.doctor);
 		LevelMap levelMapToDraw = this.currentLevel.getLevelMap();
-		// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY NA POCZATEK GRY, CURRENT MAP TO
-		// MAPA DO NARYSOWANIA
+		// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY NA POCZATEK GRY
 		while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 			currentLevel.play(this.doctor);
 		}
