@@ -43,7 +43,8 @@ public class Presenter {
 		this.currentLevel.getLevelMap();
 		// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY NA POCZATEK GRY, CURRENT MAP TO
 		// MAPA DO NARYSOWANIA
-		drawer.drawMap(this.currentLevel.getLevelMap());
+		drawer.drawMap(this.currentLevel.getLevelMap().getSize());
+		drawer.drawObjects(this.currentLevel.getLevelMap());
 //		while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
 //			currentLevel.play(this.doctor);
 //		}

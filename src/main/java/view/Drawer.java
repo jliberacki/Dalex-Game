@@ -35,23 +35,13 @@ public class Drawer {
 		this.primaryStage = primaryStage;
 	}
 	
-	public void drawMap(LevelMap map) {
+	public void drawMap(int size) {
 		GridPane root = new GridPane();
 		this.root = root;
-		this.size = map.getSize();
+		this.size = size;
 		this.windowSize = 400;
 				
 		drawBoard();
-		
-		map.getMap().entrySet().forEach(entry -> {
-		    if(entry.getValue().hasDoctor()) {
-		    	this.currentX = entry.getKey().getX();
-		    	this.currentY = entry.getKey().getY();
-		    	drawObject(currentX, currentY, doctor);
-		    } else if (entry.getValue().hasDalek()) {
-		    	drawObject(entry.getKey().getX(), entry.getKey().getY(), dalek);
-		    }
-		}); 
 		
 		Scene scene = createScene(size-1);
 		
@@ -60,6 +50,20 @@ public class Drawer {
 		
 		this.primaryStage.setScene(scene);
 		this.primaryStage.show();
+	}
+	
+	public void drawObjects(LevelMap map) {
+		map.getMap().entrySet().forEach(entry -> {
+		    if(entry.getValue().hasDoctor()) {
+		    	this.currentX = entry.getKey().getX();
+		    	this.currentY = entry.getKey().getY();
+		    	removeObject(currentX, currentY);
+		    	drawObject(currentX, currentY, doctor);
+		    } else if (entry.getValue().hasDalek()) {
+		    	removeObject(entry.getKey().getX(), entry.getKey().getY());
+		    	drawObject(entry.getKey().getX(), entry.getKey().getY(), dalek);
+		    }
+		}); 
 	}
 	
 	public void drawBoard () {
@@ -121,10 +125,10 @@ public class Drawer {
 	    ImgView.setImage(img);
 	}
 	
-	public void removeObject(int X, int Y, Image img) {
+	public void removeObject(int X, int Y) {
 		StackPane Square = (StackPane) (this.root.getChildren().get(X*size+Y));
 		ImageView ImgView = (ImageView) Square.getChildren().get(0);
 		
-	    ImgView.setImage(img);
+	    ImgView.setImage(null);
 	}
 }
