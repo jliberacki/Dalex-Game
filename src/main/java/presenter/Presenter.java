@@ -48,6 +48,7 @@ public class Presenter {
 			// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY PODCZAS GRY (PRZEMIESZCZAJĄCA
 			// DOKTORA I DALEKI PO PLANSZY) - IDENTYCZNA JAK TA WYŻEJ
 		}
+	}
 
 	/**
 	 * Generates next {@link Level}s and ends game if player is out of lifes. if
