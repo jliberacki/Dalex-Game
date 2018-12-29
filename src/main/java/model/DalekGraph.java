@@ -1,15 +1,8 @@
 package model;
 
-import static model.Direction.East;
-import static model.Direction.North;
-import static model.Direction.NorthEast;
-import static model.Direction.NorthWest;
-import static model.Direction.South;
-import static model.Direction.SouthEast;
-import static model.Direction.SouthWest;
-import static model.Direction.West;
-
 import model.gameobjects.Dalek;
+
+import static model.Direction.*;
 
 /**
  * Class which represents graph which is used by {@link Dalek}s to find the best
@@ -18,8 +11,8 @@ import model.gameobjects.Dalek;
 
 public class DalekGraph extends Graph {
 
-	public DalekGraph(int numberOfVertices) {
-		super(numberOfVertices);
+    public DalekGraph(int mapSize) {
+        super(mapSize);
 	}
 
 	/**

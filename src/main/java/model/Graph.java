@@ -18,17 +18,24 @@ public class Graph {
 	protected Coordinates sourceCoordinates;
 
 	public Graph(int mapSize) {
+        this.mapSize = mapSize;
 		this.numberOfVertices = mapSize * mapSize;
-		this.mapSize = mapSize;
+
 		fieldPathLength = new int[numberOfVertices];
 
 		adjListArray = new LinkedList[numberOfVertices];
 
-		for (int i = 0; i < numberOfVertices; i++) {
-			adjListArray[i] = new LinkedList<>();
-		}
+        initializeAdjListArrays();
+
 		fillEdges();
 	}
+
+    private void initializeAdjListArrays() {
+        for (int i = 0; i < numberOfVertices; i++) {
+            adjListArray[i] = new LinkedList<>();
+        }
+    }
+
 
 	/**
 	 * Adds an edge from src to dest
