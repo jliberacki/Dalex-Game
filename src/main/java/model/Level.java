@@ -78,6 +78,7 @@ public class Level {
 	 */
 	private void addRoundToHistory() {
 		roundHistory.add(currentRound.roundSnapshot());
+      	undoHistory.clear();
 	}
 	
   	/**
@@ -96,7 +97,7 @@ public class Level {
 	private void redoRound() {
 		if(!undoHistory.isEmpty()) {
 			currentRound = undoHistory.removeLast();
-			addRoundToHistory();
+			roundHistory.add(currentRound.roundSnapshot());
 		}
 	}
 	
