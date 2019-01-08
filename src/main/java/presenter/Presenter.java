@@ -136,6 +136,7 @@ public class Presenter extends Application {
 					drawer.drawObjects(levelMapToDraw);
 				}
 				if (doctor.hasBeenAttacked() && !currentLevel.nextRoundCanBeExecuted(doctor)) {
+					drawer.updateLabels(gameScore, currentLevelNumber, doctor.getHealth());
 					currentLevel = new Level(currentLevelNumber, doctor);
 					LevelMap levelMapToDraw = currentLevel.getLevelMap();
 					drawer.drawObjects(levelMapToDraw);
