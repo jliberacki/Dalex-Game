@@ -3,7 +3,6 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
-import javafx.scene.input.KeyEvent;
 import model.gameobjects.Dalek;
 import model.gameobjects.Doctor;
 import model.gameobjects.GameObject;
@@ -37,6 +36,7 @@ public class Level {
 		this.levelMapFactory = new LevelMapFactory();
 		this.levelMap = levelMapFactory.initializeMap(this.levelNumber, getSizeOfMap(), doctor);
 		currentRound = new RoundHandler(this.levelMap, doctor);
+		doctor.setAttacked(false);
 	}
 
 	/**

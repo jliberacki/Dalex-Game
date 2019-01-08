@@ -29,6 +29,8 @@ public class Drawer {
 	//public Image img = new Image("http://android-boom.pl/uploads/posts/2016-04/1460641874_candycons-icon-pack_1.png");
 	public Image doctor = new Image("images/doctor.png");
 	public Image dalek = new Image("images/dalek.png");
+	public Image junk = new Image("images/junk.png");
+	public Image powerup = new Image("images/powerup.png");
 	
 	public Drawer(Stage primaryStage, GridPane root, Scene scene) {
 		this.primaryStage = primaryStage;
@@ -64,6 +66,12 @@ public class Drawer {
 		    } else if (entry.getValue().hasDalek()) {
 		    	removeObject(entry.getKey().getX(), entry.getKey().getY());
 		    	drawObject(entry.getKey().getX(), entry.getKey().getY(), dalek);
+		    } else if (entry.getValue().hasJunk()) {
+		    	removeObject(entry.getKey().getX(), entry.getKey().getY());
+		    	drawObject(entry.getKey().getX(), entry.getKey().getY(), junk);
+		    } else if (entry.getValue().hasPowerUp()) {
+		    	removeObject(entry.getKey().getX(), entry.getKey().getY());
+		    	drawObject(entry.getKey().getX(), entry.getKey().getY(), powerup);
 		    }
 		}); 
 	}
