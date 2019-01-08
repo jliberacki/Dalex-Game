@@ -19,7 +19,8 @@ public class Level {
 	private int levelNumber;
 	private int levelScore;
 	private RoundHandler currentRound;
-	private List<RoundHandler> roundHistory;
+	private LinkedList<RoundHandler> roundHistory;
+	private LinkedList<RoundHandler> undoHistory;
 	private int sizeOfMap = 10;
 	private LevelMapFactory levelMapFactory;
 	private LevelMap levelMap;
@@ -78,8 +79,28 @@ public class Level {
 	 */
 	private void addRoundToHistory() {
 		roundHistory.add(currentRound.roundSnapshot());
+		undoHistory.clear();
+	}
+  
+	/**
+	 * Undo current round to the previous one
+	 */
+	private void undoRound() {
+		if(!roundHistory.isEmpty()) {
+			undoHistory.add(roundHistory.removeLast());
+			currentRound = roundHistory.getLast();
+		}
 	}
 
+	/**
+	 * Redo the last undo operation
+	 */
+	private void redoRound() {
+		if(!undoHistory.isEmpty()) {
+			currentRound = undoHistory.removeLast();
+			roundHistory.add(currentRound.roundSnapshot());
+		}
+	}
 	/**
 	 * Returns a score of {@link Level}.
 	 * 
