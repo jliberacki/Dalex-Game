@@ -12,6 +12,7 @@ public class Presenter {
 	private Level currentLevel;
 	private Doctor doctor;
 	private int currentLevelNumber;
+	private boolean gameCanBeContinued;
 
 	/**
 	 * Main function
@@ -24,10 +25,10 @@ public class Presenter {
 	 * 
 	 * @param health
 	 */
-	public Presenter(Stage PrimaryStage) {
+	public Presenter(Drawer drawer) {
 		this.gameScore = 0;
 		this.doctor = new Doctor(1);
-		this.drawer = new Drawer(PrimaryStage);
+		this.drawer = drawer;
 	}
 
 	public Level getCurrentLevel() {
@@ -41,55 +42,58 @@ public class Presenter {
 		int currentLevelNumber = 1;
 		this.currentLevel = new Level(currentLevelNumber, this.doctor);
 		LevelMap levelMapToDraw = this.currentLevel.getLevelMap();
-		// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY NA POCZATEK GRY - TAKA JAKBY
-		// INICJALIZUJĄCA
 		drawer.drawMap(levelMapToDraw.getSize());
 		drawer.drawObjects(levelMapToDraw);
-//		while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
-//			currentLevel.play(this.doctor);
-//			levelMapToDraw = currentLevel.getLevelMap();
-//			// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY PODCZAS GRY (PRZEMIESZCZAJĄCA
-//			// DOKTORA I DALEKI PO PLANSZY)
-//			drawer.drawObjects(levelMapToDraw);
-//		}
+		gameCanBeContinued = true;
+		// while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
+		// currentLevel.play(this.doctor);
+		// levelMapToDraw = currentLevel.getLevelMap();
+		// drawer.drawObjects(levelMapToDraw);
+		// }
 	}
 
 	/**
-	 * Generates next {@link Level}s and ends game if player is out of lifes. if
-	 * returns game can be continiued, otherwise returns false.
+	 * Generates next {@link Level}s and ends game if player is out of lives. if
+	 * returns game can be continued, otherwise returns false.
 	 */
-	public boolean continueGame() {
+	public void continueGame(String newMove) {
 		if (this.doctor.isAlive()) {
-			System.out.println("CONGRATULATIONS! NEXT LEVEL");
+			// System.out.println("CONGRATULATIONS! NEXT LEVEL");
 			currentLevelNumber++;
 			currentLevel = new Level(currentLevelNumber, this.doctor);
 			while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
-				currentLevel.play(this.doctor);
+				currentLevel.play(this.doctor, newMove);
 				LevelMap levelMapToDraw = this.currentLevel.getLevelMap();
-				// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY PODCZAS GRY (PRZEMIESZCZAJĄCA
-				// DOKTORA I DALEKI PO PLANSZY) - IDENTYCZNA JAK TA WYŻEJ
 				drawer.drawObjects(levelMapToDraw);
 			}
-			System.out.println("Level Score: " + currentLevel.getLevelScore());
+			// System.out.println("Level Score: " +
+			// currentLevel.getLevelScore());
 			if (this.doctor.hasBeenAttacked() && this.doctor.isAlive()) {
-				System.out.println("you lost one life");
+				// System.out.println("you lost one life");
 				currentLevel = new Level(currentLevelNumber, doctor);
 				this.doctor.setAttacked(false);
 				while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
-					currentLevel.play(this.doctor);
+					currentLevel.play(this.doctor, newMove);
 					LevelMap levelMapToDraw = this.currentLevel.getLevelMap();
-					// TU FUNKCJA RYSUJĄCA WIDOK NA PODSTAWIE MAPY PODCZAS GRY (PRZEMIESZCZAJĄCA
-					// DOKTORA I DALEKI PO PLANSZY) - IDENTYCZNA JAK TA WYŻEJ
 					drawer.drawObjects(levelMapToDraw);
 				}
 			}
 			this.gameScore += currentLevel.getLevelScore();
-			System.out.println("Game score: " + gameScore);
-			return true;
+			// System.out.println("Game score: " + gameScore);
+			gameCanBeContinued = true;
 		} else {
 			endGame();
-			return false;
+			gameCanBeContinued = false;
 		}
+	}
+
+	/**
+	 * Returns true if game can be continued.
+	 * 
+	 * @return
+	 */
+	public boolean canGameBeContinued() {
+		return gameCanBeContinued;
 	}
 
 	/**

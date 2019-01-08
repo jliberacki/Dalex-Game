@@ -1,6 +1,6 @@
 package model.gameobjects;
 
-import java.io.BufferedReader;
+//import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -72,8 +72,8 @@ public class Doctor extends GameObject implements MovableObject {
 	}
 
 	/**
-	 * Gives opportunity to reset field attaec for example if doctor has to be no
-	 * more considered as attacek.
+	 * Gives opportunity to reset field attaec for example if doctor has to be
+	 * no more considered as attacek.
 	 * 
 	 * @param attacked
 	 */
@@ -81,14 +81,15 @@ public class Doctor extends GameObject implements MovableObject {
 		this.attacked = attacked;
 	}
 
-	public void move(LevelMap levelMap) {
-		String input = "";
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			input = br.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void move(LevelMap levelMap, String newMove) {
+		String input = newMove;
+		// BufferedReader br = new BufferedReader(new
+		// InputStreamReader(System.in));
+		// try {
+		// input = br.readLine();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 		if (input.matches("u")) {
 			this.coordinates = new Coordinates(this.coordinates.getX(), this.coordinates.getY() + 1);
 		} else if (input.matches("ul")) {

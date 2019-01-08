@@ -1,9 +1,11 @@
 package view;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.LevelMap;
 
@@ -20,6 +23,7 @@ public class Drawer {
 	
 	private GridPane root;
 	private Stage primaryStage;
+	private Scene scene;
 	public int currentX;
 	public int currentY;
 	public int size;
@@ -31,19 +35,17 @@ public class Drawer {
 	public Image doctor = new Image("images/doctor.png");
 	public Image dalek = new Image("images/dalek.png");
 	
-	public Drawer(Stage primaryStage) {
+	public Drawer(Stage primaryStage, GridPane root, Scene scene) {
 		this.primaryStage = primaryStage;
+		this.root = root;
+		this.scene = scene;
 	}
 	
 	public void drawMap(int size) {
-		GridPane root = new GridPane();
-		this.root = root;
 		this.size = size;
 		this.windowSize = 400;
 				
 		drawBoard();
-		
-		Scene scene = createScene(size-1);
 		
 		//drawObject(0,0,dalek);
 		//moveObject(0,0,0,1,dalek);
@@ -53,6 +55,11 @@ public class Drawer {
 	}
 	
 	public void drawObjects(LevelMap map) {
+		for (int row = 0; row < size; row++) {
+	        for (int col = 0; col < size; col ++) {
+	            removeObject(row,col);
+	        }
+	    }
 		map.getMap().entrySet().forEach(entry -> {
 		    if(entry.getValue().hasDoctor()) {
 		    	this.currentX = entry.getKey().getX();
@@ -83,27 +90,29 @@ public class Drawer {
 	        this.root.getColumnConstraints().add(new ColumnConstraints(5, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, HPos.CENTER, true));
 	        this.root.getRowConstraints().add(new RowConstraints(5, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, VPos.CENTER, true));
 	    }
+	    
+	    
 	}
 	
-	public Scene createScene(int boardWidth) {
-		
-		Scene scene = new Scene(this.root, windowSize, windowSize);
-	    
-	    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-	        @Override
-	        public void handle(KeyEvent event) {
-	            switch (event.getCode()) {
-	                case UP:    if(currentX>0) moveObject(currentX, currentY, currentX-1,currentY, doctor); break;
-	                case DOWN:  if(currentX<boardWidth) moveObject(currentX, currentY, currentX+1,currentY, doctor); break;
-	                case LEFT:  if(currentY>0) moveObject(currentX, currentY, currentX,currentY-1, doctor); break;
-	                case RIGHT: if(currentY<boardWidth) moveObject(currentX, currentY, currentX,currentY+1, doctor); break;
-	                default: break;
-	            }
-	        }
-	    });
-	    
-	    return scene;
-	}
+//	public Scene createScene(int boardWidth) {
+//		
+//		Scene scene = new Scene(this.root, windowSize, windowSize);
+//	    
+//	    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//	        @Override
+//	        public void handle(KeyEvent event) {
+//	            switch (event.getCode()) {
+//	                case UP:    if(currentX>0) moveObject(currentX, currentY, currentX-1,currentY, doctor); break;
+//	                case DOWN:  if(currentX<boardWidth) moveObject(currentX, currentY, currentX+1,currentY, doctor); break;
+//	                case LEFT:  if(currentY>0) moveObject(currentX, currentY, currentX,currentY-1, doctor); break;
+//	                case RIGHT: if(currentY<boardWidth) moveObject(currentX, currentY, currentX,currentY+1, doctor); break;
+//	                default: break;
+//	            }
+//	        }
+//	    });
+//	    
+//	    return scene;
+//	}
 	
 	public void moveObject(int currentX, int currentY, int newX, int newY, Image img) {
 		StackPane oldSquare = (StackPane) (this.root.getChildren().get(currentX*size+currentY));
