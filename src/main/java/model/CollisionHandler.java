@@ -45,7 +45,7 @@ public class CollisionHandler {
 	 * @param field
 	 */
 	private void solveCollision(Field field, Doctor doctor) {
-		System.out.println("collision detected at " + field.getCoordinates());
+//		System.out.println("collision detected at " + field.getCoordinates());
 		if (field.hasDoctor()) {
 			solveCollisionWithDoctor(field, doctor);
 		} else {

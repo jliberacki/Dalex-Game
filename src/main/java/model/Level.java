@@ -66,7 +66,7 @@ public class Level {
 	 * @return
 	 */
 	public LevelMap play(Doctor doctor, String newMove) {
-		System.out.println("lets play new round");
+//		System.out.println("lets play new round");
 		addRoundToHistory();
 		LevelMap levelMap = currentRound.executeRound(doctor, newMove);
 		this.levelScore += currentRound.getAndClearRoundScore();
