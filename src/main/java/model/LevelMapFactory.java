@@ -23,6 +23,7 @@ import model.gameobjects.Tree;
 public class LevelMapFactory {
 	private Random rand = new Random();
 	private List<Coordinates> availableCoordinates;
+	private DalekGraph dalekGraph;
 
 	/**
 	 * Returns fully initialized HashMap with {@link Dalek}s, {@link Tree}s,
@@ -47,6 +48,7 @@ public class LevelMapFactory {
 		placeDaleks(generateNumberOfDaleks(levelNumber), map, sizeOfMap);
 		// placeStones(generateNumberOfStones(levelNumber), map, sizeOfMap);
 		// placeTrees(generateNumberOfTrees(levelNumber), map, sizeOfMap);
+		updateDalekGraph(map);
 		return new LevelMap(sizeOfMap, map);
 	}
 
@@ -67,12 +69,28 @@ public class LevelMapFactory {
 	 * @param sizeOfMap
 	 */
 	private void placeDaleks(int numberOfDaleks, Map<Coordinates, Field> map, int sizeOfMap) {
+
+		this.dalekGraph = new DalekGraph(sizeOfMap);
+
 		for (int i = 0; i < numberOfDaleks; i++) {
 			Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);
-			Dalek dalek = new Dalek(coordinates);
+			Dalek dalek = new Dalek(coordinates, dalekGraph);
 			map.get(coordinates).addDalek(dalek);
 			// System.out.println(map.get(coordinates).daleksToString());
 		}
+	}
+
+	/**
+	 * Creates path @{link DalekGraph} for {@link Dalek}s to find the best way to
+	 * catch doctor.
+	 */
+	private void updateDalekGraph(Map<Coordinates, Field> map) {
+
+		// Deleting edges when specific field cannot be reached
+		map.values().stream().filter(x -> !x.isReachable()).map(Field::getCoordinates)
+				.forEach(dalekGraph::deleteVertex);
+
+		dalekGraph.fillEdges();
 	}
 
 	/**

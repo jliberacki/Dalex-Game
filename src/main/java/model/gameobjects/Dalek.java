@@ -8,36 +8,23 @@ import model.DalekGraph;
  */
 public class Dalek extends GameObject implements MovableObject {
 
-	public static DalekGraph graph;
+    public DalekGraph graph;
 
 	/**
 	 * Moves dalek on map using DalekGraph (structure which gives him opportunity to
 	 * find best way to doctor).
 	 */
 
-	public void move(Coordinates doctorCoordinates) {
-		// TODO Babol zwraca NULLA!!!!!!!!!!!!!!!!!!
-		// System.out.println(graph.nextStepToDoctor(this.coordinates));
-		int currentX = this.getCoordinates().getX();
-		int currentY = this.getCoordinates().getY();
-		int newX = currentX;
-		int newY = currentY;
+    public void move() {
+        this.coordinates = graph.nextStepToDoctor(this.coordinates);
+    }
 
-		if (currentX > doctorCoordinates.getX()) {
-			newX = currentX - 1;
-		} else if (currentX < doctorCoordinates.getX()) {
-			newX = currentX + 1;
-		}
-
-		if (currentY > doctorCoordinates.getY()) {
-			newY = currentY - 1;
-		} else if (currentY < doctorCoordinates.getY()) {
-			newY = currentY + 1;
-		}
-		this.coordinates = new Coordinates(newX, newY);
-	}
-
-	public Dalek(Coordinates coordinates) {
+    public Dalek(Coordinates coordinates, DalekGraph dalekGraph) {
 		super.coordinates = coordinates;
-	}
+        this.graph = dalekGraph;
+    }
+
+    public DalekGraph getGraph() {
+        return graph;
+    }
 }

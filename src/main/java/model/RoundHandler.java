@@ -20,26 +20,7 @@ public class RoundHandler {
 	 */
 	public RoundHandler(LevelMap levelMap, Doctor doctor) {
 		this.levelMap = levelMap;
-		Dalek.graph = createDalekGraph();
 		this.collisionHandler = new CollisionHandler();
-	}
-
-	/**
-	 * Creates path @{link DalekGraph} for {@link Dalek}s to find the best way
-	 * to catch doctor.
-	 */
-	public DalekGraph createDalekGraph() {
-
-		int mapSize = levelMap.getSize();
-		DalekGraph result = new DalekGraph(mapSize);
-
-		// Deleting edges when specific field cannot be reached
-		levelMap.getMap().values().stream().filter(x -> !x.isReachable()).map(Field::getCoordinates)
-				.forEach(result::deleteVertex);
-
-		result.fillEdges();
-
-		return result;
 	}
 
 	/**
@@ -56,10 +37,18 @@ public class RoundHandler {
 //		System.out.println(levelMap.getMap().get(doctor.getCoordinates()));
 //		System.out.println(doctor.getCoordinates() + "!!!!!!!!!!!");
 		levelMap.getMap().get(doctor.getCoordinates()).addDoctorToThisField();
-		// Dalek.graph.calculatePaths(doctor.getCoordinates());
+		boolean pathsCalculated = false;
+
 		for (Dalek dalek : levelMap.getListOfAllDaleks()) {
+			if (!pathsCalculated) {
+				dalek.getGraph().calculatePaths(doctor.getCoordinates());
+				pathsCalculated = true;
+			}
+
 			levelMap.getMap().get(dalek.getCoordinates()).removeDalek(dalek);
-			dalek.move(doctor.getCoordinates());
+
+			dalek.move();
+
 			levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
 		}
 //		System.out.println("before handling collsions:\n" + levelMap.stringWithNumberOfObjects());
