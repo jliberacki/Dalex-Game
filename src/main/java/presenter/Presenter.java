@@ -27,9 +27,7 @@ public class Presenter extends Application {
 		drawer.drawMap(levelMapToDraw.getSize());
 		drawer.drawObjects(levelMapToDraw);
 		canGameBeContinued = true;
-		
-		
-		
+
 	}
 
 	public void continueGame(String newMove, Drawer drawer) {
@@ -73,47 +71,47 @@ public class Presenter extends Application {
 		GridPane root = new GridPane();
 		Scene scene = new Scene(root, 400, 400);
 		Drawer drawer = new Drawer(primaryStage, root, scene);
-
+		String newMove = "";
 		startGame(drawer);
 
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			
-			
-			
 			@Override
 			public void handle(KeyEvent event) {
+				if (currentLevel.nextRoundCanBeExecuted(doctor)) {
+					switch (event.getCode()) {
+					case UP:
+						if (drawer.currentX > 0) {
+							currentLevel.play(doctor, "u");
+							LevelMap levelMapToDraw = currentLevel.getLevelMap();
+							drawer.drawObjects(levelMapToDraw);
+							break;
 
-				switch (event.getCode()) {
-				case UP:
-					if (drawer.currentX > 0) {
-						drawer.moveObject(drawer.currentX, drawer.currentY, drawer.currentX - 1, drawer.currentY,
-								drawer.doctor);
-						break;		
-						
-						
-					}
-				case DOWN:
-					if (drawer.currentX < drawer.size - 1) {
-						drawer.moveObject(drawer.currentX, drawer.currentY, drawer.currentX + 1, drawer.currentY,
-								drawer.doctor);
+						}
+					case DOWN:
+						if (drawer.currentX < drawer.size - 1) {
+							currentLevel.play(doctor, "d");
+							LevelMap levelMapToDraw = currentLevel.getLevelMap();
+							drawer.drawObjects(levelMapToDraw);
+							break;
+						}
+					case LEFT:
+						if (drawer.currentY > 0) {
+							currentLevel.play(doctor, "l");
+							LevelMap levelMapToDraw = currentLevel.getLevelMap();
+							drawer.drawObjects(levelMapToDraw);
+							break;
+						}
+					case RIGHT:
+						if (drawer.currentY < drawer.size - 1) {
+							currentLevel.play(doctor, "r");
+							LevelMap levelMapToDraw = currentLevel.getLevelMap();
+							drawer.drawObjects(levelMapToDraw);
+							break;
+						}
+					default:
 						break;
 					}
-				case LEFT:
-					if (drawer.currentY > 0) {
-						drawer.moveObject(drawer.currentX, drawer.currentY, drawer.currentX, drawer.currentY - 1,
-								drawer.doctor);
-						break;
-					}
-				case RIGHT:
-					if (drawer.currentY < drawer.size - 1) {
-						drawer.moveObject(drawer.currentX, drawer.currentY, drawer.currentX, drawer.currentY + 1,
-								drawer.doctor);
-						break;
-					}
-				default:
-					break;
 				}
-
 			}
 		});
 	}

@@ -1,21 +1,16 @@
 package view;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.LevelMap;
 
@@ -74,7 +69,7 @@ public class Drawer {
 	}
 	
 	public void drawBoard () {
-		for (int row = 0; row < size; row++) {
+		for (int row = size - 1; row >= 0; row--) {
 	        for (int col = 0; col < size; col ++) {
 	            StackPane square = new StackPane();
 	            square.setStyle(squareStyle);
