@@ -109,6 +109,19 @@ public class Presenter extends Application {
 						LevelMap levelMapToDraw = currentLevel.getLevelMap();
 						drawer.drawObjects(levelMapToDraw);
 						break;
+                        
+                    case U:
+                        currentLevel.undoRound();
+						LevelMap levelMapToDraw = currentLevel.getLevelMap();
+						drawer.drawObjects(levelMapToDraw);
+						break;
+
+					case R:
+                        currentLevel.redoRound();
+						LevelMap levelMapToDraw = currentLevel.getLevelMap();
+						drawer.drawObjects(levelMapToDraw);
+						break;
+                        
 					default:
 						break;
 					}
