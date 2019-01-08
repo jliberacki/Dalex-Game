@@ -1,6 +1,7 @@
 package presenter;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -71,7 +72,6 @@ public class Presenter extends Application {
 		GridPane root = new GridPane();
 		Scene scene = new Scene(root, 400, 400);
 		Drawer drawer = new Drawer(primaryStage, root, scene);
-		String newMove = "";
 		startGame(drawer);
 
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -79,31 +79,66 @@ public class Presenter extends Application {
 			public void handle(KeyEvent event) {
 				if (currentLevel.nextRoundCanBeExecuted(doctor)) {
 					switch (event.getCode()) {
-					case UP:
-						if (drawer.currentX > 0) {
+					case W:
+						if (drawer.currentY < drawer.size - 1) {
 							currentLevel.play(doctor, "u");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
 							break;
 
 						}
-					case DOWN:
+					case X:
 						if (drawer.currentX < drawer.size - 1) {
 							currentLevel.play(doctor, "d");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
 							break;
 						}
-					case LEFT:
+					case A:
 						if (drawer.currentY > 0) {
 							currentLevel.play(doctor, "l");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
 							break;
 						}
-					case RIGHT:
+					case D:
 						if (drawer.currentY < drawer.size - 1) {
 							currentLevel.play(doctor, "r");
+							LevelMap levelMapToDraw = currentLevel.getLevelMap();
+							drawer.drawObjects(levelMapToDraw);
+							break;
+						}
+					case Q:
+						if (drawer.currentY < drawer.size - 1) {
+							currentLevel.play(doctor, "ul");
+							LevelMap levelMapToDraw = currentLevel.getLevelMap();
+							drawer.drawObjects(levelMapToDraw);
+							break;
+						}
+					case E:
+						if (drawer.currentY < drawer.size - 1) {
+							currentLevel.play(doctor, "ur");
+							LevelMap levelMapToDraw = currentLevel.getLevelMap();
+							drawer.drawObjects(levelMapToDraw);
+							break;
+						}
+					case C:
+						if (drawer.currentY < drawer.size - 1) {
+							currentLevel.play(doctor, "dr");
+							LevelMap levelMapToDraw = currentLevel.getLevelMap();
+							drawer.drawObjects(levelMapToDraw);
+							break;
+						}
+					case Z:
+						if (drawer.currentY < drawer.size - 1) {
+							currentLevel.play(doctor, "dl");
+							LevelMap levelMapToDraw = currentLevel.getLevelMap();
+							drawer.drawObjects(levelMapToDraw);
+							break;
+						}
+					case T:
+						if (drawer.currentY < drawer.size - 1) {
+							currentLevel.play(doctor, "t");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
 							break;
@@ -112,8 +147,26 @@ public class Presenter extends Application {
 						break;
 					}
 				}
+
+				if (!doctor.hasBeenAttacked() && !currentLevel.nextRoundCanBeExecuted(doctor)) {
+					currentLevelNumber++;
+					currentLevel = new Level(currentLevelNumber, doctor);
+					LevelMap levelMapToDraw = currentLevel.getLevelMap();
+					drawer.drawObjects(levelMapToDraw);
+				}
+				if (doctor.hasBeenAttacked() && !currentLevel.nextRoundCanBeExecuted(doctor)) {
+					currentLevel = new Level(currentLevelNumber, doctor);
+					LevelMap levelMapToDraw = currentLevel.getLevelMap();
+					drawer.drawObjects(levelMapToDraw);
+				}
+
+				if (!doctor.isAlive()) {
+					endGame();
+					Platform.exit();
+				}
 			}
 		});
+
 	}
 
 	public static void main(String[] args) {

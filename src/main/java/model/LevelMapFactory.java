@@ -71,7 +71,7 @@ public class LevelMapFactory {
 			Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);
 			Dalek dalek = new Dalek(coordinates);
 			map.get(coordinates).addDalek(dalek);
-//			System.out.println(map.get(coordinates).daleksToString());
+			// System.out.println(map.get(coordinates).daleksToString());
 		}
 	}
 
@@ -124,8 +124,7 @@ public class LevelMapFactory {
 	 * @return
 	 */
 	private int generateNumberOfDaleks(int levelNumber) {
-		return levelNumber;
-		//return levelNumber + rand.nextInt(5) + 1;
+		return levelNumber + rand.nextInt(5) + 1;
 	}
 
 	/**

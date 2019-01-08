@@ -123,14 +123,14 @@ public class Drawer {
 	}
 	
 	public void drawObject(int X, int Y, Image img) {
-		StackPane Square = (StackPane) (this.root.getChildren().get(X*size+Y));
+		StackPane Square = (StackPane) (this.root.getChildren().get(X+size*Y));
 		ImageView ImgView = (ImageView) Square.getChildren().get(0);
 		
 	    ImgView.setImage(img);
 	}
 	
 	public void removeObject(int X, int Y) {
-		StackPane Square = (StackPane) (this.root.getChildren().get(X*size+Y));
+		StackPane Square = (StackPane) (this.root.getChildren().get(X+size*Y));
 		ImageView ImgView = (ImageView) Square.getChildren().get(0);
 		
 	    ImgView.setImage(null);
