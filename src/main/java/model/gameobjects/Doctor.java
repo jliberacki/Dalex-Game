@@ -1,5 +1,14 @@
 package model.gameobjects;
 
+//import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Random;
+
+import model.Coordinates;
+import model.LevelMap;
+
 /**
  * Class which represent Doctor on the map.
  * 
@@ -10,12 +19,10 @@ public class Doctor extends GameObject implements MovableObject {
 
 	private int health;
 	private boolean attacked;
-  	public boolean moved;
 
 	public Doctor(int health) {
 		this.health = health;
 		this.attacked = false;
-      	this.image= new Image("images/doctor.png");
 	}
 
 	/**
@@ -65,8 +72,8 @@ public class Doctor extends GameObject implements MovableObject {
 	}
 
 	/**
-	 * Gives opportunity to reset field attaec for example if doctor has to be no
-	 * more considered as attacek.
+	 * Gives opportunity to reset field attaec for example if doctor has to be
+	 * no more considered as attacek.
 	 * 
 	 * @param attacked
 	 */
@@ -74,12 +81,38 @@ public class Doctor extends GameObject implements MovableObject {
 		this.attacked = attacked;
 	}
 
-	public boolean hasDoctorMoved() {
-		return moved;
-	}
+	public void move(LevelMap levelMap, String newMove) {
+		String input = newMove;
+		// BufferedReader br = new BufferedReader(new
+		// InputStreamReader(System.in));
+		// try {
+		// input = br.readLine();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+		if (input.matches("u")) {
+			this.coordinates = new Coordinates(this.coordinates.getX(), this.coordinates.getY() + 1);
+		} else if (input.matches("ul")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() - 1, this.coordinates.getY() + 1);
+		} else if (input.matches("ur")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() + 1, this.coordinates.getY() + 1);
+		} else if (input.matches("d")) {
+			this.coordinates = new Coordinates(this.coordinates.getX(), this.coordinates.getY() - 1);
+		} else if (input.matches("dl")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() - 1, this.coordinates.getY() - 1);
+		} else if (input.matches("dr")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() + 1, this.coordinates.getY() - 1);
+		} else if (input.matches("l")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() - 1, this.coordinates.getY());
+		} else if (input.matches("r")) {
+			this.coordinates = new Coordinates(this.coordinates.getX() + 1, this.coordinates.getY());
+		} else {
+			Random rand = new Random();
+			List<Coordinates> coordinatesAvailableForTeleport = levelMap
+					.coordinatesAvailableForTeleport(this.coordinates, 3);
+			this.coordinates = coordinatesAvailableForTeleport
+					.get(rand.nextInt(coordinatesAvailableForTeleport.size()));
+		}
 
-	public void updateMove(int x, int y) {
-		this.setCoordinates(new Coordinates(x,y));
-		this.moved=true;
 	}
 }
