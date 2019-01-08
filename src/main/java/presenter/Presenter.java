@@ -1,62 +1,38 @@
 package presenter;
 
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Level;
 import model.LevelMap;
 import model.gameobjects.Doctor;
 import view.Drawer;
 
-public class Presenter {
-	private Drawer drawer;
+public class Presenter extends Application {
 	private int gameScore;
 	private Level currentLevel;
 	private Doctor doctor;
 	private int currentLevelNumber;
-	private boolean gameCanBeContinued;
+	private boolean canGameBeContinued;
 
-	/**
-	 * Main function
-	 * 
-	 * @param args
-	 */
-
-	/**
-	 * Sets score to 0.
-	 * 
-	 * @param health
-	 */
-	public Presenter(Drawer drawer) {
+	private void startGame(Drawer drawer) {
 		this.gameScore = 0;
 		this.doctor = new Doctor(1);
-		this.drawer = drawer;
-	}
-
-	public Level getCurrentLevel() {
-		return this.currentLevel;
-	}
-
-	/**
-	 * Use this function to start the game.
-	 */
-	public void startGame() {
-		int currentLevelNumber = 1;
+		this.currentLevelNumber = 1;
 		this.currentLevel = new Level(currentLevelNumber, this.doctor);
 		LevelMap levelMapToDraw = this.currentLevel.getLevelMap();
 		drawer.drawMap(levelMapToDraw.getSize());
 		drawer.drawObjects(levelMapToDraw);
-		gameCanBeContinued = true;
-		// while (currentLevel.nextRoundCanBeExecuted(this.doctor)) {
-		// currentLevel.play(this.doctor);
-		// levelMapToDraw = currentLevel.getLevelMap();
-		// drawer.drawObjects(levelMapToDraw);
-		// }
+		canGameBeContinued = true;
+		
+		
+		
 	}
 
-	/**
-	 * Generates next {@link Level}s and ends game if player is out of lives. if
-	 * returns game can be continued, otherwise returns false.
-	 */
-	public void continueGame(String newMove) {
+	public void continueGame(String newMove, Drawer drawer) {
 		if (this.doctor.isAlive()) {
 			// System.out.println("CONGRATULATIONS! NEXT LEVEL");
 			currentLevelNumber++;
@@ -80,26 +56,69 @@ public class Presenter {
 			}
 			this.gameScore += currentLevel.getLevelScore();
 			// System.out.println("Game score: " + gameScore);
-			gameCanBeContinued = true;
+			canGameBeContinued = true;
 		} else {
 			endGame();
-			gameCanBeContinued = false;
+			canGameBeContinued = false;
 		}
 	}
 
-	/**
-	 * Returns true if game can be continued.
-	 * 
-	 * @return
-	 */
-	public boolean canGameBeContinued() {
-		return gameCanBeContinued;
-	}
-
-	/**
-	 * Ends game, shows results.
-	 */
 	private void endGame() {
 		System.out.println("Koniec gry " + this.gameScore);
+	}
+
+	@Override
+	public void start(Stage primaryStage) {
+
+		GridPane root = new GridPane();
+		Scene scene = new Scene(root, 400, 400);
+		Drawer drawer = new Drawer(primaryStage, root, scene);
+
+		startGame(drawer);
+
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			
+			
+			
+			@Override
+			public void handle(KeyEvent event) {
+
+				switch (event.getCode()) {
+				case UP:
+					if (drawer.currentX > 0) {
+						drawer.moveObject(drawer.currentX, drawer.currentY, drawer.currentX - 1, drawer.currentY,
+								drawer.doctor);
+						break;		
+						
+						
+					}
+				case DOWN:
+					if (drawer.currentX < drawer.size - 1) {
+						drawer.moveObject(drawer.currentX, drawer.currentY, drawer.currentX + 1, drawer.currentY,
+								drawer.doctor);
+						break;
+					}
+				case LEFT:
+					if (drawer.currentY > 0) {
+						drawer.moveObject(drawer.currentX, drawer.currentY, drawer.currentX, drawer.currentY - 1,
+								drawer.doctor);
+						break;
+					}
+				case RIGHT:
+					if (drawer.currentY < drawer.size - 1) {
+						drawer.moveObject(drawer.currentX, drawer.currentY, drawer.currentX, drawer.currentY + 1,
+								drawer.doctor);
+						break;
+					}
+				default:
+					break;
+				}
+
+			}
+		});
+	}
+
+	public static void main(String[] args) {
+		launch(args);
 	}
 }
