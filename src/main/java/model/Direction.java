@@ -5,11 +5,11 @@ public enum Direction {
 	 * -1,-1 | 0,-1 | 1,-1 -1, 0 | 0, 0 | 1, 0 -1, 1 | 0, 1 | 1, 1
 	 */
 
-	NorthWest(new Coordinates(-1, -1)), North(new Coordinates(0, -1)), NorthEast(new Coordinates(1, -1)),
+	NORTHWEST(new Coordinates(-1, -1)), NORTH(new Coordinates(0, -1)), NORTHEAST(new Coordinates(1, -1)),
 
-	West(new Coordinates(-1, 0)), East(new Coordinates(1, 0)),
+	WEST(new Coordinates(-1, 0)), EAST(new Coordinates(1, 0)),
 
-	SouthWest(new Coordinates(-1, 1)), South(new Coordinates(0, 1)), SouthEast(new Coordinates(1, 1));
+	SOUTHWEST(new Coordinates(-1, 1)), SOUTH(new Coordinates(0, 1)), SOUTHEAST(new Coordinates(1, 1));
 
 	private Coordinates coordinates;
 

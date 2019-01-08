@@ -29,9 +29,9 @@ public class DalekGraph extends Graph {
 		// Order of directions is crucial
 
 		if (dalekCoordinates.isInStraightLineWith(sourceCoordinates)) {
-			directions = new Direction[] { East, West, North, South, NorthWest, NorthEast, SouthWest, SouthEast };
+            directions = new Direction[]{EAST, WEST, NORTH, SOUTH, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST};
 		} else {
-			directions = new Direction[] { NorthWest, NorthEast, SouthWest, SouthEast, East, West, North, South };
+            directions = new Direction[]{NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST, EAST, WEST, NORTH, SOUTH};
 		}
 
 		for (Direction direction : directions) {
@@ -47,8 +47,7 @@ public class DalekGraph extends Graph {
 			}
 		}
 
-		// Error
-		return null;
+        throw new IllegalArgumentException("Bad move?");
 	}
 
 }
