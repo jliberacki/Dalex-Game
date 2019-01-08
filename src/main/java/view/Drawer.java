@@ -20,8 +20,6 @@ public class Drawer {
 	private GridPane root;
 	private Stage primaryStage;
 	private Scene scene;
-	public int currentX;
-	public int currentY;
 	public int size;
 	public int windowSize;
 
@@ -68,32 +66,36 @@ public class Drawer {
 		Text levelNumberLabel = (Text) this.root.getChildren().get((size) * (size) + 2);
 		levelNumberLabel.setText("Level: " + newLevel);
 	}
+	
+	public void clearMap() {
+		for (int row = 0; row < size; row++) {
+			for (int col = 0; col < size; col++) {
+				removeObject(row, col);
+			}
+		}
+	}
 
 	/**
 	 * 
 	 * @param map
 	 */
 	public void drawObjects(LevelMap map) {
-		for (int row = 0; row < size; row++) {
-			for (int col = 0; col < size; col++) {
-				removeObject(row, col);
-			}
-		}
+		clearMap();
 		map.getMap().entrySet().forEach(entry -> {
+			int x = entry.getKey().getX();
+			int y = entry.getKey().getY();
 			if (entry.getValue().hasDoctor()) {
-				this.currentX = entry.getKey().getX();
-				this.currentY = entry.getKey().getY();
-				removeObject(currentX, currentY);
-				drawObject(currentX, currentY, doctor);
+				removeObject(x, y);
+				drawObject(x, y, doctor);
 			} else if (entry.getValue().hasDalek()) {
-				removeObject(entry.getKey().getX(), entry.getKey().getY());
-				drawObject(entry.getKey().getX(), entry.getKey().getY(), dalek);
+				removeObject(x, y);
+				drawObject(x, y, dalek);
 			} else if (entry.getValue().hasJunk()) {
-				removeObject(entry.getKey().getX(), entry.getKey().getY());
-				drawObject(entry.getKey().getX(), entry.getKey().getY(), junk);
+				removeObject(x, y);
+				drawObject(x, y, junk);
 			} else if (entry.getValue().hasPowerUp()) {
-				removeObject(entry.getKey().getX(), entry.getKey().getY());
-				drawObject(entry.getKey().getX(), entry.getKey().getY(), powerup);
+				removeObject(x, y);
+				drawObject(x, y, powerup);
 			}
 		});
 	}
@@ -121,27 +123,6 @@ public class Drawer {
 					Priority.ALWAYS, VPos.CENTER, true));
 		}
 
-	}
-
-	/**
-	 * 
-	 * @param currentX
-	 * @param currentY
-	 * @param newX
-	 * @param newY
-	 * @param img
-	 */
-	public void moveObject(int currentX, int currentY, int newX, int newY, Image img) {
-		StackPane oldSquare = (StackPane) (this.root.getChildren().get(currentX * size + currentY));
-		StackPane newSquare = (StackPane) (this.root.getChildren().get(newX * size + newY));
-		ImageView oldImgView = (ImageView) oldSquare.getChildren().get(0);
-		ImageView newImgView = (ImageView) newSquare.getChildren().get(0);
-
-		oldImgView.setImage(null);
-		newImgView.setImage(img);
-
-		this.currentX = newX;
-		this.currentY = newY;
 	}
 
 	/**
