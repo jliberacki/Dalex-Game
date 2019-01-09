@@ -27,17 +27,12 @@ public class RoundHandler {
 	 * Moves doctor, moves {@link Dalek}s on map.
 	 */
 	public LevelMap executeRound(Doctor doctor, String newMove) {
-//		System.out.println("start of round:\n" + levelMap.toString());
-//		System.out.println(doctor.getCoordinates() + "!!!!!!!!!!!");
 
 		levelMap.getMap().get(doctor.getCoordinates()).removeDoctorFromThisField();
 		doctor.move(levelMap, newMove);
-//		System.out.println(doctor);
-//		System.out.println(doctor.getCoordinates());
-//		System.out.println(levelMap.getMap().get(doctor.getCoordinates()));
-//		System.out.println(doctor.getCoordinates() + "!!!!!!!!!!!");
 		levelMap.getMap().get(doctor.getCoordinates()).addDoctorToThisField();
-		boolean pathsCalculated = false;
+
+        boolean pathsCalculated = false;
 
 		for (Dalek dalek : levelMap.getListOfAllDaleks()) {
 			if (!pathsCalculated) {
@@ -51,10 +46,8 @@ public class RoundHandler {
 
 			levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
 		}
-//		System.out.println("before handling collsions:\n" + levelMap.stringWithNumberOfObjects());
-		this.roundScore += collisionHandler.handleCollisions(levelMap, doctor);
-//		System.out.println("end of round:\n" + levelMap.toString() + "\n" + "Doctor lifes: " + doctor.getHealth()
-//				+ "\n round score: " + roundScore);
+
+        this.roundScore += collisionHandler.handleCollisions(levelMap, doctor);
 		return levelMap;
 	}
 

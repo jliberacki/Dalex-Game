@@ -1,13 +1,12 @@
 package model.gameobjects;
 
 //import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
-import java.util.Random;
 
 import model.Coordinates;
 import model.LevelMap;
+
+import java.util.List;
+import java.util.Random;
 
 /**
  * Class which represent Doctor on the map.
@@ -83,14 +82,8 @@ public class Doctor extends GameObject implements MovableObject {
 
 	public void move(LevelMap levelMap, String newMove) {
 		String input = newMove;
-		// BufferedReader br = new BufferedReader(new
-		// InputStreamReader(System.in));
-		// try {
-		// input = br.readLine();
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-		if (input.matches("u")) {
+
+        if (input.matches("u")) {
 			this.coordinates = new Coordinates(this.coordinates.getX(), this.coordinates.getY() + 1);
 		} else if (input.matches("ul")) {
 			this.coordinates = new Coordinates(this.coordinates.getX() - 1, this.coordinates.getY() + 1);

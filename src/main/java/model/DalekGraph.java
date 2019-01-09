@@ -19,7 +19,7 @@ public class DalekGraph extends Graph {
 	 * Returns coordinates which are the next step in path to the Doctor
 	 */
 
-	public Coordinates nextStepToDoctor(Coordinates dalekCoordinates) {
+    public Coordinates nextStepToTarget(Coordinates dalekCoordinates) {
 
 		int vertexNumber = coordinateToVertex(dalekCoordinates);
 		int currentTravelCost = fieldPathLength[vertexNumber];
@@ -28,11 +28,20 @@ public class DalekGraph extends Graph {
 
 		// Order of directions is crucial
 
-		if (dalekCoordinates.isInStraightLineWith(sourceCoordinates)) {
+        if (dalekCoordinates.isInStraightLineWith(sourceCoordinates)) {
             directions = new Direction[]{EAST, WEST, NORTH, SOUTH, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST};
-		} else {
-            directions = new Direction[]{NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST, EAST, WEST, NORTH, SOUTH};
-		}
+        } else if (dalekCoordinates.directionTo(sourceCoordinates) == NORTHWEST) {
+            directions = new Direction[]{NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST, NORTH, WEST, EAST, SOUTH};
+
+        } else if (dalekCoordinates.directionTo(sourceCoordinates) == NORTHEAST) {
+            directions = new Direction[]{NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST, NORTH, EAST, WEST, SOUTH};
+
+        } else if (dalekCoordinates.directionTo(sourceCoordinates) == SOUTHEAST) {
+            directions = new Direction[]{SOUTHEAST, NORTHEAST, SOUTHWEST, NORTHWEST, SOUTH, EAST, WEST, NORTH};
+
+        } else {
+            directions = new Direction[]{SOUTHWEST, NORTHWEST, SOUTHEAST, NORTHEAST, SOUTH, WEST, EAST, NORTH};
+        }
 
 		for (Direction direction : directions) {
 			Coordinates destCoordinates = dalekCoordinates.addCoordinates(direction.coordinates());
@@ -47,7 +56,7 @@ public class DalekGraph extends Graph {
 			}
 		}
 
-        throw new IllegalArgumentException("Bad move?");
+        throw new IllegalArgumentException("Dalek move error");
 	}
 
 }

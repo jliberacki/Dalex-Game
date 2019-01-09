@@ -1,11 +1,11 @@
 package model;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import model.gameobjects.Dalek;
 import model.gameobjects.Doctor;
 import model.gameobjects.GameObject;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Represtns one level of the game. Number of {@link Dalek}s on map and other
@@ -66,7 +66,6 @@ public class Level {
 	 * @return
 	 */
 	public LevelMap play(Doctor doctor, String newMove) {
-//		System.out.println("lets play new round");
 		addRoundToHistory();
 		LevelMap levelMap = currentRound.executeRound(doctor, newMove);
 		this.levelScore += currentRound.getAndClearRoundScore();

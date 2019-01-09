@@ -84,4 +84,55 @@ public class Coordinates {
 			return xDiffrence;
 		return yDiffrence;
 	}
+
+    public double distanceTo(Coordinates other) {
+
+        double xDifference = other.getX() - this.getX();
+        double yDifference = other.getY() - this.getY();
+
+        xDifference = Math.pow(xDifference, 2);
+        yDifference = Math.pow(yDifference, 2);
+
+        return Math.sqrt(xDifference + yDifference);
+    }
+
+    public Direction directionTo(Coordinates other) {
+
+        int verticalDifference = other.getY() - this.getY();
+        int horizontalDifference = other.getX() - this.getX();
+
+        if (verticalDifference == 0) {
+            if (horizontalDifference > 0) {
+                return Direction.EAST;
+            } else {
+                return Direction.WEST;
+            }
+        }
+
+        if (horizontalDifference == 0) {
+            if (verticalDifference > 0) {
+                return Direction.NORTH;
+            } else {
+                return Direction.SOUTH;
+            }
+        }
+
+        if (verticalDifference > 0) {
+            if (horizontalDifference > 0) {
+                return Direction.NORTHEAST;
+            } else {
+                return Direction.NORTHWEST;
+            }
+        }
+
+        if (verticalDifference < 0) {
+            if (horizontalDifference > 0) {
+                return Direction.SOUTHEAST;
+            } else {
+                return Direction.SOUTHWEST;
+            }
+        }
+
+        throw new IllegalArgumentException("Error in comparing objects' coordinates");
+    }
 }

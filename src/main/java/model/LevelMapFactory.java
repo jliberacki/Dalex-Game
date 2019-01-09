@@ -1,18 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import model.gameobjects.*;
 
-import model.gameobjects.Dalek;
-import model.gameobjects.Doctor;
-import model.gameobjects.GameObject;
-import model.gameobjects.LifePowerUp;
-import model.gameobjects.PowerUp;
-import model.gameobjects.Stone;
-import model.gameobjects.Tree;
+import java.util.*;
 
 /**
  * Factory which is crated for easy map initialization.
@@ -24,6 +14,7 @@ public class LevelMapFactory {
 	private Random rand = new Random();
 	private List<Coordinates> availableCoordinates;
 	private DalekGraph dalekGraph;
+	private DalekGraph destroyerDalekGraph;
 
 	/**
 	 * Returns fully initialized HashMap with {@link Dalek}s, {@link Tree}s,
@@ -71,12 +62,12 @@ public class LevelMapFactory {
 	private void placeDaleks(int numberOfDaleks, Map<Coordinates, Field> map, int sizeOfMap) {
 
 		this.dalekGraph = new DalekGraph(sizeOfMap);
+		this.destroyerDalekGraph = new DalekGraph(sizeOfMap);
 
 		for (int i = 0; i < numberOfDaleks; i++) {
 			Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);
-			Dalek dalek = new Dalek(coordinates, dalekGraph);
+			Dalek dalek = new StandardDalek(coordinates, dalekGraph);
 			map.get(coordinates).addDalek(dalek);
-			// System.out.println(map.get(coordinates).daleksToString());
 		}
 	}
 
@@ -87,10 +78,17 @@ public class LevelMapFactory {
 	private void updateDalekGraph(Map<Coordinates, Field> map) {
 
 		// Deleting edges when specific field cannot be reached
-		map.values().stream().filter(x -> !x.isReachable()).map(Field::getCoordinates)
-				.forEach(dalekGraph::deleteVertex);
+		map.values()
+				.stream()
+				.filter(x -> !x.isReachable())
+				.map(Field::getCoordinates)
+				.forEach(coordinates -> {
+					dalekGraph.deleteVertex(coordinates);
+					destroyerDalekGraph.deleteVertex(coordinates);
+				});
 
 		dalekGraph.fillEdges();
+		destroyerDalekGraph.fillEdges();
 	}
 
 	/**

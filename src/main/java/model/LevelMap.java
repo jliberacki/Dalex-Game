@@ -1,10 +1,11 @@
 package model;
 
+import model.gameobjects.Dalek;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import model.gameobjects.Dalek;
+import java.util.stream.Collectors;
 
 /**
  * Class which wraps map collecion and represents Map for game.
@@ -54,6 +55,13 @@ public class LevelMap {
 		}
 		return allDaleks;
 	}
+
+    public List<Field> getListOfPowerUpFields() {
+        return map.values()
+                .stream()
+                .filter(Field::hasPowerUp)
+                .collect(Collectors.toList());
+    }
 
 	/**
 	 * Returns number of daleks on map.
