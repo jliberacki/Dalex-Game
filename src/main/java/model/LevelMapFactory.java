@@ -3,6 +3,7 @@ package model;
 import model.gameobjects.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Factory which is crated for easy map initialization.
@@ -15,6 +16,7 @@ public class LevelMapFactory {
 	private List<Coordinates> availableCoordinates;
 	private DalekGraph dalekGraph;
 	private DalekGraph destroyerDalekGraph;
+    private LinkedList<Field> destroyerDalekPowerupList;
 
 	/**
 	 * Returns fully initialized HashMap with {@link Dalek}s, {@link Tree}s,
@@ -64,10 +66,21 @@ public class LevelMapFactory {
 		this.dalekGraph = new DalekGraph(sizeOfMap);
 		this.destroyerDalekGraph = new DalekGraph(sizeOfMap);
 
+        destroyerDalekPowerupList = map.values()
+                .stream()
+                .filter(Field::hasPowerUp)
+                .collect(Collectors.toCollection(LinkedList::new));
+
 		for (int i = 0; i < numberOfDaleks; i++) {
-			Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);
-			Dalek dalek = new StandardDalek(coordinates, dalekGraph);
-			map.get(coordinates).addDalek(dalek);
+            if (i % 5 == 0) {
+                Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);
+                Dalek dalek = new DestroyerDalek(coordinates, dalekGraph, destroyerDalekGraph, destroyerDalekPowerupList);
+                map.get(coordinates).addDalek(dalek);
+            } else {
+                Coordinates coordinates = generateCoordinatesForOther(map, sizeOfMap);
+                Dalek dalek = new StandardDalek(coordinates, dalekGraph);
+                map.get(coordinates).addDalek(dalek);
+            }
 		}
 	}
 

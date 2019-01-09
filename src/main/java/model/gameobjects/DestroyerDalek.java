@@ -25,22 +25,19 @@ public class DestroyerDalek extends Dalek {
                 })
                 .collect(Collectors.toCollection(LinkedList::new));
 
-        powerupFields.stream()
-                .map(Field::getCoordinates)
-                .forEach(System.out::println);
-
         if (powerupFields.isEmpty()) {
             this.coordinates = graph.nextStepToTarget(this.coordinates);
         } else {
-            Field target = powerupFields.removeFirst();
+            Field target = powerupFields.getFirst();
             destroyerGraph.calculatePaths(target.getCoordinates());
             this.coordinates = destroyerGraph.nextStepToTarget(this.coordinates);
         }
 
     }
 
-    public DestroyerDalek(Coordinates coordinates, DalekGraph dalekGraph, DalekGraph destroyerGraph) {
+    public DestroyerDalek(Coordinates coordinates, DalekGraph dalekGraph, DalekGraph destroyerGraph, LinkedList<Field> powerupFields) {
         super(coordinates, dalekGraph);
         this.destroyerGraph = destroyerGraph;
+        this.powerupFields = powerupFields;
     }
 }
