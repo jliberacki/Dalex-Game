@@ -49,56 +49,56 @@ public class Presenter extends Application {
 				if (currentLevel.nextRoundCanBeExecuted(doctor)) {
 					switch (event.getCode()) {
 					case W:
-						if (drawer.currentY < drawer.size - 1) {
+						if (doctor.getCoordinates().getY() < drawer.size - 1) {
 							currentLevel.play(doctor, "u");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
 						}
 						break;
 					case X:
-						if (drawer.currentY > 0) {
+						if (doctor.getCoordinates().getY() > 0) {
 							currentLevel.play(doctor, "d");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
 						}
 						break;
 					case A:
-						if (drawer.currentX > 0) {
+						if (doctor.getCoordinates().getX() > 0) {
 							currentLevel.play(doctor, "l");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
 						}
 						break;
 					case D:
-						if (drawer.currentX < drawer.size - 1) {
+						if (doctor.getCoordinates().getX() < drawer.size - 1) {
 							currentLevel.play(doctor, "r");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
 						}
 						break;
 					case Q:
-						if ((drawer.currentY < drawer.size - 1) && (drawer.currentX > 0)) {
+						if ((doctor.getCoordinates().getY() < drawer.size - 1) && (doctor.getCoordinates().getX() > 0)) {
 							currentLevel.play(doctor, "ul");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
 						}
 						break;
 					case E:
-						if ((drawer.currentY < drawer.size - 1) && (drawer.currentX < drawer.size - 1)) {
+						if ((doctor.getCoordinates().getY() < drawer.size - 1) && (doctor.getCoordinates().getX() < drawer.size - 1)) {
 							currentLevel.play(doctor, "ur");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
 						}
 						break;
 					case C:
-						if ((drawer.currentY > 0) && (drawer.currentX < drawer.size - 1)) {
+						if ((doctor.getCoordinates().getY() > 0) && (doctor.getCoordinates().getX() < drawer.size - 1)) {
 							currentLevel.play(doctor, "dr");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
 						}
 						break;
 					case Z:
-						if ((drawer.currentY > 0) && (drawer.currentX > 0)) {
+						if ((doctor.getCoordinates().getY() > 0) && (doctor.getCoordinates().getX() > 0)) {
 							currentLevel.play(doctor, "dl");
 							LevelMap levelMapToDraw = currentLevel.getLevelMap();
 							drawer.drawObjects(levelMapToDraw);
