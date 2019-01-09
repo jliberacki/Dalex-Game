@@ -145,6 +145,6 @@ public class Graph {
 	 * mapSize - 1]
 	 */
 	protected int coordinateToVertex(Coordinates coordinates) {
-		return coordinates.getX() * mapSize + coordinates.getY();
+        return mapSize * (mapSize - 1) - coordinates.getY() * mapSize + coordinates.getX();
 	}
 }
