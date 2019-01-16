@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Level;
 import model.LevelMap;
+import model.Move;
 import model.gameobjects.Doctor;
 import view.Drawer;
 
@@ -42,6 +43,7 @@ public class Presenter extends Application {
 		Scene scene = new Scene(root, 400, 400);
 		Drawer drawer = new Drawer(primaryStage, root, scene);
 		startGame(drawer);
+		Move move = new Move(drawer, doctor);
 
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -49,65 +51,47 @@ public class Presenter extends Application {
 				if (currentLevel.nextRoundCanBeExecuted(doctor)) {
 					switch (event.getCode()) {
 					case W:
-						if (doctor.getCoordinates().getY() < drawer.size - 1) {
-							currentLevel.play(doctor, "u");
-							LevelMap levelMapToDraw = currentLevel.getLevelMap();
-							drawer.drawObjects(levelMapToDraw);
+						if (move.validateMove("u")) {
+							move.executeMove(currentLevel, "u");
 						}
 						break;
 					case X:
-						if (doctor.getCoordinates().getY() > 0) {
-							currentLevel.play(doctor, "d");
-							LevelMap levelMapToDraw = currentLevel.getLevelMap();
-							drawer.drawObjects(levelMapToDraw);
+						if (move.validateMove("d")) {
+							move.executeMove(currentLevel, "d");
 						}
 						break;
 					case A:
-						if (doctor.getCoordinates().getX() > 0) {
-							currentLevel.play(doctor, "l");
-							LevelMap levelMapToDraw = currentLevel.getLevelMap();
-							drawer.drawObjects(levelMapToDraw);
+						if (move.validateMove("l")) {
+							move.executeMove(currentLevel, "l");
 						}
 						break;
 					case D:
-						if (doctor.getCoordinates().getX() < drawer.size - 1) {
-							currentLevel.play(doctor, "r");
-							LevelMap levelMapToDraw = currentLevel.getLevelMap();
-							drawer.drawObjects(levelMapToDraw);
+						if (move.validateMove("r")) {
+							move.executeMove(currentLevel, "r");
 						}
 						break;
 					case Q:
-						if ((doctor.getCoordinates().getY() < drawer.size - 1) && (doctor.getCoordinates().getX() > 0)) {
-							currentLevel.play(doctor, "ul");
-							LevelMap levelMapToDraw = currentLevel.getLevelMap();
-							drawer.drawObjects(levelMapToDraw);
+						if (move.validateMove("ul")) {
+							move.executeMove(currentLevel, "ul");
 						}
 						break;
 					case E:
-						if ((doctor.getCoordinates().getY() < drawer.size - 1) && (doctor.getCoordinates().getX() < drawer.size - 1)) {
-							currentLevel.play(doctor, "ur");
-							LevelMap levelMapToDraw = currentLevel.getLevelMap();
-							drawer.drawObjects(levelMapToDraw);
+						if (move.validateMove("ur")) {
+							move.executeMove(currentLevel, "ur");
 						}
 						break;
 					case C:
-						if ((doctor.getCoordinates().getY() > 0) && (doctor.getCoordinates().getX() < drawer.size - 1)) {
-							currentLevel.play(doctor, "dr");
-							LevelMap levelMapToDraw = currentLevel.getLevelMap();
-							drawer.drawObjects(levelMapToDraw);
+						if (move.validateMove("dr")) {
+							move.executeMove(currentLevel, "dr");
 						}
 						break;
 					case Z:
-						if ((doctor.getCoordinates().getY() > 0) && (doctor.getCoordinates().getX() > 0)) {
-							currentLevel.play(doctor, "dl");
-							LevelMap levelMapToDraw = currentLevel.getLevelMap();
-							drawer.drawObjects(levelMapToDraw);
+						if (move.validateMove("dl")) {
+							move.executeMove(currentLevel, "dl");
 						}
 						break;
 					case T:
-						currentLevel.play(doctor, "t");
-						LevelMap levelMapToDraw = currentLevel.getLevelMap();
-						drawer.drawObjects(levelMapToDraw);
+						move.executeMove(currentLevel, "t");
 						break;
 					default:
 						break;
