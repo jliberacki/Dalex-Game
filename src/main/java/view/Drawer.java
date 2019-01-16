@@ -44,7 +44,7 @@ public class Drawer {
 		this.size = size;
 		this.windowSize = 400;
 		drawBoard();
-		Text scoreLabel = new Text("   Score: 0");
+		Text scoreLabel = new Text("    Score: 0");
 		Text numberOfLivesLabel = new Text("Lives: 1");
 		Text levelNumberLabel = new Text("Level: 1");
 		this.root.add(scoreLabel, 0, size);
@@ -60,7 +60,7 @@ public class Drawer {
 	 */
 	public void updateLabels(int newScore, int newLevel, int newLives) {
 		Text scoreLabel = (Text) this.root.getChildren().get((size) * (size));
-		scoreLabel.setText("   Score: " + newScore);
+		scoreLabel.setText("    Score: " + newScore);
 		Text numberOfLivesLabel = (Text) this.root.getChildren().get((size) * (size) + 1);
 		numberOfLivesLabel.setText("Lives: " + newLives);
 		Text levelNumberLabel = (Text) this.root.getChildren().get((size) * (size) + 2);
