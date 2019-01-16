@@ -45,8 +45,8 @@ public class Drawer {
 		this.windowSize = 400;
 		drawBoard();
 		Text scoreLabel = new Text("    Score: 0");
-		Text numberOfLivesLabel = new Text("Lives: 1");
-		Text levelNumberLabel = new Text("Level: 1");
+		Text numberOfLivesLabel = new Text("    Lives: 1");
+		Text levelNumberLabel = new Text("    Level: 1");
 		this.root.add(scoreLabel, 0, size);
 		this.root.add(numberOfLivesLabel, 0, size + 1);
 		this.root.add(levelNumberLabel, 0, size + 2);
@@ -62,9 +62,9 @@ public class Drawer {
 		Text scoreLabel = (Text) this.root.getChildren().get((size) * (size));
 		scoreLabel.setText("    Score: " + newScore);
 		Text numberOfLivesLabel = (Text) this.root.getChildren().get((size) * (size) + 1);
-		numberOfLivesLabel.setText("Lives: " + newLives);
+		numberOfLivesLabel.setText("    Lives: " + newLives);
 		Text levelNumberLabel = (Text) this.root.getChildren().get((size) * (size) + 2);
-		levelNumberLabel.setText("Level: " + newLevel);
+		levelNumberLabel.setText("    Level: " + newLevel);
 	}
 	
 	public void clearMap() {
