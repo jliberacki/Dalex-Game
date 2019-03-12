@@ -2,9 +2,9 @@
 
 Game based on the **Doctor Who** episode **Dalek**. Inspiration: http://www.isaacsukin.com/sites/daleks/index.html
 
-⋅⋅*Destroy the Daleks by making them run into each other, forming piles
-⋅⋅*Running into Daleks or piles will kill you
-⋅⋅*Daleks will move toward you every time you take any action
+*Destroy the Daleks by making them run into each other, forming piles
+*Running into Daleks or piles will kill you
+*Daleks will move toward you every time you take any action
 
 Controls:
 
