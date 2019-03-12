@@ -20,6 +20,7 @@ public class Field {
 	private Tree tree = null;
 	private Stone stone = null;
 	private int numberOfObjects;
+	private boolean doctorIsOnThisField;
 
 	public Field(Coordinates coordinates) {
 		this.coordinates = coordinates;
@@ -28,6 +29,10 @@ public class Field {
 
 	public List<Dalek> getDaleks() {
 		return daleks;
+	}
+
+	public boolean isEmpty() {
+		return numberOfObjects == 0;
 	}
 
 	public PowerUp getPowerUp() {
@@ -119,6 +124,10 @@ public class Field {
 		return coordinates;
 	}
 
+	public int getNumberOfObjects() {
+		return numberOfObjects;
+	}
+
 	public void setCoordinates(Coordinates coordinates) {
 		this.coordinates = coordinates;
 	}
@@ -129,7 +138,23 @@ public class Field {
 	 * @return
 	 */
 	public boolean hasDoctor() {
-		return Game.doctor.getCoordinates().equals(this.coordinates);
+		return doctorIsOnThisField;
+	}
+
+	/**
+	 * run if doctor is on this field
+	 */
+	public void addDoctorToThisField() {
+		numberOfObjects++;
+		doctorIsOnThisField = true;
+	}
+
+	/**
+	 * Doctor is no longer on this field
+	 */
+	public void removeDoctorFromThisField() {
+		numberOfObjects--;
+		doctorIsOnThisField = false;
 	}
 
 	/**
@@ -171,16 +196,38 @@ public class Field {
 	 * @return
 	 */
 	public boolean anyObjects() {
-		if (Game.doctor.getCoordinates().equals(this.coordinates)) {
-			return true;
-		} else if (numberOfObjects > 0) {
+		if (numberOfObjects > 0) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean isReachable() {
-		return hasTree() || hasStone();
+	public boolean hasDalek() {
+		if (this.daleks.size() == 1)
+			return true;
+		return false;
 	}
 
+	/**
+	 * Returns true if you can stay on this field
+	 * 
+	 * @return
+	 */
+	public boolean isReachable() {
+        return !(hasTree() || hasStone());
+	}
+
+	/**
+	 * Returns string with daleks staying on this field
+	 * 
+	 * @return
+	 */
+	public String daleksToString() {
+		if (daleks.isEmpty())
+			return "empty";
+		String output = "";
+		for (Dalek dalek : daleks)
+			output = output + ", (" + dalek + "," + dalek.getCoordinates() + ")";
+		return output;
+	}
 }

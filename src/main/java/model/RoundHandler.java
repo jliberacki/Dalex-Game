@@ -1,6 +1,7 @@
 package model;
 
 import model.gameobjects.Dalek;
+import model.gameobjects.Doctor;
 
 /**
  * 
@@ -17,48 +18,37 @@ public class RoundHandler {
 	 * 
 	 * @param daleksNumber
 	 */
-	public RoundHandler(LevelMap levelMap) {
+	public RoundHandler(LevelMap levelMap, Doctor doctor) {
 		this.levelMap = levelMap;
-		Dalek.graph = createDalekGraph();
-	}
-
-	/**
-	 * Creates path @{link DalekGraph} for {@link Dalek}s to find the best way to catch doctor.
-	 */
-	public DalekGraph createDalekGraph() {
-
-		int mapSize = levelMap.getSize();
-		DalekGraph result = new DalekGraph(mapSize);
-
-		// Deleting edges when specific field cannot be reached
-
-		levelMap
-				.getMap()
-				.values()
-				.stream()
-				.filter(x -> !x.isReachable())
-				.map(Field::getCoordinates)
-				.forEach(result::deleteVertex);
-
-		result.fillEdges();
-
-		return result;
+		this.collisionHandler = new CollisionHandler();
 	}
 
 	/**
 	 * Moves doctor, moves {@link Dalek}s on map.
 	 */
-	public void executeRound() {
-		Dalek.graph.calculatePaths(Game.doctor.getCoordinates());
-		for (Field field : levelMap.getMap().values()) {
-			for (Dalek dalek : field.getDaleks()) {
-				dalek.move();
-				levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
-				field.removeDalek(dalek);
+	public LevelMap executeRound(Doctor doctor, String newMove) {
+
+		levelMap.getMap().get(doctor.getCoordinates()).removeDoctorFromThisField();
+		doctor.move(levelMap, newMove);
+		levelMap.getMap().get(doctor.getCoordinates()).addDoctorToThisField();
+
+        boolean pathsCalculated = false;
+
+		for (Dalek dalek : levelMap.getListOfAllDaleks()) {
+			if (!pathsCalculated) {
+				dalek.getGraph().calculatePaths(doctor.getCoordinates());
+				pathsCalculated = true;
 			}
+
+			levelMap.getMap().get(dalek.getCoordinates()).removeDalek(dalek);
+
+			dalek.move();
+
+			levelMap.getMap().get(dalek.getCoordinates()).addDalek(dalek);
 		}
-		collisionHandler.handleCollisions(levelMap);
-      	Game.doctor.moved=true;
+
+        this.roundScore += collisionHandler.handleCollisions(levelMap, doctor);
+		return levelMap;
 	}
 
 	/**
@@ -73,36 +63,12 @@ public class RoundHandler {
 	}
 
 	/**
-	 * Returns true if there is more than one {@link Dalek} on the map.
-	 * 
-	 * @return
-	 */
-	private boolean isMoreThanOneDalekAlive() {
-		int numberOfDaleks;
-		for (Field field : levelMap.getMap().values()) {
-			numberOfDaleks += field.numberOfDaleks();
-			if (numberOfDaleks > 1)
-				return true;
-		}
-		return false;
-	}
-
-	/**
-	 * returns true if nex round can be executed, otherwise false
-	 * 
-	 * @return
-	 */
-	public boolean nextRoundCanBeExecuted() {
-		return isMoreThanOneDalekAlive() && !Game.doctor.hasBeenAttacked() && Game.doctor.hasDoctorMoved();
-	}
-
-	/**
 	 * Creates new round with copy of it self.
 	 * 
 	 * @return
 	 */
 	public RoundHandler roundSnapshot() {
-		Game.roundEnded(this.levelMap);
+		// Game.roundEnded(this.levelMap);
 		return this;
 	}
 }
